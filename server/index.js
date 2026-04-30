@@ -18,6 +18,14 @@ const limiter = rateLimit({
   windowMs: 15 * 60 * 1000, // 15 minutes
   max: 1000, // limit each IP to 1000 requests per windowMs
 });
+
+app.get("/", (req, res) => {
+  res.status(200).json({
+    status: "OK",
+    message: "API is running 🚀",
+    docs: "/api",
+  });
+});
 app.use("/api/", limiter);
 app.use(mongoSanitize());
 app.use(xss());
