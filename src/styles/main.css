@@ -1,0 +1,760 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap');
+@import 'tailwindcss/base';
+@import 'tailwindcss/components';
+@import 'tailwindcss/utilities';
+
+body {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+  padding-bottom: env(safe-area-inset-bottom);
+}
+
+body {
+  -webkit-user-select: none;
+  user-select: none;
+  scroll-behavior: smooth;
+}
+
+/* Ensure content doesn't get hidden behind floating buttons on mobile */
+@media (max-width: 640px) {
+  main {
+    padding-bottom: 120px;
+  }
+
+  /* Improve mobile section spacing */
+  section {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+}
+
+/* Custom CSS Variables - White Dominant Theme */
+:root {
+  /* Primary Colors - White Dominant */
+  --primary-white: #FFFFFF;
+  --bg-light: #F9FAFB;
+  --bg-lighter: #F3F4F6;
+
+  /* Orange as Accent Only */
+  --accent-orange: #F97316;
+  --accent-orange-light: #FB923C;
+  --accent-orange-dark: #EA580C;
+
+  /* Text Colors */
+  --text-dark: #1F2937;
+  --text-gray: #6B7280;
+  --text-light: #9CA3AF;
+
+  /* Borders */
+  --border-light: #E5E7EB;
+  --border-lighter: #F3F4F6;
+
+  /* Subtle accents */
+  --accent-yellow: #FBBF24;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+.text-transparent {
+  color: #ea580c;
+}
+
+::-webkit-scrollbar-track {
+  background: #fff7ed;
+}
+
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, #fbbf24 0%, #f97316 100%);
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(180deg, #f59e0b 0%, #ea580c 100%);
+}
+
+/* Smooth scroll behavior */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Custom button styles */
+.btn-primary {
+  @apply px-8 py-3 font-semibold text-white transition-all duration-300 transform bg-gradient-to-r from-yellow-400 to-orange-500 hover:from-yellow-500 hover:to-orange-600 rounded-xl hover:scale-105 hover:shadow-lg;
+}
+
+.btn-secondary {
+  @apply px-8 py-3 font-semibold text-white transition-all duration-300 transform bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-600 hover:to-orange-700 rounded-xl hover:scale-105 hover:shadow-lg;
+}
+
+.btn-outline {
+  @apply px-8 py-3 font-semibold text-orange-500 transition-all duration-300 border-2 border-orange-500 hover:bg-gradient-to-r hover:from-yellow-400 hover:to-orange-500 hover:text-white hover:border-transparent rounded-xl;
+}
+
+/* Card hover effects */
+.card-hover {
+  @apply transition-all duration-300 transform hover:scale-105 hover:shadow-2xl;
+}
+
+/* Gradient backgrounds */
+.bg-gradient-primary {
+  background: linear-gradient(135deg, #fbbf24 0%, #f97316 50%, #ea580c 100%);
+}
+
+.bg-gradient-success {
+  background: linear-gradient(135deg, #fef3c7 0%, #fed7aa 100%);
+}
+
+.bg-gradient-warm {
+  background: linear-gradient(135deg, #fffbeb 0%, #fff7ed 50%, #ffedd5 100%);
+}
+
+.bg-gradient-hero {
+  background: linear-gradient(135deg, #1f2937 0%, #374151 50%, #4b5563 100%);
+}
+
+.bg-gradient-sunset {
+  background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 25%, #f97316 50%, #ea580c 75%, #dc2626 100%);
+}
+
+/* Text gradients */
+.text-gradient {
+  @apply text-transparent bg-gradient-to-r from-yellow-400 via-orange-500 to-orange-600 bg-clip-text;
+}
+
+.text-gradient-warm {
+  @apply text-transparent bg-gradient-to-r from-amber-500 to-orange-600 bg-clip-text;
+}
+
+/* Animation delays */
+.animate-delay-100 {
+  animation-delay: 0.1s;
+}
+
+.animate-delay-200 {
+  animation-delay: 0.2s;
+}
+
+.animate-delay-300 {
+  animation-delay: 0.3s;
+}
+
+.animate-delay-400 {
+  animation-delay: 0.4s;
+}
+
+/* Custom hero background pattern */
+.hero-bg {
+  background-image:
+    radial-gradient(circle at 1px 1px, rgba(251, 191, 36, 0.15) 1px, transparent 0);
+  background-size: 20px 20px;
+  background-color: #1f2937;
+}
+
+.hero-bg-light {
+  background-image:
+    radial-gradient(circle at 1px 1px, rgba(249, 115, 22, 0.1) 1px, transparent 0);
+  background-size: 20px 20px;
+  background-color: #fffbeb;
+}
+
+/* Loading spinner */
+.spinner {
+  border: 4px solid #fff7ed;
+  border-top: 4px solid #f97316;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+/* Blob animation for floating backgrounds */
+@keyframes blob {
+
+  0%,
+  100% {
+    transform: translate(0, 0) scale(1);
+  }
+
+  25% {
+    transform: translate(20px, -20px) scale(1.1);
+  }
+
+  50% {
+    transform: translate(-20px, 20px) scale(0.9);
+  }
+
+  75% {
+    transform: translate(20px, 20px) scale(1.05);
+  }
+}
+
+.animate-blob {
+  animation: blob 7s infinite;
+}
+
+.animation-delay-2000 {
+  animation-delay: 2s;
+}
+
+.animation-delay-4000 {
+  animation-delay: 4s;
+}
+
+/* Gradient animation */
+@keyframes gradient {
+
+  0%,
+  100% {
+    background-position: 0% 50%;
+  }
+
+  50% {
+    background-position: 100% 50%;
+  }
+}
+
+.animate-gradient {
+  background-size: 200% 200%;
+  animation: gradient 3s ease infinite;
+}
+
+/* Background position utilities for gradient buttons */
+.bg-size-200 {
+  background-size: 200%;
+}
+
+.bg-pos-0 {
+  background-position: 0%;
+}
+
+.bg-pos-100 {
+  background-position: 100%;
+}
+
+/* Mobile responsive adjustments */
+@media (max-width: 640px) {
+
+  .btn-primary,
+  .btn-secondary,
+  .btn-outline {
+    @apply px-6 py-2 text-sm;
+  }
+}
+
+/* Focus styles for accessibility */
+button:focus,
+input:focus,
+textarea:focus,
+select:focus {
+  @apply outline-none ring-2 ring-orange-500 ring-opacity-50;
+}
+
+/* Custom form styles */
+.form-input {
+  @apply w-full py-3 transition-all duration-200 bg-white border border-orange-200 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-transparent;
+}
+
+.form-label {
+  @apply block mb-2 text-sm font-semibold text-gray-700;
+}
+
+/* Chart container styles */
+.chart-container {
+  @apply p-6 bg-white border border-orange-100 shadow-lg rounded-xl;
+}
+
+/* Testimonial card styles */
+.testimonial-card {
+  @apply p-8 transition-all duration-300 transform border border-orange-100 shadow-xl bg-gradient-to-br from-white to-orange-50 rounded-2xl hover:scale-105 hover:shadow-2xl;
+}
+
+/* Service card styles */
+.service-card {
+  @apply relative p-8 overflow-hidden transition-all duration-300 bg-white border border-orange-100 shadow-lg rounded-2xl hover:shadow-2xl hover:border-orange-300;
+}
+
+.service-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, #fbbf24 0%, #f97316 100%);
+}
+
+/* Footer styles */
+.footer-link {
+  @apply text-orange-200 transition-colors duration-200 hover:text-white;
+}
+
+.footer-gradient {
+  background: linear-gradient(135deg, #1f2937 0%, #374151 100%);
+}
+
+/* Custom slider styles */
+.slider::-webkit-slider-thumb {
+  appearance: none;
+  height: 20px;
+  width: 20px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #fbbf24 0%, #f97316 100%);
+  cursor: pointer;
+  border: 2px solid #ffffff;
+  box-shadow: 0 2px 4px rgba(249, 115, 22, 0.3);
+}
+
+.slider::-moz-range-thumb {
+  height: 20px;
+  width: 20px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #fbbf24 0%, #f97316 100%);
+  cursor: pointer;
+  border: 2px solid #ffffff;
+  box-shadow: 0 2px 4px rgba(249, 115, 22, 0.3);
+}
+
+/* Mobile menu animation */
+@media (max-width: 1023px) {
+  .mobile-menu-enter {
+    opacity: 0;
+    max-height: 0;
+  }
+
+  .mobile-menu-enter-active {
+    opacity: 1;
+    max-height: 500px;
+    transition: opacity 300ms, max-height 300ms;
+  }
+
+  .mobile-menu-exit {
+    opacity: 1;
+    max-height: 500px;
+  }
+
+  .mobile-menu-exit-active {
+    opacity: 0;
+    max-height: 0;
+    transition: opacity 300ms, max-height 300ms;
+  }
+}
+
+/* Additional warm color utilities */
+.bg-warm-light {
+  background-color: #fffbeb;
+}
+
+.bg-warm-lighter {
+  background-color: #fef3c7;
+}
+
+.border-warm {
+  border-color: #fed7aa;
+}
+
+.shadow-warm {
+  box-shadow: 0 10px 40px rgba(249, 115, 22, 0.15);
+}
+
+.shadow-warm-lg {
+  box-shadow: 0 20px 60px rgba(249, 115, 22, 0.2);
+}
+
+/* Accent highlights */
+.accent-bar {
+  position: relative;
+}
+
+.accent-bar::after {
+  content: '';
+  position: absolute;
+  bottom: -8px;
+  left: 0;
+  width: 60px;
+  height: 4px;
+  background: linear-gradient(90deg, #fbbf24 0%, #f97316 100%);
+  border-radius: 2px;
+}
+
+/* Icon background styles */
+.icon-bg-gradient {
+  background: linear-gradient(135deg, #fef3c7 0%, #fed7aa 100%);
+}
+
+.icon-bg-solid {
+  background-color: #fff7ed;
+}
+
+
+/* Slider input styles */
+.custom-slider {
+  -webkit-appearance: none;
+  appearance: none;
+  background: transparent;
+  outline: none;
+  border: none;
+}
+
+.custom-slider:focus {
+  outline: none;
+  box-shadow: none;
+}
+
+/* WebKit (Chrome, Safari, Edge) */
+.custom-slider::-webkit-slider-runnable-track {
+  background: transparent;
+  height: 6px;
+  border: none;
+}
+
+.custom-slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: #f97316;
+  /* orange-500 */
+  border: 3px solid #ffffff;
+  cursor: pointer;
+  margin-top: -7px;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.custom-slider::-webkit-slider-thumb:hover {
+  -webkit-transform: scale(1.05);
+  -moz-transform: scale(1.05);
+  -ms-transform: scale(1.05);
+  -o-transform: scale(1.05);
+  transform: scale(1.05);
+}
+
+.custom-slider::-webkit-slider-thumb:active {
+  transform: scale(1.1);
+}
+
+/* Firefox */
+.custom-slider::-moz-range-track {
+  background: transparent;
+  height: 6px;
+  border: none;
+}
+
+.custom-slider::-moz-range-thumb {
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: #f97316;
+  border: 3px solid #ffffff;
+  box-shadow: 0 2px 6px rgba(249, 115, 22, 0.4);
+  cursor: pointer;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.custom-slider::-moz-range-thumb:hover {
+  transform: scale(1.15);
+}
+
+
+/* ===== UNIVERSAL CALCULATOR STYLING ===== */
+.calculator-container {
+  @apply min-h-screen pb-20 sm:pb-32;
+}
+
+.calculator-card {
+  @apply bg-white/80 backdrop-blur-md border border-white/50 rounded-[2.5rem] shadow-xl overflow-hidden;
+}
+
+/* Mobile specific calculator tweaks */
+@media (max-width: 640px) {
+  .calculator-header-height {
+    min-height: 35vh !important;
+    padding-top: 5rem !important;
+  }
+
+  .calculator-container main {
+    padding-bottom: 120px;
+  }
+
+  .calculator-result-card {
+    padding: 1.25rem !important;
+    border-radius: 1.5rem !important;
+  }
+
+  .calculator-grid-gap {
+    gap: 0.75rem !important;
+  }
+
+  .calculator-chart-height {
+    height: 16rem !important;
+    padding: 1rem !important;
+  }
+
+  /* Reduce slider card padding on mobile */
+  .sip-calculator .group.p-4,
+  .lumpsum-calculator .group.p-4,
+  .swp-calculator .group.p-4,
+  .stp-calculator .group.p-4,
+  .retirement-calculator .group.p-4,
+  .delay-calculator .group.p-4,
+  .emi-calculator .group.p-4,
+  .insurance-calculator .group.p-4,
+  .tax-calculator .group.p-4,
+  .marriage-calculator .group.p-4,
+  .education-calculator .group.p-4,
+  .home-loan-calculator .group.p-4,
+  .car-loan-calculator .group.p-4,
+  .vacation-calculator .group.p-4 {
+    padding: 0.75rem !important;
+    border-radius: 1.25rem !important;
+  }
+
+  /* Make inputs smaller on mobile */
+  .sip-calculator input[type="text"],
+  .lumpsum-calculator input[type="text"] {
+    font-size: 1.125rem !important;
+  }
+
+  /* Hide decorative elements on mobile to reduce clutter */
+  .advisor-insight,
+  .security-protocol {
+    display: none !important;
+  }
+
+  /* Tighten mobile cards */
+  .p-6,
+  .p-8,
+  .p-10 {
+    padding: 1rem !important;
+  }
+
+  /* Compact header for mobile */
+  h1 {
+    font-size: 1.875rem !important;
+    line-height: 1.1 !important;
+    letter-spacing: -0.02em !important;
+  }
+
+  .text-5xl,
+  .text-6xl,
+  .text-7xl {
+    font-size: 2.25rem !important;
+  }
+
+  /* Tighten spacing */
+  .py-12,
+  .py-16,
+  .py-20,
+  .py-24 {
+    padding-top: 2rem !important;
+    padding-bottom: 2.5rem !important;
+  }
+
+  .-mt-12,
+  .-mt-20,
+  .-mt-24 {
+    margin-top: -3rem !important;
+  }
+
+  /* Optimize result cards in grid */
+  .grid-cols-1.md\3agrid-cols-3 {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 0.75rem !important;
+  }
+}
+
+/* ===== SERVICES PAGE MOBILE OPTIMIZATIONS ===== */
+/* Smooth horizontal scrolling for service cards on mobile */
+.snap-x {
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+}
+
+.snap-start {
+  scroll-snap-align: start;
+}
+
+.snap-mandatory {
+  scroll-snap-type: x mandatory;
+}
+
+/* Hide scrollbar but keep functionality */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+.no-scrollbar {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+/* Smooth scroll for service navigation */
+@media (max-width: 1024px) {
+  .overflow-x-auto {
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+
+  .overflow-x-auto::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+/* Touch-friendly button sizes */
+@media (max-width: 640px) {
+
+  button,
+  a[role="button"] {
+    min-height: 44px;
+    min-width: 44px;
+  }
+}
+
+/* Improved text readability on mobile */
+@media (max-width: 640px) {
+  body {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+  }
+}
+
+/* Prevent horizontal scroll on mobile */
+@media (max-width: 640px) {
+  body {
+    overflow-x: hidden;
+  }
+}
+
+/* Better tap highlights for mobile */
+* {
+  -webkit-tap-highlight-color: rgba(249, 115, 22, 0.1);
+}
+
+/* Smooth transitions for all interactive elements */
+button,
+a,
+.transition-all {
+  transition-duration: 300ms;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+@keyframes attention-blink {
+
+  0%,
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+
+  50% {
+    opacity: 0.7;
+    transform: scale(1.05);
+  }
+}
+
+.animate-attention-blink {
+  animation: attention-blink 2s infinite ease-in-out;
+}
+
+/* ===== QUILL EDITOR — HEADING DROPDOWN SCROLL FIX ===== */
+/* Show ~5 items and scroll for the rest */
+.ql-toolbar .ql-header .ql-picker-options,
+.ql-toolbar .ql-picker.ql-header .ql-picker-options {
+  max-height: calc(5 * 28px);
+  /* 5 items × 28px row height */
+  overflow-y: auto;
+  overflow-x: hidden;
+  scrollbar-width: thin;
+  scrollbar-color: #f97316 #fff7ed;
+}
+
+.ql-toolbar .ql-header .ql-picker-options::-webkit-scrollbar,
+.ql-toolbar .ql-picker.ql-header .ql-picker-options::-webkit-scrollbar {
+  width: 5px;
+}
+
+.ql-toolbar .ql-header .ql-picker-options::-webkit-scrollbar-track,
+.ql-toolbar .ql-picker.ql-header .ql-picker-options::-webkit-scrollbar-track {
+  background: #fff7ed;
+  border-radius: 10px;
+}
+
+.ql-toolbar .ql-header .ql-picker-options::-webkit-scrollbar-thumb,
+.ql-toolbar .ql-picker.ql-header .ql-picker-options::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, #fbbf24 0%, #f97316 100%);
+  border-radius: 10px;
+}
+
+.ql-toolbar .ql-header .ql-picker-options .ql-picker-item,
+.ql-toolbar .ql-picker.ql-header .ql-picker-options .ql-picker-item {
+  padding: 5px 12px;
+  line-height: 1.5;
+}
+
+/* ===== CMS CONTENT RENDERING STYLES ===== */
+/* This ensures that HTML tags like h1-h6 from the CMS are styled correctly on the frontend */
+.cms-content h1 {
+  @apply mt-8 mb-6 text-4xl font-black tracking-tighter uppercase text-slate-900;
+}
+
+.cms-content h2 {
+  @apply mb-5 text-3xl font-black tracking-tight uppercase text-slate-900 mt-7;
+}
+
+.cms-content h3 {
+  @apply mt-6 mb-4 text-2xl font-bold text-slate-800;
+}
+
+.cms-content h4 {
+  @apply mt-5 mb-3 text-xl font-bold text-slate-800;
+}
+
+.cms-content h5 {
+  @apply mt-4 mb-2 text-lg font-bold text-slate-800;
+}
+
+.cms-content h6 {
+  @apply mt-3 mb-2 text-base font-bold text-slate-800;
+}
+
+.cms-content p {
+  @apply mb-4 leading-relaxed;
+}
+
+.cms-content ul {
+  @apply pl-6 mb-4 space-y-2 list-disc;
+}
+
+.cms-content ol {
+  @apply pl-6 mb-4 space-y-2 list-decimal;
+}
+
+.cms-content blockquote {
+  @apply p-4 pl-4 my-6 italic border-l-4 border-orange-500 text-slate-600 bg-orange-50/30 rounded-r-xl;
+}
+
+.cms-content a {
+  @apply text-orange-600 underline transition-colors hover:text-orange-700;
+}
+
+.cms-content strong {
+  @apply font-black text-slate-900;
+}
+
+.cms-content em {
+  @apply italic;
+}
