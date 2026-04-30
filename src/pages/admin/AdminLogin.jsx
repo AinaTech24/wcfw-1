@@ -20,7 +20,7 @@ const AdminLogin = () => {
     setLoading(true);
     try {
       await login(email, password);
-      navigate("/admin/dashboard");
+      window.location.href = "/admin/dashboard";
     } catch (err) {
       setError(
         err.response?.data?.message ||

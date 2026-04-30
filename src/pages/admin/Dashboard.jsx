@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import axios from "axios";
+import api from "../../utils/api";
 import { Link } from "react-router-dom";
 import {
   FaInbox,
@@ -29,13 +29,13 @@ const Dashboard = () => {
 
   const fetchDashboardData = async () => {
     try {
-      const res = await axios.get("/api/dashboard/stats");
+      const res = await api.get("dashboard/stats");
       setStats(res.data);
     } catch (err) {
       console.error("Error fetching dashboard data:", err);
       // Fallback to basic enquiry data
       try {
-        const enquiryRes = await axios.get("/api/enquiry");
+        const enquiryRes = await api.get("enquiry");
         const enquiries = enquiryRes.data;
         setStats({
           enquiries: {

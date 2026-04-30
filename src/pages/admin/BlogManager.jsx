@@ -10,6 +10,7 @@ import {
 } from "react-icons/fa";
 import { motion, AnimatePresence } from "framer-motion";
 import { PageLoader } from "../../components/LoadingSkeletons";
+import api from "../../utils/api";
 
 const BlogManager = () => {
   const [blogs, setBlogs] = useState([]);
@@ -45,12 +46,12 @@ const BlogManager = () => {
 
     setUploading(true);
     try {
-      const token = localStorage.getItem("adminToken");
+      const token = localStorage.getItem("authToken");
       //   console.log(token);
-      const res = await axios.post("/api/upload", formData, {
+      const res = await api.post("/upload", formData, {
         headers: {
           "Content-Type": "multipart/form-data",
-          Authorization: `Bearer ${token}`,
+          // Authorization: `Bearer ${token}`,
         },
       });
       setCurrentBlog({ ...currentBlog, image: res.data.url });
@@ -64,7 +65,7 @@ const BlogManager = () => {
 
   const fetchBlogs = async () => {
     try {
-      const res = await axios.get("/api/blog");
+      const res = await api.get("/blog");
       setBlogs(res.data);
     } catch (err) {
       console.error("Error fetching blogs:", err);
@@ -81,7 +82,7 @@ const BlogManager = () => {
   const handleDelete = async (id) => {
     if (!window.confirm("Are you sure you want to delete this blog?")) return;
     try {
-      await axios.delete(`/api/blog/${id}`);
+      await api.delete(`/blog/${id}`);
       fetchBlogs();
     } catch (err) {
       console.error("Error deleting blog:", err);
@@ -92,9 +93,9 @@ const BlogManager = () => {
     e.preventDefault();
     try {
       if (currentBlog._id) {
-        await axios.put(`/api/blog/${currentBlog._id}`, currentBlog);
+        await api.put(`/blog/${currentBlog._id}`, currentBlog);
       } else {
-        await axios.post("/api/blog", currentBlog);
+        await api.post("/blog", currentBlog);
       }
       setIsEditing(false);
       fetchBlogs();
