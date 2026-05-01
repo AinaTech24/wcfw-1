@@ -2,14 +2,19 @@ const express = require("express");
 const router = express.Router();
 const multer = require("multer");
 const path = require("path");
+const fs = require("fs");
 const auth = require("../middleware/auth");
 
-const BASE_URL = process.env.BASE_URL || "http://localhost:5001";
+// Ensure uploads directory exists at server root
+const uploadsDir = path.join(__dirname, "../uploads");
+if (!fs.existsSync(uploadsDir)) {
+  fs.mkdirSync(uploadsDir, { recursive: true });
+}
 
 // Configure Multer Storage
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
-    cb(null, "uploads/");
+    cb(null, uploadsDir);
   },
   filename: (req, file, cb) => {
     cb(null, `${Date.now()}-${file.originalname.replace(/\s+/g, "-")}`);
@@ -43,9 +48,11 @@ router.post("/", auth, upload.single("image"), (req, res) => {
     return res.status(400).json({ message: "No file uploaded" });
   }
 
-  // Construct the URL (adjust based on your server setup)
-  // Here we use relative path from the server root
-  const imageUrl = `${BASE_URL}/uploads/${req.file.filename}`;
+  // Build URL from the actual request — works in localhost AND production
+  // x-forwarded-* headers are set by Render/Nginx reverse proxy
+  const protocol = req.headers["x-forwarded-proto"] || req.protocol;
+  const host = req.headers["x-forwarded-host"] || req.get("host");
+  const imageUrl = `${protocol}://${host}/uploads/${req.file.filename}`;
 
   res.json({
     message: "Image uploaded successfully",

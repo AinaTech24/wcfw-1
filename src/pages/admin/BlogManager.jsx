@@ -44,17 +44,17 @@ const BlogManager = () => {
     const formData = new FormData();
     formData.append("image", file);
 
+    // Reset so same file can be re-selected
+    e.target.value = "";
+
     setUploading(true);
     try {
-      const token = localStorage.getItem("authToken");
-      //   console.log(token);
-      const res = await api.post("/upload", formData, {
-        headers: {
-          "Content-Type": "multipart/form-data",
-          // Authorization: `Bearer ${token}`,
-        },
-      });
-      setCurrentBlog({ ...currentBlog, image: res.data.url });
+      // Do NOT pass Content-Type header manually.
+      // When FormData is the body, the browser must set it with the correct
+      // multipart boundary — if you set it manually, the boundary is missing
+      // and the server (multer) cannot parse the file.
+      const res = await api.post("/upload", formData);
+      setCurrentBlog((prev) => ({ ...prev, image: res.data.url }));
     } catch (err) {
       console.error("Error uploading image:", err);
       alert("Upload failed: " + (err.response?.data?.message || err.message));

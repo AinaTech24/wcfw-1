@@ -12,6 +12,7 @@ const mongoose = require("mongoose");
 const helmet = require("helmet");
 
 const app = express();
+app.set("trust proxy", 1); // Required for Render/Nginx: trusts x-forwarded-proto header
 
 // Security Middleware
 const limiter = rateLimit({
