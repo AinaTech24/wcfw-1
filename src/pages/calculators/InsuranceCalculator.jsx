@@ -161,289 +161,291 @@ const InsuranceCalculator = () => {
       </section>
 
       {/* Main Content */}
-<section className="relative z-20 py-12 -mt-10 sm:py-24">
-  <div className="px-4 mx-auto max-w-7xl">
-    {/* Main Wrapper */}
-    <div className="bg-white border border-slate-100 shadow-xl rounded-[3rem] p-5 sm:p-8">
-      {/* Header */}
-      <div className="flex flex-col gap-5 mb-8 lg:flex-row lg:items-start lg:justify-between">
-        <h2 className="text-2xl font-black text-slate-900">
-          Actuarial Inputs
-        </h2>
+      <section className="relative z-20 py-12 -mt-10 sm:py-24">
+        <div className="px-4 mx-auto max-w-7xl">
+          {/* Main Wrapper */}
+          <div className="bg-white border border-slate-100 shadow-xl rounded-[3rem] p-5 sm:p-8">
+            {/* Header */}
+            <div className="flex flex-col gap-5 mb-8 lg:flex-row lg:items-start lg:justify-between">
+              <h2 className="text-2xl font-black text-slate-900">
+                Actuarial Inputs
+              </h2>
 
-        {/* Currency */}
-        <div>
-          <p className="mb-3 text-[10px] font-black tracking-widest uppercase text-slate-400 lg:text-right">
-            Currency
-          </p>
+              {/* Currency */}
+              <div>
+                <p className="mb-3 text-[10px] font-black tracking-widest uppercase text-slate-400 lg:text-right">
+                  Currency
+                </p>
 
-          <div className="flex gap-2">
-            {["INR", "USD", "EUR"].map((curr) => (
-              <button
-                key={curr}
-                onClick={() => setCurrency(curr)}
-                className={`w-12 h-12 rounded-2xl text-sm font-black transition-all ${
-                  currency === curr
-                    ? "bg-slate-900 text-white shadow-lg"
-                    : "bg-slate-100 text-slate-600"
-                }`}
-              >
-                {curr}
-              </button>
-            ))}
+                <div className="flex gap-2">
+                  {["INR", "USD", "EUR"].map((curr) => (
+                    <button
+                      key={curr}
+                      onClick={() => setCurrency(curr)}
+                      className={`w-12 h-12 rounded-2xl text-sm font-black transition-all ${
+                        currency === curr
+                          ? "bg-slate-900 text-white shadow-lg"
+                          : "bg-slate-100 text-slate-600"
+                      }`}
+                    >
+                      {curr}
+                    </button>
+                  ))}
+                </div>
+              </div>
+            </div>
+
+            {/* Top Grid */}
+            <div className="grid items-start gap-6 xl:grid-cols-[minmax(0,1.65fr)_minmax(280px,auto)]">
+              {/* Inputs */}
+              <div className="grid min-w-0 gap-6 md:grid-cols-2">
+                <SliderInput
+                  label="Gross Annual Income"
+                  value={annualIncome}
+                  min={300000}
+                  max={20000000}
+                  step={100000}
+                  onChange={setAnnualIncome}
+                  prefix={currencySymbols[currency]}
+                />
+
+                <SliderInput
+                  label="Personal Consumption"
+                  value={annualExpenses}
+                  min={50000}
+                  max={5000000}
+                  step={50000}
+                  onChange={setAnnualExpenses}
+                  prefix={currencySymbols[currency]}
+                />
+
+                <SliderInput
+                  label="Protection Horizon"
+                  value={yearsToRetire}
+                  min={1}
+                  max={50}
+                  step={1}
+                  onChange={setYearsToRetire}
+                  suffix=" Years"
+                />
+
+                <SliderInput
+                  label="Existing Cover"
+                  value={existingCover}
+                  min={0}
+                  max={50000000}
+                  step={500000}
+                  onChange={setExistingCover}
+                  prefix={currencySymbols[currency]}
+                />
+              </div>
+
+              {/* Result Cards */}
+              <div className="order-3 w-full max-w-full min-w-0 space-y-4 xl:order-2 xl:max-w-max">
+                <ResultCard
+                  icon={FaHeartbeat}
+                  label="Intrinsic HLV"
+                  value={`${currencySymbols[currency]}${(
+                    results.hlv / 10000000
+                  ).toFixed(1)}Cr`}
+                  subtext="Human Life Value"
+                />
+
+                <ResultCard
+                  icon={FaUmbrella}
+                  label="Existing Shield"
+                  value={`${currencySymbols[currency]}${(
+                    results.existingCover / 100000
+                  ).toFixed(0)}L`}
+                  subtext="Current Protection"
+                  color="text-emerald-600"
+                />
+
+                <ResultCard
+                  icon={FaShieldAlt}
+                  label="Coverage Gap"
+                  value={`${currencySymbols[currency]}${(
+                    results.coverageGap / 100000
+                  ).toFixed(0)}L`}
+                  subtext="Required Cover"
+                  featured
+                />
+              </div>
+            </div>
+
+            {/* Insight */}
+            <div className="mt-8 bg-orange-50 rounded-[2rem] p-5 border border-orange-100">
+              <div className="flex gap-3">
+                <FaLightbulb className="mt-1 text-orange-500" />
+
+                <p className="text-sm leading-relaxed text-slate-600">
+                  Human Life Value is the present value of future income your
+                  family depends on. Any deficit is an unhedged financial risk.
+                </p>
+              </div>
+            </div>
           </div>
-        </div>
-      </div>
 
-      {/* Top Grid */}
-      <div className="grid items-start gap-6 xl:grid-cols-[minmax(0,1.65fr)_minmax(280px,auto)]">
-        {/* Inputs */}
-        <div className="grid min-w-0 gap-6 md:grid-cols-2">
-          <SliderInput
-            label="Gross Annual Income"
-            value={annualIncome}
-            min={300000}
-            max={20000000}
-            step={100000}
-            onChange={setAnnualIncome}
-            prefix={currencySymbols[currency]}
-          />
+          {/* Second Row */}
+          <div className="grid gap-8 mt-8 lg:grid-cols-12">
+            {/* Table */}
+            <div className="lg:col-span-8 bg-white rounded-[3rem] shadow-xl border border-slate-100 overflow-hidden">
+              <div className="px-8 py-6 text-center text-white bg-slate-900">
+                <h3 className="text-lg font-black tracking-widest uppercase">
+                  Protection Ledger
+                </h3>
+              </div>
 
-          <SliderInput
-            label="Personal Consumption"
-            value={annualExpenses}
-            min={50000}
-            max={5000000}
-            step={50000}
-            onChange={setAnnualExpenses}
-            prefix={currencySymbols[currency]}
-          />
+              <div className="max-h-[620px] overflow-y-auto custom-scrollbar">
+                <table className="w-full">
+                  <thead className="sticky top-0 z-10 bg-slate-50">
+                    <tr>
+                      <th className="px-8 py-4 text-left text-[10px] uppercase tracking-widest text-slate-400">
+                        Metric
+                      </th>
 
-          <SliderInput
-            label="Protection Horizon"
-            value={yearsToRetire}
-            min={1}
-            max={50}
-            step={1}
-            onChange={setYearsToRetire}
-            suffix=" Years"
-          />
+                      <th className="px-8 py-4 text-right text-[10px] uppercase tracking-widest text-slate-400">
+                        Value
+                      </th>
+                    </tr>
+                  </thead>
 
-          <SliderInput
-            label="Existing Cover"
-            value={existingCover}
-            min={0}
-            max={50000000}
-            step={500000}
-            onChange={setExistingCover}
-            prefix={currencySymbols[currency]}
-          />
-        </div>
+                  <tbody className="divide-y divide-slate-100">
+                    <tr className="hover:bg-slate-50">
+                      <td className="px-8 py-4 text-xs font-black text-slate-600">
+                        Human Life Value
+                      </td>
+                      <td className="px-8 py-4 text-xs font-black text-right text-orange-600">
+                        {currencySymbols[currency]}
+                        {(results.hlv / 10000000).toFixed(2)}Cr
+                      </td>
+                    </tr>
 
-        {/* Result Cards */}
-        <div className="order-3 w-full max-w-full min-w-0 space-y-4 xl:order-2 xl:max-w-max">
-          <ResultCard
-            icon={FaHeartbeat}
-            label="Intrinsic HLV"
-            value={`${currencySymbols[currency]}${(
-              results.hlv / 10000000
-            ).toFixed(1)}Cr`}
-            subtext="Human Life Value"
-          />
+                    <tr className="hover:bg-slate-50">
+                      <td className="px-8 py-4 text-xs font-black text-slate-600">
+                        Existing Cover
+                      </td>
+                      <td className="px-8 py-4 text-xs font-bold text-right text-emerald-600">
+                        {currencySymbols[currency]}
+                        {(results.existingCover / 100000).toFixed(0)}L
+                      </td>
+                    </tr>
 
-          <ResultCard
-            icon={FaUmbrella}
-            label="Existing Shield"
-            value={`${currencySymbols[currency]}${(
-              results.existingCover / 100000
-            ).toFixed(0)}L`}
-            subtext="Current Protection"
-            color="text-emerald-600"
-          />
+                    <tr className="hover:bg-slate-50">
+                      <td className="px-8 py-4 text-xs font-black text-slate-600">
+                        Protection Gap
+                      </td>
+                      <td className="px-8 py-4 text-xs font-black text-right text-red-500">
+                        {currencySymbols[currency]}
+                        {(results.coverageGap / 100000).toFixed(0)}L
+                      </td>
+                    </tr>
 
-          <ResultCard
-            icon={FaShieldAlt}
-            label="Coverage Gap"
-            value={`${currencySymbols[currency]}${(
-              results.coverageGap / 100000
-            ).toFixed(0)}L`}
-            subtext="Required Cover"
-            featured
-          />
-        </div>
-      </div>
+                    <tr className="hover:bg-slate-50">
+                      <td className="px-8 py-4 text-xs font-black text-slate-600">
+                        Net Contribution / Year
+                      </td>
+                      <td className="px-8 py-4 text-xs font-bold text-right text-slate-700">
+                        {currencySymbols[currency]}
+                        {(results.netAnnualContribution / 100000).toFixed(2)}L
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
 
-      {/* Insight */}
-      <div className="mt-8 bg-orange-50 rounded-[2rem] p-5 border border-orange-100">
-        <div className="flex gap-3">
-          <FaLightbulb className="mt-1 text-orange-500" />
+            {/* Right Side */}
+            <div className="space-y-8 lg:col-span-4">
+              {/* Doughnut */}
+              <div className="bg-white rounded-[3rem] shadow-xl border border-slate-100 p-8 text-center">
+                <h3 className="mb-8 text-lg font-black tracking-tight uppercase text-slate-900">
+                  Hedge Efficiency
+                </h3>
 
-          <p className="text-sm leading-relaxed text-slate-600">
-            Human Life Value is the present value of future income your family
-            depends on. Any deficit is an unhedged financial risk.
-          </p>
-        </div>
-      </div>
-    </div>
+                <div className="relative h-64">
+                  <Doughnut
+                    data={doughnutData}
+                    options={{
+                      responsive: true,
+                      maintainAspectRatio: false,
+                      plugins: { legend: { display: false } },
+                    }}
+                  />
 
-    {/* Second Row */}
-    <div className="grid gap-8 mt-8 lg:grid-cols-12">
-      {/* Table */}
-      <div className="lg:col-span-8 bg-white rounded-[3rem] shadow-xl border border-slate-100 overflow-hidden">
-        <div className="px-8 py-6 text-center text-white bg-slate-900">
-          <h3 className="text-lg font-black tracking-widest uppercase">
-            Protection Ledger
-          </h3>
-        </div>
+                  <div className="absolute inset-0 flex flex-col items-center justify-center pointer-events-none">
+                    <span className="text-[10px] font-black uppercase tracking-widest text-slate-400">
+                      Covered
+                    </span>
 
-        <div className="max-h-[620px] overflow-y-auto custom-scrollbar">
-          <table className="w-full">
-            <thead className="sticky top-0 z-10 bg-slate-50">
-              <tr>
-                <th className="px-8 py-4 text-left text-[10px] uppercase tracking-widest text-slate-400">
-                  Metric
-                </th>
+                    <span className="text-2xl font-black text-emerald-600">
+                      {results.hlv > 0
+                        ? ((results.existingCover / results.hlv) * 100).toFixed(
+                            0,
+                          )
+                        : 100}
+                      %
+                    </span>
+                  </div>
+                </div>
+              </div>
 
-                <th className="px-8 py-4 text-right text-[10px] uppercase tracking-widest text-slate-400">
-                  Value
-                </th>
-              </tr>
-            </thead>
+              {/* Protocol */}
+              <div className="bg-slate-900 rounded-[3rem] shadow-2xl p-8 text-white relative overflow-hidden">
+                <div className="absolute top-0 right-0 w-32 h-32 rounded-full bg-orange-600/20 blur-3xl"></div>
 
-            <tbody className="divide-y divide-slate-100">
-              <tr className="hover:bg-slate-50">
-                <td className="px-8 py-4 text-xs font-black text-slate-600">
-                  Human Life Value
-                </td>
-                <td className="px-8 py-4 text-xs font-black text-right text-orange-600">
-                  {currencySymbols[currency]}
-                  {(results.hlv / 10000000).toFixed(2)}Cr
-                </td>
-              </tr>
+                <h4 className="text-xs font-black uppercase tracking-[0.3em] text-orange-500 mb-8">
+                  Security Protocol
+                </h4>
 
-              <tr className="hover:bg-slate-50">
-                <td className="px-8 py-4 text-xs font-black text-slate-600">
-                  Existing Cover
-                </td>
-                <td className="px-8 py-4 text-xs font-bold text-right text-emerald-600">
-                  {currencySymbols[currency]}
-                  {(results.existingCover / 100000).toFixed(0)}L
-                </td>
-              </tr>
+                <div className="space-y-5">
+                  <BenefitItem text="Income Replacement" />
+                  <BenefitItem text="Family Continuity" />
+                  <BenefitItem text="Legacy Preservation" />
+                </div>
 
-              <tr className="hover:bg-slate-50">
-                <td className="px-8 py-4 text-xs font-black text-slate-600">
-                  Protection Gap
-                </td>
-                <td className="px-8 py-4 text-xs font-black text-right text-red-500">
-                  {currencySymbols[currency]}
-                  {(results.coverageGap / 100000).toFixed(0)}L
-                </td>
-              </tr>
+                <Link
+                  to="/contact"
+                  className="flex items-center justify-center py-4 mt-10 text-xs font-black tracking-widest uppercase transition-all bg-orange-600 hover:bg-white hover:text-orange-600 rounded-2xl"
+                >
+                  Speak to Risk Architect
+                  <FaArrowRight className="ml-3" />
+                </Link>
+              </div>
+            </div>
+          </div>
 
-              <tr className="hover:bg-slate-50">
-                <td className="px-8 py-4 text-xs font-black text-slate-600">
-                  Net Contribution / Year
-                </td>
-                <td className="px-8 py-4 text-xs font-bold text-right text-slate-700">
-                  {currencySymbols[currency]}
-                  {(results.netAnnualContribution / 100000).toFixed(2)}L
-                </td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-      </div>
+          {/* Bottom Chart */}
+          <div className="mt-8 bg-white rounded-[3rem] shadow-xl border border-slate-100 p-6 sm:p-8">
+            <h3 className="mb-8 text-xl font-black tracking-tight uppercase text-slate-900">
+              Vulnerability Analysis
+            </h3>
 
-      {/* Right Side */}
-      <div className="space-y-8 lg:col-span-4">
-        {/* Doughnut */}
-        <div className="bg-white rounded-[3rem] shadow-xl border border-slate-100 p-8 text-center">
-          <h3 className="mb-8 text-lg font-black tracking-tight uppercase text-slate-900">
-            Hedge Efficiency
-          </h3>
-
-          <div className="relative h-64">
-            <Doughnut
-              data={doughnutData}
-              options={{
-                responsive: true,
-                maintainAspectRatio: false,
-                plugins: { legend: { display: false } },
-              }}
-            />
-
-            <div className="absolute inset-0 flex flex-col items-center justify-center pointer-events-none">
-              <span className="text-[10px] font-black uppercase tracking-widest text-slate-400">
-                Covered
-              </span>
-
-              <span className="text-2xl font-black text-emerald-600">
-                {results.hlv > 0
-                  ? ((results.existingCover / results.hlv) * 100).toFixed(0)
-                  : 100}
-                %
-              </span>
+            <div className="h-[380px] sm:h-[520px]">
+              <Bar
+                data={chartData}
+                options={{
+                  responsive: true,
+                  maintainAspectRatio: false,
+                  plugins: { legend: { display: false } },
+                  scales: {
+                    y: {
+                      ticks: {
+                        callback: (v) =>
+                          `${currencySymbols[currency]}${(v / 100000).toFixed(0)}L`,
+                      },
+                      grid: { color: "rgba(0,0,0,0.05)" },
+                    },
+                    x: {
+                      grid: { display: false },
+                    },
+                  },
+                }}
+              />
             </div>
           </div>
         </div>
-
-        {/* Protocol */}
-        <div className="bg-slate-900 rounded-[3rem] shadow-2xl p-8 text-white relative overflow-hidden">
-          <div className="absolute top-0 right-0 w-32 h-32 rounded-full bg-orange-600/20 blur-3xl"></div>
-
-          <h4 className="text-xs font-black uppercase tracking-[0.3em] text-orange-500 mb-8">
-            Security Protocol
-          </h4>
-
-          <div className="space-y-5">
-            <BenefitItem text="Income Replacement" />
-            <BenefitItem text="Family Continuity" />
-            <BenefitItem text="Legacy Preservation" />
-          </div>
-
-          <Link
-            to="/contact"
-            className="flex items-center justify-center py-4 mt-10 text-xs font-black tracking-widest uppercase transition-all bg-orange-600 hover:bg-white hover:text-orange-600 rounded-2xl"
-          >
-            Speak to Risk Architect
-            <FaArrowRight className="ml-3" />
-          </Link>
-        </div>
-      </div>
-    </div>
-
-    {/* Bottom Chart */}
-    <div className="mt-8 bg-white rounded-[3rem] shadow-xl border border-slate-100 p-6 sm:p-8">
-      <h3 className="mb-8 text-xl font-black tracking-tight uppercase text-slate-900">
-        Vulnerability Analysis
-      </h3>
-
-      <div className="h-[380px] sm:h-[520px]">
-        <Bar
-          data={chartData}
-          options={{
-            responsive: true,
-            maintainAspectRatio: false,
-            plugins: { legend: { display: false } },
-            scales: {
-              y: {
-                ticks: {
-                  callback: (v) =>
-                    `${currencySymbols[currency]}${(v / 100000).toFixed(0)}L`,
-                },
-                grid: { color: "rgba(0,0,0,0.05)" },
-              },
-              x: {
-                grid: { display: false },
-              },
-            },
-          }}
-        />
-      </div>
-    </div>
-  </div>
-</section>
+      </section>
       <StickyResultBar
         label="Shield Deficit"
         value={(results.coverageGap / 100000).toFixed(0) + "L"}

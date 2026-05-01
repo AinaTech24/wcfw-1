@@ -18,23 +18,84 @@ import EducationCalculator from "../pages/calculators/EducationCalculator";
 import HomeLoanCalculator from "../pages/calculators/HomeLoanCalculator";
 import CarLoanCalculator from "../pages/calculators/CarLoanCalculator";
 import VacationCalculator from "../pages/calculators/VacationCalculator";
-import { FaCalculator, FaChartLine, FaLightbulb, FaRocket } from "react-icons/fa";
+import {
+  FaCalculator,
+  FaChartLine,
+  FaLightbulb,
+  FaRocket,
+} from "react-icons/fa";
 
 const calculators = {
-  sip: { label: "SIP Calculator", component: <SIPCalculator />, icon: FaChartLine },
-  lumpsum: { label: "Lumpsum Calculator", component: <LumpsumCalculator />, icon: FaChartLine },
-  swp: { label: "SWP Calculator", component: <SWPCalculator />, icon: FaChartLine },
-  stp: { label: "STP Calculator", component: <STPCalculator />, icon: FaChartLine },
-  retirement: { label: "Retirement Calculator", component: <RetirementCalculator />, icon: FaRocket },
-  delay: { label: "Delay Calculator", component: <DelayCalculator />, icon: FaLightbulb },
-  emi: { label: "EMI Calculator", component: <EMICalculator />, icon: FaCalculator },
-  insurance: { label: "Insurance Calculator", component: <InsuranceCalculator />, icon: FaCalculator },
-  tax: { label: "Tax Calculator", component: <TaxCalculator />, icon: FaCalculator },
-  marriage: { label: "Marriage Calculator", component: <MarriageCalculator />, icon: FaRocket },
-  education: { label: "Education Calculator", component: <EducationCalculator />, icon: FaRocket },
-  "home-loan": { label: "Home Loan Calculator", component: <HomeLoanCalculator />, icon: FaCalculator },
-  "car-loan": { label: "Car Loan Calculator", component: <CarLoanCalculator />, icon: FaCalculator },
-  vacation: { label: "Vacation Calculator", component: <VacationCalculator />, icon: FaRocket },
+  sip: {
+    label: "SIP Calculator",
+    component: <SIPCalculator />,
+    icon: FaChartLine,
+  },
+  lumpsum: {
+    label: "Lumpsum Calculator",
+    component: <LumpsumCalculator />,
+    icon: FaChartLine,
+  },
+  swp: {
+    label: "SWP Calculator",
+    component: <SWPCalculator />,
+    icon: FaChartLine,
+  },
+  stp: {
+    label: "STP Calculator",
+    component: <STPCalculator />,
+    icon: FaChartLine,
+  },
+  retirement: {
+    label: "Retirement Calculator",
+    component: <RetirementCalculator />,
+    icon: FaRocket,
+  },
+  delay: {
+    label: "Delay Calculator",
+    component: <DelayCalculator />,
+    icon: FaLightbulb,
+  },
+  emi: {
+    label: "EMI Calculator",
+    component: <EMICalculator />,
+    icon: FaCalculator,
+  },
+  insurance: {
+    label: "Insurance Calculator",
+    component: <InsuranceCalculator />,
+    icon: FaCalculator,
+  },
+  tax: {
+    label: "Tax Calculator",
+    component: <TaxCalculator />,
+    icon: FaCalculator,
+  },
+  marriage: {
+    label: "Marriage Calculator",
+    component: <MarriageCalculator />,
+    icon: FaRocket,
+  },
+  education: {
+    label: "Education Calculator",
+    component: <EducationCalculator />,
+    icon: FaRocket,
+  },
+  "home-loan": {
+    label: "Home Loan Calculator",
+    component: <HomeLoanCalculator />,
+    icon: FaCalculator,
+  },
+  "car-loan": {
+    label: "Car Loan Calculator",
+    component: <CarLoanCalculator />,
+    icon: FaCalculator,
+  },
+  vacation: {
+    label: "Vacation Calculator",
+    component: <VacationCalculator />,
+    icon: FaRocket,
+  },
 };
 
 const Calculator = () => {
@@ -68,7 +129,9 @@ const Calculator = () => {
                 className="inline-block mb-4 sm:mb-6"
               >
                 <div className="bg-orange-600/20 backdrop-blur-sm border border-orange-500/30 rounded-full px-4 py-1.5 sm:px-5 sm:py-2">
-                  <span className="text-orange-400 font-semibold text-[10px] sm:text-xs uppercase tracking-widest">Since 1989</span>
+                  <span className="text-orange-400 font-semibold text-[10px] sm:text-xs uppercase tracking-widest">
+                    Since 1989
+                  </span>
                 </div>
               </motion.div>
 
@@ -79,7 +142,8 @@ const Calculator = () => {
 
               {/* Subtitle - Better mobile readability */}
               <p className="text-sm sm:text-base md:text-lg lg:text-xl text-gray-300 max-w-3xl mx-auto leading-relaxed mb-6 sm:mb-8 lg:mb-10 px-4">
-                Empowering families with financial wisdom and building lasting relationships for over three decades
+                Empowering families with financial wisdom and building lasting
+                relationships for over three decades
               </p>
 
               {/* Stats Row - Mobile optimized */}
@@ -92,9 +156,13 @@ const Calculator = () => {
                 >
                   <div className="flex items-center space-x-1.5 sm:space-x-2 mb-1">
                     <FaCalculator className="text-lg sm:text-xl lg:text-2xl text-orange-500" />
-                    <span className="text-2xl sm:text-3xl lg:text-4xl font-bold">14+</span>
+                    <span className="text-2xl sm:text-3xl lg:text-4xl font-bold">
+                      14+
+                    </span>
                   </div>
-                  <span className="text-gray-400 text-xs sm:text-sm font-medium">Calculators</span>
+                  <span className="text-gray-400 text-xs sm:text-sm font-medium">
+                    Calculators
+                  </span>
                 </motion.div>
 
                 <motion.div
@@ -105,9 +173,13 @@ const Calculator = () => {
                 >
                   <div className="flex items-center space-x-1.5 sm:space-x-2 mb-1">
                     <FaChartLine className="text-lg sm:text-xl lg:text-2xl text-orange-500" />
-                    <span className="text-2xl sm:text-3xl lg:text-4xl font-bold">100%</span>
+                    <span className="text-2xl sm:text-3xl lg:text-4xl font-bold">
+                      100%
+                    </span>
                   </div>
-                  <span className="text-gray-400 text-xs sm:text-sm font-medium">Accurate</span>
+                  <span className="text-gray-400 text-xs sm:text-sm font-medium">
+                    Accurate
+                  </span>
                 </motion.div>
 
                 <motion.div
@@ -118,9 +190,13 @@ const Calculator = () => {
                 >
                   <div className="flex items-center space-x-1.5 sm:space-x-2 mb-1">
                     <FaRocket className="text-lg sm:text-xl lg:text-2xl text-orange-500" />
-                    <span className="text-2xl sm:text-3xl lg:text-4xl font-bold">Free</span>
+                    <span className="text-2xl sm:text-3xl lg:text-4xl font-bold">
+                      Free
+                    </span>
                   </div>
-                  <span className="text-gray-400 text-xs sm:text-sm font-medium">Always</span>
+                  <span className="text-gray-400 text-xs sm:text-sm font-medium">
+                    Always
+                  </span>
                 </motion.div>
               </div>
             </motion.div>
@@ -128,10 +204,13 @@ const Calculator = () => {
         </div>
 
         {/* Curved bottom edge */}
-        <div className="absolute bottom-0 left-0 right-0 h-16 sm:h-20 bg-white" style={{
-          clipPath: 'ellipse(100% 100% at 50% 100%)',
-          transform: 'translateY(50%)'
-        }}></div>
+        <div
+          className="absolute bottom-0 left-0 right-0 h-16 sm:h-20 bg-white"
+          style={{
+            clipPath: "ellipse(100% 100% at 50% 100%)",
+            transform: "translateY(50%)",
+          }}
+        ></div>
       </section>
 
       {/* Main Content */}
@@ -150,14 +229,19 @@ const Calculator = () => {
                 whileHover={{ y: -4 }}
                 whileTap={{ scale: 0.95 }}
                 onClick={() => setSelected(key)}
-                className={`p-3 sm:p-4 rounded-lg sm:rounded-xl border-2 transition-all duration-300 ${selected === key
-                  ? 'bg-orange-500 border-orange-500 text-white shadow-lg'
-                  : 'bg-white border-gray-200 text-gray-700 hover:border-orange-300 hover:shadow-md'
-                  }`}
+                className={`p-3 sm:p-4 rounded-lg sm:rounded-xl border-2 transition-all duration-300 ${
+                  selected === key
+                    ? "bg-orange-500 border-orange-500 text-white shadow-lg"
+                    : "bg-white border-gray-200 text-gray-700 hover:border-orange-300 hover:shadow-md"
+                }`}
               >
-                <Icon className={`text-xl sm:text-2xl mx-auto mb-1.5 sm:mb-2 ${selected === key ? 'text-white' : 'text-orange-500'}`} />
-                <p className={`text-[10px] sm:text-xs font-semibold text-center leading-tight ${selected === key ? 'text-white' : 'text-gray-700'}`}>
-                  {label.replace(' Calculator', '')}
+                <Icon
+                  className={`text-xl sm:text-2xl mx-auto mb-1.5 sm:mb-2 ${selected === key ? "text-white" : "text-orange-500"}`}
+                />
+                <p
+                  className={`text-[10px] sm:text-xs font-semibold text-center leading-tight ${selected === key ? "text-white" : "text-gray-700"}`}
+                >
+                  {label.replace(" Calculator", "")}
                 </p>
               </motion.button>
             ))}
@@ -203,10 +287,17 @@ const Calculator = () => {
             className="bg-gradient-to-br from-orange-50 to-white p-6 sm:p-8 rounded-xl sm:rounded-2xl border-2 border-orange-200 shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2"
           >
             <div className="w-12 h-12 sm:w-14 sm:h-14 bg-gradient-to-br from-orange-500 to-orange-600 rounded-xl flex items-center justify-center mb-4 sm:mb-6 shadow-lg">
-              <span className="text-white text-xl sm:text-2xl font-bold">✓</span>
+              <span className="text-white text-xl sm:text-2xl font-bold">
+                ✓
+              </span>
             </div>
-            <h3 className="text-lg sm:text-xl font-bold text-gray-900 mb-2 sm:mb-3">Accurate Results</h3>
-            <p className="text-sm sm:text-base text-gray-600 leading-relaxed">Get precise calculations based on current market standards and regulations.</p>
+            <h3 className="text-lg sm:text-xl font-bold text-gray-900 mb-2 sm:mb-3">
+              Accurate Results
+            </h3>
+            <p className="text-sm sm:text-base text-gray-600 leading-relaxed">
+              Get precise calculations based on current market standards and
+              regulations.
+            </p>
           </motion.div>
 
           <motion.div
@@ -217,10 +308,17 @@ const Calculator = () => {
             className="bg-gradient-to-br from-orange-50 to-white p-6 sm:p-8 rounded-xl sm:rounded-2xl border-2 border-orange-200 shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2"
           >
             <div className="w-12 h-12 sm:w-14 sm:h-14 bg-gradient-to-br from-orange-500 to-orange-600 rounded-xl flex items-center justify-center mb-4 sm:mb-6 shadow-lg">
-              <span className="text-white text-xl sm:text-2xl font-bold">⚡</span>
+              <span className="text-white text-xl sm:text-2xl font-bold">
+                ⚡
+              </span>
             </div>
-            <h3 className="text-lg sm:text-xl font-bold text-gray-900 mb-2 sm:mb-3">Instant Calculations</h3>
-            <p className="text-sm sm:text-base text-gray-600 leading-relaxed">Real-time results to help you make quick and informed financial decisions.</p>
+            <h3 className="text-lg sm:text-xl font-bold text-gray-900 mb-2 sm:mb-3">
+              Instant Calculations
+            </h3>
+            <p className="text-sm sm:text-base text-gray-600 leading-relaxed">
+              Real-time results to help you make quick and informed financial
+              decisions.
+            </p>
           </motion.div>
 
           <motion.div
@@ -231,10 +329,17 @@ const Calculator = () => {
             className="bg-gradient-to-br from-orange-50 to-white p-6 sm:p-8 rounded-xl sm:rounded-2xl border-2 border-orange-200 shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2 sm:col-span-2 lg:col-span-1"
           >
             <div className="w-12 h-12 sm:w-14 sm:h-14 bg-gradient-to-br from-orange-500 to-orange-600 rounded-xl flex items-center justify-center mb-4 sm:mb-6 shadow-lg">
-              <span className="text-white text-xl sm:text-2xl font-bold">📊</span>
+              <span className="text-white text-xl sm:text-2xl font-bold">
+                📊
+              </span>
             </div>
-            <h3 className="text-lg sm:text-xl font-bold text-gray-900 mb-2 sm:mb-3">Visual Insights</h3>
-            <p className="text-sm sm:text-base text-gray-600 leading-relaxed">Easy-to-understand charts and graphs for better financial solution.</p>
+            <h3 className="text-lg sm:text-xl font-bold text-gray-900 mb-2 sm:mb-3">
+              Visual Insights
+            </h3>
+            <p className="text-sm sm:text-base text-gray-600 leading-relaxed">
+              Easy-to-understand charts and graphs for better financial
+              solution.
+            </p>
           </motion.div>
         </div>
       </div>

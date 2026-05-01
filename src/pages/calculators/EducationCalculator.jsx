@@ -245,276 +245,276 @@ const EducationCalculator = () => {
       </section>
 
       {/* Main Content */}
-<section className="relative z-20 py-12 -mt-10 sm:py-24">
-  <div className="px-4 mx-auto max-w-7xl">
-    {/* Main Wrapper */}
-    <div className="bg-white border border-slate-100 shadow-xl rounded-[3rem] p-5 sm:p-8">
-      {/* Header */}
-      <div className="flex flex-col gap-5 mb-8 lg:flex-row lg:items-start lg:justify-between">
-        <h2 className="text-2xl font-black text-slate-900">
-          Education Planning Inputs
-        </h2>
+      <section className="relative z-20 py-12 -mt-10 sm:py-24">
+        <div className="px-4 mx-auto max-w-7xl">
+          {/* Main Wrapper */}
+          <div className="bg-white border border-slate-100 shadow-xl rounded-[3rem] p-5 sm:p-8">
+            {/* Header */}
+            <div className="flex flex-col gap-5 mb-8 lg:flex-row lg:items-start lg:justify-between">
+              <h2 className="text-2xl font-black text-slate-900">
+                Education Planning Inputs
+              </h2>
 
-        {/* Currency */}
-        <div>
-          <p className="mb-3 text-[10px] font-black tracking-widest uppercase text-slate-400 lg:text-right">
-            Currency
-          </p>
+              {/* Currency */}
+              <div>
+                <p className="mb-3 text-[10px] font-black tracking-widest uppercase text-slate-400 lg:text-right">
+                  Currency
+                </p>
 
-          <div className="flex gap-2">
-            {["INR", "USD", "EUR"].map((curr) => (
-              <button
-                key={curr}
-                onClick={() => setCurrency(curr)}
-                className={`w-12 h-12 rounded-2xl text-sm font-black transition-all ${
-                  currency === curr
-                    ? "bg-slate-900 text-white shadow-lg"
-                    : "bg-slate-100 text-slate-600"
-                }`}
-              >
-                {curr}
-              </button>
-            ))}
+                <div className="flex gap-2">
+                  {["INR", "USD", "EUR"].map((curr) => (
+                    <button
+                      key={curr}
+                      onClick={() => setCurrency(curr)}
+                      className={`w-12 h-12 rounded-2xl text-sm font-black transition-all ${
+                        currency === curr
+                          ? "bg-slate-900 text-white shadow-lg"
+                          : "bg-slate-100 text-slate-600"
+                      }`}
+                    >
+                      {curr}
+                    </button>
+                  ))}
+                </div>
+              </div>
+            </div>
+
+            {/* Inputs + Cards */}
+            <div className="grid items-start gap-6 xl:grid-cols-[minmax(0,1.65fr)_minmax(280px,auto)]">
+              {/* Inputs */}
+              <div className="grid min-w-0 gap-6 md:grid-cols-2">
+                <SliderInput
+                  label="Current Course Cost"
+                  value={currentCost}
+                  min={100000}
+                  max={10000000}
+                  step={50000}
+                  onChange={setCurrentCost}
+                  prefix={currencySymbols[currency]}
+                />
+
+                <SliderInput
+                  label="Current Savings"
+                  value={currentSavings}
+                  min={0}
+                  max={5000000}
+                  step={50000}
+                  onChange={setCurrentSavings}
+                  prefix={currencySymbols[currency]}
+                />
+
+                <SliderInput
+                  label="Child Age"
+                  value={childAge}
+                  min={0}
+                  max={18}
+                  onChange={setChildAge}
+                  suffix=" Yrs"
+                />
+
+                <SliderInput
+                  label="Education Age"
+                  value={educationAge}
+                  min={15}
+                  max={25}
+                  onChange={setEducationAge}
+                  suffix=" Yrs"
+                />
+
+                <SliderInput
+                  label="Education Inflation"
+                  value={inflationRate}
+                  min={3}
+                  max={15}
+                  step={0.5}
+                  onChange={setInflationRate}
+                  suffix="%"
+                />
+
+                <SliderInput
+                  label="Expected Return"
+                  value={expectedReturn}
+                  min={8}
+                  max={20}
+                  step={0.5}
+                  onChange={setExpectedReturn}
+                  suffix="%"
+                />
+              </div>
+
+              {/* Result Cards */}
+              <div className="order-3 w-full max-w-full min-w-0 space-y-4 xl:order-2 xl:max-w-max">
+                <ResultCard
+                  icon={FaGraduationCap}
+                  label="Target Corpus"
+                  value={`${currencySymbols[currency]}${(
+                    results.futureCost / 100000
+                  ).toFixed(2)}L`}
+                  subtext="Inflation Adjusted"
+                />
+
+                <ResultCard
+                  icon={FaChartLine}
+                  label="Required SIP"
+                  value={`${currencySymbols[currency]}${(
+                    results.monthlySIP / 1000
+                  ).toFixed(1)}K`}
+                  subtext="Monthly Funding"
+                  color="text-orange-600"
+                />
+
+                <ResultCard
+                  icon={FaTrophy}
+                  label="Funding Gap"
+                  value={`${currencySymbols[currency]}${(
+                    results.corpusGap / 100000
+                  ).toFixed(2)}L`}
+                  subtext="Need to Build"
+                  featured
+                />
+              </div>
+            </div>
+
+            {/* Insight */}
+            <div className="mt-8 bg-orange-50 rounded-[2rem] p-5 border border-orange-100">
+              <div className="flex gap-3">
+                <FaLightbulb className="mt-1 text-orange-500" />
+
+                <p className="text-sm leading-relaxed text-slate-600">
+                  Education inflation often exceeds normal CPI. Start early and
+                  review annually to stay on target.
+                </p>
+              </div>
+            </div>
           </div>
-        </div>
-      </div>
 
-      {/* Inputs + Cards */}
-      <div className="grid items-start gap-6 xl:grid-cols-[minmax(0,1.65fr)_minmax(280px,auto)]">
-        {/* Inputs */}
-        <div className="grid min-w-0 gap-6 md:grid-cols-2">
-          <SliderInput
-            label="Current Course Cost"
-            value={currentCost}
-            min={100000}
-            max={10000000}
-            step={50000}
-            onChange={setCurrentCost}
-            prefix={currencySymbols[currency]}
-          />
+          {/* Ledger + Side Panel */}
+          <div className="grid gap-8 mt-8 lg:grid-cols-12">
+            {/* Yearly Ledger */}
+            <div className="lg:col-span-8 bg-white rounded-[3rem] shadow-xl border border-slate-100 overflow-hidden">
+              <div className="px-8 py-6 text-center text-white bg-slate-900">
+                <h3 className="text-lg font-black tracking-widest uppercase">
+                  Yearly Projection
+                </h3>
+              </div>
 
-          <SliderInput
-            label="Current Savings"
-            value={currentSavings}
-            min={0}
-            max={5000000}
-            step={50000}
-            onChange={setCurrentSavings}
-            prefix={currencySymbols[currency]}
-          />
+              <div className="max-h-[620px] overflow-y-auto custom-scrollbar">
+                <table className="w-full">
+                  <thead className="sticky top-0 z-10 bg-slate-50">
+                    <tr>
+                      <th className="px-8 py-4 text-left text-[10px] uppercase tracking-widest text-slate-400">
+                        Year
+                      </th>
 
-          <SliderInput
-            label="Child Age"
-            value={childAge}
-            min={0}
-            max={18}
-            onChange={setChildAge}
-            suffix=" Yrs"
-          />
+                      <th className="px-8 py-4 text-right text-[10px] uppercase tracking-widest text-slate-400">
+                        Invested
+                      </th>
 
-          <SliderInput
-            label="Education Age"
-            value={educationAge}
-            min={15}
-            max={25}
-            onChange={setEducationAge}
-            suffix=" Yrs"
-          />
+                      <th className="px-8 py-4 text-right text-[10px] uppercase tracking-widest text-slate-400">
+                        Corpus
+                      </th>
+                    </tr>
+                  </thead>
 
-          <SliderInput
-            label="Education Inflation"
-            value={inflationRate}
-            min={3}
-            max={15}
-            step={0.5}
-            onChange={setInflationRate}
-            suffix="%"
-          />
+                  <tbody className="divide-y divide-slate-100">
+                    {yearWiseData.map((row) => (
+                      <tr key={row.year} className="hover:bg-slate-50">
+                        <td className="px-8 py-4 text-xs font-black text-slate-600">
+                          Y{row.year}
+                        </td>
 
-          <SliderInput
-            label="Expected Return"
-            value={expectedReturn}
-            min={8}
-            max={20}
-            step={0.5}
-            onChange={setExpectedReturn}
-            suffix="%"
-          />
-        </div>
+                        <td className="px-8 py-4 text-xs font-bold text-right text-slate-600">
+                          {currencySymbols[currency]}
+                          {(row.invested / 100000).toFixed(2)}L
+                        </td>
 
-        {/* Result Cards */}
-        <div className="order-3 w-full max-w-full min-w-0 space-y-4 xl:order-2 xl:max-w-max">
-          <ResultCard
-            icon={FaGraduationCap}
-            label="Target Corpus"
-            value={`${currencySymbols[currency]}${(
-              results.futureCost / 100000
-            ).toFixed(2)}L`}
-            subtext="Inflation Adjusted"
-          />
+                        <td className="px-8 py-4 text-xs font-black text-right text-orange-600">
+                          {currencySymbols[currency]}
+                          {(row.value / 100000).toFixed(2)}L
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            </div>
 
-          <ResultCard
-            icon={FaChartLine}
-            label="Required SIP"
-            value={`${currencySymbols[currency]}${(
-              results.monthlySIP / 1000
-            ).toFixed(1)}K`}
-            subtext="Monthly Funding"
-            color="text-orange-600"
-          />
+            {/* Right Side */}
+            <div className="space-y-8 lg:col-span-4">
+              {/* Doughnut */}
+              <div className="bg-white rounded-[3rem] shadow-xl border border-slate-100 p-8 text-center">
+                <h3 className="mb-8 text-lg font-black tracking-tight uppercase text-slate-900">
+                  Capital Mix
+                </h3>
 
-          <ResultCard
-            icon={FaTrophy}
-            label="Funding Gap"
-            value={`${currencySymbols[currency]}${(
-              results.corpusGap / 100000
-            ).toFixed(2)}L`}
-            subtext="Need to Build"
-            featured
-          />
-        </div>
-      </div>
+                <div className="relative h-64">
+                  <Doughnut
+                    data={doughnutData}
+                    options={{
+                      responsive: true,
+                      maintainAspectRatio: false,
+                      plugins: { legend: { display: false } },
+                    }}
+                  />
 
-      {/* Insight */}
-      <div className="mt-8 bg-orange-50 rounded-[2rem] p-5 border border-orange-100">
-        <div className="flex gap-3">
-          <FaLightbulb className="mt-1 text-orange-500" />
+                  <div className="absolute inset-0 flex flex-col items-center justify-center pointer-events-none">
+                    <span className="text-[10px] font-black uppercase tracking-widest text-slate-400">
+                      Growth Share
+                    </span>
 
-          <p className="text-sm leading-relaxed text-slate-600">
-            Education inflation often exceeds normal CPI. Start early and review
-            annually to stay on target.
-          </p>
-        </div>
-      </div>
-    </div>
+                    <span className="text-2xl font-black text-orange-600">
+                      {results.futureCost > 0
+                        ? (
+                            ((results.futureCost -
+                              currentSavings -
+                              results.totalInvestment) /
+                              results.futureCost) *
+                            100
+                          ).toFixed(0)
+                        : 0}
+                      %
+                    </span>
+                  </div>
+                </div>
+              </div>
 
-    {/* Ledger + Side Panel */}
-    <div className="grid gap-8 mt-8 lg:grid-cols-12">
-      {/* Yearly Ledger */}
-      <div className="lg:col-span-8 bg-white rounded-[3rem] shadow-xl border border-slate-100 overflow-hidden">
-        <div className="px-8 py-6 text-center text-white bg-slate-900">
-          <h3 className="text-lg font-black tracking-widest uppercase">
-            Yearly Projection
-          </h3>
-        </div>
+              {/* Strategy */}
+              <div className="bg-slate-900 rounded-[3rem] shadow-2xl p-8 text-white relative overflow-hidden">
+                <div className="absolute top-0 right-0 w-32 h-32 rounded-full bg-orange-600/20 blur-3xl"></div>
 
-        <div className="max-h-[620px] overflow-y-auto custom-scrollbar">
-          <table className="w-full">
-            <thead className="sticky top-0 z-10 bg-slate-50">
-              <tr>
-                <th className="px-8 py-4 text-left text-[10px] uppercase tracking-widest text-slate-400">
-                  Year
-                </th>
+                <h4 className="text-xs font-black uppercase tracking-[0.3em] text-orange-500 mb-8">
+                  Scholar Protocol
+                </h4>
 
-                <th className="px-8 py-4 text-right text-[10px] uppercase tracking-widest text-slate-400">
-                  Invested
-                </th>
+                <div className="space-y-5">
+                  <BenefitItem text="Inflation Protection" />
+                  <BenefitItem text="Goal Based Investing" />
+                  <BenefitItem text="Annual Review Discipline" />
+                </div>
 
-                <th className="px-8 py-4 text-right text-[10px] uppercase tracking-widest text-slate-400">
-                  Corpus
-                </th>
-              </tr>
-            </thead>
+                <Link
+                  to="/contact"
+                  className="flex items-center justify-center py-4 mt-10 text-xs font-black tracking-widest uppercase transition-all bg-orange-600 hover:bg-white hover:text-orange-600 rounded-2xl"
+                >
+                  Speak to Planner
+                  <FaArrowRight className="ml-3" />
+                </Link>
+              </div>
+            </div>
+          </div>
 
-            <tbody className="divide-y divide-slate-100">
-              {yearWiseData.map((row) => (
-                <tr key={row.year} className="hover:bg-slate-50">
-                  <td className="px-8 py-4 text-xs font-black text-slate-600">
-                    Y{row.year}
-                  </td>
+          {/* Chart */}
+          <div className="mt-8 bg-white rounded-[3rem] shadow-xl border border-slate-100 p-6 sm:p-8">
+            <h3 className="mb-8 text-xl font-black tracking-tight uppercase text-slate-900">
+              Corpus Growth Curve
+            </h3>
 
-                  <td className="px-8 py-4 text-xs font-bold text-right text-slate-600">
-                    {currencySymbols[currency]}
-                    {(row.invested / 100000).toFixed(2)}L
-                  </td>
-
-                  <td className="px-8 py-4 text-xs font-black text-right text-orange-600">
-                    {currencySymbols[currency]}
-                    {(row.value / 100000).toFixed(2)}L
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
-      </div>
-
-      {/* Right Side */}
-      <div className="space-y-8 lg:col-span-4">
-        {/* Doughnut */}
-        <div className="bg-white rounded-[3rem] shadow-xl border border-slate-100 p-8 text-center">
-          <h3 className="mb-8 text-lg font-black tracking-tight uppercase text-slate-900">
-            Capital Mix
-          </h3>
-
-          <div className="relative h-64">
-            <Doughnut
-              data={doughnutData}
-              options={{
-                responsive: true,
-                maintainAspectRatio: false,
-                plugins: { legend: { display: false } },
-              }}
-            />
-
-            <div className="absolute inset-0 flex flex-col items-center justify-center pointer-events-none">
-              <span className="text-[10px] font-black uppercase tracking-widest text-slate-400">
-                Growth Share
-              </span>
-
-              <span className="text-2xl font-black text-orange-600">
-                {results.futureCost > 0
-                  ? (
-                      ((results.futureCost -
-                        currentSavings -
-                        results.totalInvestment) /
-                        results.futureCost) *
-                      100
-                    ).toFixed(0)
-                  : 0}
-                %
-              </span>
+            <div className="h-[380px] sm:h-[520px]">
+              <Line data={lineChartData} options={lineChartOptions} />
             </div>
           </div>
         </div>
-
-        {/* Strategy */}
-        <div className="bg-slate-900 rounded-[3rem] shadow-2xl p-8 text-white relative overflow-hidden">
-          <div className="absolute top-0 right-0 w-32 h-32 rounded-full bg-orange-600/20 blur-3xl"></div>
-
-          <h4 className="text-xs font-black uppercase tracking-[0.3em] text-orange-500 mb-8">
-            Scholar Protocol
-          </h4>
-
-          <div className="space-y-5">
-            <BenefitItem text="Inflation Protection" />
-            <BenefitItem text="Goal Based Investing" />
-            <BenefitItem text="Annual Review Discipline" />
-          </div>
-
-          <Link
-            to="/contact"
-            className="flex items-center justify-center py-4 mt-10 text-xs font-black tracking-widest uppercase transition-all bg-orange-600 hover:bg-white hover:text-orange-600 rounded-2xl"
-          >
-            Speak to Planner
-            <FaArrowRight className="ml-3" />
-          </Link>
-        </div>
-      </div>
-    </div>
-
-    {/* Chart */}
-    <div className="mt-8 bg-white rounded-[3rem] shadow-xl border border-slate-100 p-6 sm:p-8">
-      <h3 className="mb-8 text-xl font-black tracking-tight uppercase text-slate-900">
-        Corpus Growth Curve
-      </h3>
-
-      <div className="h-[380px] sm:h-[520px]">
-        <Line data={lineChartData} options={lineChartOptions} />
-      </div>
-    </div>
-  </div>
-</section>
+      </section>
       <StickyResultBar
         label="Monthly SIP"
         value={(results.monthlySIP / 1000).toFixed(1) + "K"}

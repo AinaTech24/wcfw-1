@@ -38,9 +38,7 @@ const CustomSelect = ({
         onClick={() => setOpen(!open)}
         className="flex items-center justify-between w-full p-5 font-bold text-left transition-all border outline-none bg-slate-50 border-slate-100 rounded-2xl focus:ring-2 focus:ring-orange-500/20 text-slate-800 hover:bg-white"
       >
-        <span>
-          {selected ? selected.label : placeholder}
-        </span>
+        <span>{selected ? selected.label : placeholder}</span>
 
         <FaChevronDown
           className={`text-sm text-slate-400 transition-transform duration-300 ${

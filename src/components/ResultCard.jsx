@@ -20,9 +20,7 @@ const ResultCard = ({
         w-full
         rounded-[2rem]
         px-5 py-4
-        ${featured
-          ? "bg-slate-900 text-white shadow-xl"
-          : "bg-white shadow-md"}
+        ${featured ? "bg-slate-900 text-white shadow-xl" : "bg-white shadow-md"}
         ${className}
       `}
     >

@@ -106,13 +106,13 @@ const ServiceCard = ({
           )}
 
           {/* CTA */}
-<Link
-  to={buttonLink}
-  className="inline-flex items-center gap-2 px-6 py-3 text-sm font-bold text-white transition-all duration-500 ease-in-out shadow-lg rounded-2xl bg-gradient-to-r from-yellow-400/80 to-orange-500/80 hover:from-yellow-400 hover:to-orange-500 hover:scale-105 hover:shadow-xl"
->
-  {buttonText}
-  <FaArrowRight className="text-xs transition-transform duration-500 ease-in-out" />
-</Link>
+          <Link
+            to={buttonLink}
+            className="inline-flex items-center gap-2 px-6 py-3 text-sm font-bold text-white transition-all duration-500 ease-in-out shadow-lg rounded-2xl bg-gradient-to-r from-yellow-400/80 to-orange-500/80 hover:from-yellow-400 hover:to-orange-500 hover:scale-105 hover:shadow-xl"
+          >
+            {buttonText}
+            <FaArrowRight className="text-xs transition-transform duration-500 ease-in-out" />
+          </Link>
         </motion.div>
       </div>
 

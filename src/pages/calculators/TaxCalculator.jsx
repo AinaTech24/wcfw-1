@@ -136,267 +136,268 @@ const TaxCalculator = () => {
       </section>
 
       {/* Main Content */}
-<section className="relative z-20 py-12 -mt-10 sm:py-24">
-  <div className="px-4 mx-auto max-w-7xl">
-    {/* Main Wrapper */}
-    <div className="bg-white border border-slate-100 shadow-xl rounded-[3rem] p-5 sm:p-8">
-      {/* Header */}
-      <div className="flex flex-col gap-5 mb-8 lg:flex-row lg:items-start lg:justify-between">
-        <h2 className="text-2xl font-black text-slate-900">
-          Fiscal Inputs
-        </h2>
+      <section className="relative z-20 py-12 -mt-10 sm:py-24">
+        <div className="px-4 mx-auto max-w-7xl">
+          {/* Main Wrapper */}
+          <div className="bg-white border border-slate-100 shadow-xl rounded-[3rem] p-5 sm:p-8">
+            {/* Header */}
+            <div className="flex flex-col gap-5 mb-8 lg:flex-row lg:items-start lg:justify-between">
+              <h2 className="text-2xl font-black text-slate-900">
+                Fiscal Inputs
+              </h2>
 
-        {/* Regime */}
-        <div>
-          <p className="mb-3 text-[10px] font-black tracking-widest uppercase text-slate-400 lg:text-right">
-            Tax Regime
-          </p>
+              {/* Regime */}
+              <div>
+                <p className="mb-3 text-[10px] font-black tracking-widest uppercase text-slate-400 lg:text-right">
+                  Tax Regime
+                </p>
 
-          <div className="flex gap-2">
-            <button
-              onClick={() => setRegime("old")}
-              className={`px-4 h-12 rounded-2xl text-xs font-black transition-all ${
-                regime === "old"
-                  ? "bg-slate-900 text-white shadow-lg"
-                  : "bg-slate-100 text-slate-600"
-              }`}
-            >
-              OLD
-            </button>
+                <div className="flex gap-2">
+                  <button
+                    onClick={() => setRegime("old")}
+                    className={`px-4 h-12 rounded-2xl text-xs font-black transition-all ${
+                      regime === "old"
+                        ? "bg-slate-900 text-white shadow-lg"
+                        : "bg-slate-100 text-slate-600"
+                    }`}
+                  >
+                    OLD
+                  </button>
 
-            <button
-              onClick={() => setRegime("new")}
-              className={`px-4 h-12 rounded-2xl text-xs font-black transition-all ${
-                regime === "new"
-                  ? "bg-slate-900 text-white shadow-lg"
-                  : "bg-slate-100 text-slate-600"
-              }`}
-            >
-              NEW
-            </button>
+                  <button
+                    onClick={() => setRegime("new")}
+                    className={`px-4 h-12 rounded-2xl text-xs font-black transition-all ${
+                      regime === "new"
+                        ? "bg-slate-900 text-white shadow-lg"
+                        : "bg-slate-100 text-slate-600"
+                    }`}
+                  >
+                    NEW
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            {/* Top Grid */}
+            <div className="grid items-start gap-6 xl:grid-cols-[minmax(0,1.65fr)_minmax(280px,auto)]">
+              {/* Inputs */}
+              <div className="grid min-w-0 gap-6 md:grid-cols-2">
+                <SliderInput
+                  label="Annual Income"
+                  value={annualIncome}
+                  min={300000}
+                  max={10000000}
+                  step={50000}
+                  onChange={setAnnualIncome}
+                  prefix={currencySymbols[currency]}
+                />
+
+                {regime === "old" && (
+                  <SliderInput
+                    label="Deductions"
+                    value={deductions}
+                    min={0}
+                    max={500000}
+                    step={5000}
+                    onChange={setDeductions}
+                    prefix={currencySymbols[currency]}
+                  />
+                )}
+              </div>
+
+              {/* Cards */}
+              <div className="order-3 w-full max-w-full min-w-0 space-y-4 xl:order-2 xl:max-w-max">
+                <ResultCard
+                  icon={FaShieldAlt}
+                  label="Taxable Income"
+                  value={`${currencySymbols[currency]}${(
+                    results.taxableIncome / 100000
+                  ).toFixed(1)}L`}
+                  subtext="Assessable Base"
+                />
+
+                <ResultCard
+                  icon={FaCalculator}
+                  label="Total Tax"
+                  value={`${currencySymbols[currency]}${(
+                    results.totalTax / 100000
+                  ).toFixed(2)}L`}
+                  subtext="Tax + Cess"
+                  color="text-orange-600"
+                />
+
+                <ResultCard
+                  icon={FaTrophy}
+                  label="Net Income"
+                  value={`${currencySymbols[currency]}${(
+                    results.netIncome / 100000
+                  ).toFixed(1)}L`}
+                  subtext="Retained Capital"
+                  featured
+                />
+              </div>
+            </div>
+
+            {/* Insight */}
+            <div className="mt-8 bg-orange-50 rounded-[2rem] p-5 border border-orange-100">
+              <div className="flex gap-3">
+                <FaLightbulb className="mt-1 text-orange-500" />
+
+                <p className="text-sm leading-relaxed text-slate-600">
+                  Compare regimes yearly. High deductions often favor Old
+                  Regime, lower paperwork may favor New Regime.
+                </p>
+              </div>
+            </div>
           </div>
-        </div>
-      </div>
 
-      {/* Top Grid */}
-      <div className="grid items-start gap-6 xl:grid-cols-[minmax(0,1.65fr)_minmax(280px,auto)]">
-        {/* Inputs */}
-        <div className="grid min-w-0 gap-6 md:grid-cols-2">
-          <SliderInput
-            label="Annual Income"
-            value={annualIncome}
-            min={300000}
-            max={10000000}
-            step={50000}
-            onChange={setAnnualIncome}
-            prefix={currencySymbols[currency]}
-          />
+          {/* Second Grid */}
+          <div className="grid gap-8 mt-8 lg:grid-cols-12">
+            {/* Ledger */}
+            <div className="lg:col-span-8 bg-white rounded-[3rem] shadow-xl border border-slate-100 overflow-hidden">
+              <div className="px-8 py-6 text-center text-white bg-slate-900">
+                <h3 className="text-lg font-black tracking-widest uppercase">
+                  Fiscal Ledger
+                </h3>
+              </div>
 
-          {regime === "old" && (
-            <SliderInput
-              label="Deductions"
-              value={deductions}
-              min={0}
-              max={500000}
-              step={5000}
-              onChange={setDeductions}
-              prefix={currencySymbols[currency]}
-            />
-          )}
-        </div>
+              <div className="p-6 space-y-3 sm:p-8">
+                <LedgerRow
+                  label="Gross Income"
+                  value={annualIncome}
+                  symbol={currencySymbols[currency]}
+                />
 
-        {/* Cards */}
-        <div className="order-3 w-full max-w-full min-w-0 space-y-4 xl:order-2 xl:max-w-max">
-          <ResultCard
-            icon={FaShieldAlt}
-            label="Taxable Income"
-            value={`${currencySymbols[currency]}${(
-              results.taxableIncome / 100000
-            ).toFixed(1)}L`}
-            subtext="Assessable Base"
-          />
+                {regime === "old" && (
+                  <LedgerRow
+                    label="Deductions"
+                    value={deductions}
+                    symbol={currencySymbols[currency]}
+                    negative
+                  />
+                )}
 
-          <ResultCard
-            icon={FaCalculator}
-            label="Total Tax"
-            value={`${currencySymbols[currency]}${(
-              results.totalTax / 100000
-            ).toFixed(2)}L`}
-            subtext="Tax + Cess"
-            color="text-orange-600"
-          />
+                <LedgerRow
+                  label="Taxable Base"
+                  value={results.taxableIncome}
+                  symbol={currencySymbols[currency]}
+                  highlight
+                />
 
-          <ResultCard
-            icon={FaTrophy}
-            label="Net Income"
-            value={`${currencySymbols[currency]}${(
-              results.netIncome / 100000
-            ).toFixed(1)}L`}
-            subtext="Retained Capital"
-            featured
-          />
-        </div>
-      </div>
+                <LedgerRow
+                  label="Income Tax"
+                  value={results.tax}
+                  symbol={currencySymbols[currency]}
+                  borderTop
+                />
 
-      {/* Insight */}
-      <div className="mt-8 bg-orange-50 rounded-[2rem] p-5 border border-orange-100">
-        <div className="flex gap-3">
-          <FaLightbulb className="mt-1 text-orange-500" />
+                <LedgerRow
+                  label="Cess 4%"
+                  value={results.cess}
+                  symbol={currencySymbols[currency]}
+                />
 
-          <p className="text-sm leading-relaxed text-slate-600">
-            Compare regimes yearly. High deductions often favor Old Regime,
-            lower paperwork may favor New Regime.
-          </p>
-        </div>
-      </div>
-    </div>
+                <LedgerRow
+                  label="Net Income"
+                  value={results.netIncome}
+                  symbol={currencySymbols[currency]}
+                  featured
+                />
+              </div>
+            </div>
 
-    {/* Second Grid */}
-    <div className="grid gap-8 mt-8 lg:grid-cols-12">
-      {/* Ledger */}
-      <div className="lg:col-span-8 bg-white rounded-[3rem] shadow-xl border border-slate-100 overflow-hidden">
-        <div className="px-8 py-6 text-center text-white bg-slate-900">
-          <h3 className="text-lg font-black tracking-widest uppercase">
-            Fiscal Ledger
-          </h3>
-        </div>
+            {/* Right Side */}
+            <div className="space-y-8 lg:col-span-4">
+              {/* Doughnut */}
+              <div className="bg-white rounded-[3rem] shadow-xl border border-slate-100 p-8 text-center">
+                <h3 className="mb-8 text-lg font-black tracking-tight uppercase text-slate-900">
+                  Income Split
+                </h3>
 
-        <div className="p-6 space-y-3 sm:p-8">
-          <LedgerRow
-            label="Gross Income"
-            value={annualIncome}
-            symbol={currencySymbols[currency]}
-          />
+                <div className="relative h-64">
+                  <Doughnut
+                    data={doughnutData}
+                    options={{
+                      responsive: true,
+                      maintainAspectRatio: false,
+                      plugins: { legend: { display: false } },
+                    }}
+                  />
 
-          {regime === "old" && (
-            <LedgerRow
-              label="Deductions"
-              value={deductions}
-              symbol={currencySymbols[currency]}
-              negative
-            />
-          )}
+                  <div className="absolute inset-0 flex flex-col items-center justify-center pointer-events-none">
+                    <span className="text-[10px] font-black uppercase tracking-widest text-slate-400">
+                      Effective Rate
+                    </span>
 
-          <LedgerRow
-            label="Taxable Base"
-            value={results.taxableIncome}
-            symbol={currencySymbols[currency]}
-            highlight
-          />
+                    <span className="text-2xl font-black text-orange-600">
+                      {results.effectiveRate}%
+                    </span>
+                  </div>
+                </div>
+              </div>
 
-          <LedgerRow
-            label="Income Tax"
-            value={results.tax}
-            symbol={currencySymbols[currency]}
-            borderTop
-          />
+              {/* Strategy */}
+              <div className="bg-slate-900 rounded-[3rem] shadow-2xl p-8 text-white relative overflow-hidden">
+                <div className="absolute top-0 right-0 w-32 h-32 rounded-full bg-orange-600/20 blur-3xl"></div>
 
-          <LedgerRow
-            label="Cess 4%"
-            value={results.cess}
-            symbol={currencySymbols[currency]}
-          />
+                <h4 className="text-xs font-black uppercase tracking-[0.3em] text-orange-500 mb-8">
+                  Tax Protocol
+                </h4>
 
-          <LedgerRow
-            label="Net Income"
-            value={results.netIncome}
-            symbol={currencySymbols[currency]}
-            featured
-          />
-        </div>
-      </div>
+                <div className="space-y-5">
+                  <BenefitItem text="Regime Comparison" />
+                  <BenefitItem text="Deduction Planning" />
+                  <BenefitItem text="Post-Tax Growth" />
+                </div>
 
-      {/* Right Side */}
-      <div className="space-y-8 lg:col-span-4">
-        {/* Doughnut */}
-        <div className="bg-white rounded-[3rem] shadow-xl border border-slate-100 p-8 text-center">
-          <h3 className="mb-8 text-lg font-black tracking-tight uppercase text-slate-900">
-            Income Split
-          </h3>
+                <Link
+                  to="/contact"
+                  className="flex items-center justify-center py-4 mt-10 text-xs font-black tracking-widest uppercase transition-all bg-orange-600 hover:bg-white hover:text-orange-600 rounded-2xl"
+                >
+                  Consult Tax Advisor
+                  <FaArrowRight className="ml-3" />
+                </Link>
+              </div>
+            </div>
+          </div>
 
-          <div className="relative h-64">
-            <Doughnut
-              data={doughnutData}
-              options={{
-                responsive: true,
-                maintainAspectRatio: false,
-                plugins: { legend: { display: false } },
-              }}
-            />
+          {/* Bottom Insight */}
+          <div className="mt-8 bg-white rounded-[3rem] shadow-xl border border-slate-100 p-6 sm:p-8">
+            <div className="flex items-start gap-4">
+              <div className="flex items-center justify-center w-12 h-12 rounded-2xl bg-slate-100 shrink-0">
+                <FaInfoCircle className="text-orange-600" />
+              </div>
 
-            <div className="absolute inset-0 flex flex-col items-center justify-center pointer-events-none">
-              <span className="text-[10px] font-black uppercase tracking-widest text-slate-400">
-                Effective Rate
-              </span>
+              <div>
+                <h3 className="mb-4 text-xl font-black tracking-tight uppercase text-slate-900">
+                  Optimization Directives
+                </h3>
 
-              <span className="text-2xl font-black text-orange-600">
-                {results.effectiveRate}%
-              </span>
+                <div className="grid gap-4 md:grid-cols-2">
+                  <div className="p-5 rounded-2xl bg-slate-50">
+                    <p className="text-[10px] font-black tracking-widest uppercase text-orange-600 mb-2">
+                      Section 80C
+                    </p>
+                    <p className="text-sm text-slate-600">
+                      Use ELSS, PPF or EPF efficiently to reduce taxable income.
+                    </p>
+                  </div>
+
+                  <div className="p-5 rounded-2xl bg-slate-50">
+                    <p className="text-[10px] font-black tracking-widest uppercase text-orange-600 mb-2">
+                      Section 80D
+                    </p>
+                    <p className="text-sm text-slate-600">
+                      Health insurance premiums can lower taxes while reducing
+                      risk.
+                    </p>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
-
-        {/* Strategy */}
-        <div className="bg-slate-900 rounded-[3rem] shadow-2xl p-8 text-white relative overflow-hidden">
-          <div className="absolute top-0 right-0 w-32 h-32 rounded-full bg-orange-600/20 blur-3xl"></div>
-
-          <h4 className="text-xs font-black uppercase tracking-[0.3em] text-orange-500 mb-8">
-            Tax Protocol
-          </h4>
-
-          <div className="space-y-5">
-            <BenefitItem text="Regime Comparison" />
-            <BenefitItem text="Deduction Planning" />
-            <BenefitItem text="Post-Tax Growth" />
-          </div>
-
-          <Link
-            to="/contact"
-            className="flex items-center justify-center py-4 mt-10 text-xs font-black tracking-widest uppercase transition-all bg-orange-600 hover:bg-white hover:text-orange-600 rounded-2xl"
-          >
-            Consult Tax Advisor
-            <FaArrowRight className="ml-3" />
-          </Link>
-        </div>
-      </div>
-    </div>
-
-    {/* Bottom Insight */}
-    <div className="mt-8 bg-white rounded-[3rem] shadow-xl border border-slate-100 p-6 sm:p-8">
-      <div className="flex items-start gap-4">
-        <div className="flex items-center justify-center w-12 h-12 rounded-2xl bg-slate-100 shrink-0">
-          <FaInfoCircle className="text-orange-600" />
-        </div>
-
-        <div>
-          <h3 className="mb-4 text-xl font-black tracking-tight uppercase text-slate-900">
-            Optimization Directives
-          </h3>
-
-          <div className="grid gap-4 md:grid-cols-2">
-            <div className="p-5 rounded-2xl bg-slate-50">
-              <p className="text-[10px] font-black tracking-widest uppercase text-orange-600 mb-2">
-                Section 80C
-              </p>
-              <p className="text-sm text-slate-600">
-                Use ELSS, PPF or EPF efficiently to reduce taxable income.
-              </p>
-            </div>
-
-            <div className="p-5 rounded-2xl bg-slate-50">
-              <p className="text-[10px] font-black tracking-widest uppercase text-orange-600 mb-2">
-                Section 80D
-              </p>
-              <p className="text-sm text-slate-600">
-                Health insurance premiums can lower taxes while reducing risk.
-              </p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
+      </section>
       <StickyResultBar
         label="Total Tax"
         value={(results.totalTax / 100000).toFixed(2) + "L"}

@@ -228,239 +228,239 @@ const EMICalculator = () => {
       </section>
 
       {/* Main Content */}
-<section className="relative z-20 py-12 -mt-10 sm:py-24">
-  <div className="px-4 mx-auto max-w-7xl">
-    {/* Main Wrapper */}
-    <div className="bg-white border border-slate-100 shadow-xl rounded-[3rem] p-5 sm:p-8">
-      {/* Header */}
-      <div className="flex flex-col gap-5 mb-8 lg:flex-row lg:items-start lg:justify-between">
-        <h2 className="text-2xl font-black text-slate-900">
-          Loan Inputs
-        </h2>
+      <section className="relative z-20 py-12 -mt-10 sm:py-24">
+        <div className="px-4 mx-auto max-w-7xl">
+          {/* Main Wrapper */}
+          <div className="bg-white border border-slate-100 shadow-xl rounded-[3rem] p-5 sm:p-8">
+            {/* Header */}
+            <div className="flex flex-col gap-5 mb-8 lg:flex-row lg:items-start lg:justify-between">
+              <h2 className="text-2xl font-black text-slate-900">
+                Loan Inputs
+              </h2>
 
-        {/* Currency */}
-        <div>
-          <p className="mb-3 text-[10px] font-black tracking-widest uppercase text-slate-400 lg:text-right">
-            Currency
-          </p>
+              {/* Currency */}
+              <div>
+                <p className="mb-3 text-[10px] font-black tracking-widest uppercase text-slate-400 lg:text-right">
+                  Currency
+                </p>
 
-          <div className="flex gap-2">
-            {["INR", "USD", "EUR"].map((curr) => (
-              <button
-                key={curr}
-                onClick={() => setCurrency(curr)}
-                className={`w-12 h-12 rounded-2xl text-sm font-black transition-all ${
-                  currency === curr
-                    ? "bg-slate-900 text-white shadow-lg"
-                    : "bg-slate-100 text-slate-600"
-                }`}
-              >
-                {curr}
-              </button>
-            ))}
+                <div className="flex gap-2">
+                  {["INR", "USD", "EUR"].map((curr) => (
+                    <button
+                      key={curr}
+                      onClick={() => setCurrency(curr)}
+                      className={`w-12 h-12 rounded-2xl text-sm font-black transition-all ${
+                        currency === curr
+                          ? "bg-slate-900 text-white shadow-lg"
+                          : "bg-slate-100 text-slate-600"
+                      }`}
+                    >
+                      {curr}
+                    </button>
+                  ))}
+                </div>
+              </div>
+            </div>
+
+            {/* Top Grid */}
+            <div className="grid items-start gap-6 xl:grid-cols-[minmax(0,1.65fr)_minmax(280px,auto)]">
+              {/* Inputs */}
+              <div className="grid min-w-0 gap-6 md:grid-cols-2">
+                <SliderInput
+                  label="Loan Amount"
+                  value={loanAmount}
+                  min={100000}
+                  max={50000000}
+                  step={100000}
+                  onChange={setLoanAmount}
+                  prefix={currencySymbols[currency]}
+                />
+
+                <SliderInput
+                  label="Interest Rate (%)"
+                  value={interestRate}
+                  min={1}
+                  max={20}
+                  step={0.1}
+                  onChange={setInterestRate}
+                  suffix="%"
+                />
+
+                <SliderInput
+                  label="Loan Tenure"
+                  value={loanTenure}
+                  min={1}
+                  max={30}
+                  step={1}
+                  onChange={setLoanTenure}
+                  suffix=" Years"
+                />
+              </div>
+
+              {/* Result Cards */}
+              <div className="order-3 w-full max-w-full min-w-0 space-y-4 xl:order-2 xl:max-w-max">
+                <ResultCard
+                  icon={FaHome}
+                  label="Loan Principal"
+                  value={`${currencySymbols[currency]}${(
+                    results.principal / 100000
+                  ).toFixed(1)}L`}
+                  subtext="Borrowed Capital"
+                />
+
+                <ResultCard
+                  icon={FaPercentage}
+                  label="Interest Cost"
+                  value={`${currencySymbols[currency]}${(
+                    results.totalInterest / 100000
+                  ).toFixed(1)}L`}
+                  subtext="Total Interest"
+                  color="text-orange-600"
+                />
+
+                <ResultCard
+                  icon={FaTrophy}
+                  label="Monthly EMI"
+                  value={`${currencySymbols[currency]}${(
+                    results.emi / 1000
+                  ).toFixed(1)}K`}
+                  subtext="Monthly Payment"
+                  featured
+                />
+              </div>
+            </div>
+
+            {/* Insight */}
+            <div className="mt-8 bg-orange-50 rounded-[2rem] p-5 border border-orange-100">
+              <div className="flex gap-3">
+                <FaLightbulb className="mt-1 text-orange-500" />
+
+                <p className="text-sm leading-relaxed text-slate-600">
+                  Lower tenure significantly reduces total interest outflow.
+                  Small prepayments can accelerate debt freedom.
+                </p>
+              </div>
+            </div>
           </div>
-        </div>
-      </div>
 
-      {/* Top Grid */}
-      <div className="grid items-start gap-6 xl:grid-cols-[minmax(0,1.65fr)_minmax(280px,auto)]">
-        {/* Inputs */}
-        <div className="grid min-w-0 gap-6 md:grid-cols-2">
-          <SliderInput
-            label="Loan Amount"
-            value={loanAmount}
-            min={100000}
-            max={50000000}
-            step={100000}
-            onChange={setLoanAmount}
-            prefix={currencySymbols[currency]}
-          />
+          {/* Second Grid */}
+          <div className="grid gap-8 mt-8 lg:grid-cols-12">
+            {/* Yearly Table */}
+            <div className="lg:col-span-8 bg-white rounded-[3rem] shadow-xl border border-slate-100 overflow-hidden">
+              <div className="px-8 py-6 text-center text-white bg-slate-900">
+                <h3 className="text-lg font-black tracking-widest uppercase">
+                  EMI Ledger
+                </h3>
+              </div>
 
-          <SliderInput
-            label="Interest Rate (%)"
-            value={interestRate}
-            min={1}
-            max={20}
-            step={0.1}
-            onChange={setInterestRate}
-            suffix="%"
-          />
+              <div className="max-h-[620px] overflow-y-auto custom-scrollbar">
+                <table className="w-full">
+                  <thead className="sticky top-0 z-10 bg-slate-50">
+                    <tr>
+                      <th className="px-8 py-4 text-left text-[10px] uppercase tracking-widest text-slate-400">
+                        Year
+                      </th>
 
-          <SliderInput
-            label="Loan Tenure"
-            value={loanTenure}
-            min={1}
-            max={30}
-            step={1}
-            onChange={setLoanTenure}
-            suffix=" Years"
-          />
-        </div>
+                      <th className="px-8 py-4 text-right text-[10px] uppercase tracking-widest text-slate-400">
+                        Principal
+                      </th>
 
-        {/* Result Cards */}
-        <div className="order-3 w-full max-w-full min-w-0 space-y-4 xl:order-2 xl:max-w-max">
-          <ResultCard
-            icon={FaHome}
-            label="Loan Principal"
-            value={`${currencySymbols[currency]}${(
-              results.principal / 100000
-            ).toFixed(1)}L`}
-            subtext="Borrowed Capital"
-          />
+                      <th className="px-8 py-4 text-right text-[10px] uppercase tracking-widest text-slate-400">
+                        Balance
+                      </th>
+                    </tr>
+                  </thead>
 
-          <ResultCard
-            icon={FaPercentage}
-            label="Interest Cost"
-            value={`${currencySymbols[currency]}${(
-              results.totalInterest / 100000
-            ).toFixed(1)}L`}
-            subtext="Total Interest"
-            color="text-orange-600"
-          />
+                  <tbody className="divide-y divide-slate-100">
+                    {yearWiseData.map((row) => (
+                      <tr key={row.year} className="hover:bg-slate-50">
+                        <td className="px-8 py-4 text-xs font-black text-slate-600">
+                          Y{row.year}
+                        </td>
 
-          <ResultCard
-            icon={FaTrophy}
-            label="Monthly EMI"
-            value={`${currencySymbols[currency]}${(
-              results.emi / 1000
-            ).toFixed(1)}K`}
-            subtext="Monthly Payment"
-            featured
-          />
-        </div>
-      </div>
+                        <td className="px-8 py-4 text-xs font-bold text-right text-slate-600">
+                          {currencySymbols[currency]}
+                          {(row.principal / 100000).toFixed(2)}L
+                        </td>
 
-      {/* Insight */}
-      <div className="mt-8 bg-orange-50 rounded-[2rem] p-5 border border-orange-100">
-        <div className="flex gap-3">
-          <FaLightbulb className="mt-1 text-orange-500" />
+                        <td className="px-8 py-4 text-xs font-black text-right text-orange-600">
+                          {currencySymbols[currency]}
+                          {(row.balance / 100000).toFixed(2)}L
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            </div>
 
-          <p className="text-sm leading-relaxed text-slate-600">
-            Lower tenure significantly reduces total interest outflow. Small
-            prepayments can accelerate debt freedom.
-          </p>
-        </div>
-      </div>
-    </div>
+            {/* Right Side */}
+            <div className="space-y-8 lg:col-span-4">
+              {/* Doughnut */}
+              <div className="bg-white rounded-[3rem] shadow-xl border border-slate-100 p-8 text-center">
+                <h3 className="mb-8 text-lg font-black tracking-tight uppercase text-slate-900">
+                  Payment Anatomy
+                </h3>
 
-    {/* Second Grid */}
-    <div className="grid gap-8 mt-8 lg:grid-cols-12">
-      {/* Yearly Table */}
-      <div className="lg:col-span-8 bg-white rounded-[3rem] shadow-xl border border-slate-100 overflow-hidden">
-        <div className="px-8 py-6 text-center text-white bg-slate-900">
-          <h3 className="text-lg font-black tracking-widest uppercase">
-            EMI Ledger
-          </h3>
-        </div>
+                <div className="relative h-64">
+                  <Doughnut
+                    data={doughnutData}
+                    options={{
+                      responsive: true,
+                      maintainAspectRatio: false,
+                      plugins: { legend: { display: false } },
+                    }}
+                  />
 
-        <div className="max-h-[620px] overflow-y-auto custom-scrollbar">
-          <table className="w-full">
-            <thead className="sticky top-0 z-10 bg-slate-50">
-              <tr>
-                <th className="px-8 py-4 text-left text-[10px] uppercase tracking-widest text-slate-400">
-                  Year
-                </th>
+                  <div className="absolute inset-0 flex flex-col items-center justify-center pointer-events-none">
+                    <span className="text-[10px] font-black uppercase tracking-widest text-slate-400">
+                      Interest Ratio
+                    </span>
 
-                <th className="px-8 py-4 text-right text-[10px] uppercase tracking-widest text-slate-400">
-                  Principal
-                </th>
+                    <span className="text-2xl font-black text-orange-600">
+                      {results.interestPercentage}%
+                    </span>
+                  </div>
+                </div>
+              </div>
 
-                <th className="px-8 py-4 text-right text-[10px] uppercase tracking-widest text-slate-400">
-                  Balance
-                </th>
-              </tr>
-            </thead>
+              {/* Strategy */}
+              <div className="bg-slate-900 rounded-[3rem] shadow-2xl p-8 text-white relative overflow-hidden">
+                <div className="absolute top-0 right-0 w-32 h-32 rounded-full bg-orange-600/20 blur-3xl"></div>
 
-            <tbody className="divide-y divide-slate-100">
-              {yearWiseData.map((row) => (
-                <tr key={row.year} className="hover:bg-slate-50">
-                  <td className="px-8 py-4 text-xs font-black text-slate-600">
-                    Y{row.year}
-                  </td>
+                <h4 className="text-xs font-black uppercase tracking-[0.3em] text-orange-500 mb-8">
+                  Debt Strategy
+                </h4>
 
-                  <td className="px-8 py-4 text-xs font-bold text-right text-slate-600">
-                    {currencySymbols[currency]}
-                    {(row.principal / 100000).toFixed(2)}L
-                  </td>
+                <div className="space-y-5">
+                  <BenefitItem text="Tenure Optimization" />
+                  <BenefitItem text="Interest Reduction" />
+                  <BenefitItem text="Cashflow Control" />
+                </div>
 
-                  <td className="px-8 py-4 text-xs font-black text-right text-orange-600">
-                    {currencySymbols[currency]}
-                    {(row.balance / 100000).toFixed(2)}L
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
-      </div>
+                <Link
+                  to="/contact"
+                  className="flex items-center justify-center py-4 mt-10 text-xs font-black tracking-widest uppercase transition-all bg-orange-600 hover:bg-white hover:text-orange-600 rounded-2xl"
+                >
+                  Speak to Advisor
+                  <FaArrowRight className="ml-3" />
+                </Link>
+              </div>
+            </div>
+          </div>
 
-      {/* Right Side */}
-      <div className="space-y-8 lg:col-span-4">
-        {/* Doughnut */}
-        <div className="bg-white rounded-[3rem] shadow-xl border border-slate-100 p-8 text-center">
-          <h3 className="mb-8 text-lg font-black tracking-tight uppercase text-slate-900">
-            Payment Anatomy
-          </h3>
+          {/* Bottom Chart */}
+          <div className="mt-8 bg-white rounded-[3rem] shadow-xl border border-slate-100 p-6 sm:p-8">
+            <h3 className="mb-8 text-xl font-black tracking-tight uppercase text-slate-900">
+              Amortization Curve
+            </h3>
 
-          <div className="relative h-64">
-            <Doughnut
-              data={doughnutData}
-              options={{
-                responsive: true,
-                maintainAspectRatio: false,
-                plugins: { legend: { display: false } },
-              }}
-            />
-
-            <div className="absolute inset-0 flex flex-col items-center justify-center pointer-events-none">
-              <span className="text-[10px] font-black uppercase tracking-widest text-slate-400">
-                Interest Ratio
-              </span>
-
-              <span className="text-2xl font-black text-orange-600">
-                {results.interestPercentage}%
-              </span>
+            <div className="h-[380px] sm:h-[520px]">
+              <Line data={lineChartData} options={lineChartOptions} />
             </div>
           </div>
         </div>
-
-        {/* Strategy */}
-        <div className="bg-slate-900 rounded-[3rem] shadow-2xl p-8 text-white relative overflow-hidden">
-          <div className="absolute top-0 right-0 w-32 h-32 rounded-full bg-orange-600/20 blur-3xl"></div>
-
-          <h4 className="text-xs font-black uppercase tracking-[0.3em] text-orange-500 mb-8">
-            Debt Strategy
-          </h4>
-
-          <div className="space-y-5">
-            <BenefitItem text="Tenure Optimization" />
-            <BenefitItem text="Interest Reduction" />
-            <BenefitItem text="Cashflow Control" />
-          </div>
-
-          <Link
-            to="/contact"
-            className="flex items-center justify-center py-4 mt-10 text-xs font-black tracking-widest uppercase transition-all bg-orange-600 hover:bg-white hover:text-orange-600 rounded-2xl"
-          >
-            Speak to Advisor
-            <FaArrowRight className="ml-3" />
-          </Link>
-        </div>
-      </div>
-    </div>
-
-    {/* Bottom Chart */}
-    <div className="mt-8 bg-white rounded-[3rem] shadow-xl border border-slate-100 p-6 sm:p-8">
-      <h3 className="mb-8 text-xl font-black tracking-tight uppercase text-slate-900">
-        Amortization Curve
-      </h3>
-
-      <div className="h-[380px] sm:h-[520px]">
-        <Line data={lineChartData} options={lineChartOptions} />
-      </div>
-    </div>
-  </div>
-</section>
+      </section>
       <StickyResultBar
         label="Monthly EMI"
         value={(results.emi / 1000).toFixed(1) + "K"}
