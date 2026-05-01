@@ -16,7 +16,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import ReactQuill, { Quill } from "react-quill";
 import "react-quill/dist/quill.snow.css";
 
-const API = "/api/content";
+const API = "/content";
 
 /**
  * Ensure a URL has a proper protocol prefix.
