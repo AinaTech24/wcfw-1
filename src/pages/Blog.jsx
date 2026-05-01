@@ -23,7 +23,15 @@ const Blog = () => {
     const fetchBlogs = async () => {
       try {
         const res = await axios.get("/api/blog");
-        setBlogs(res.data);
+        // Normalize: handle bare array or wrapped { data: [...] }
+        if (Array.isArray(res.data)) {
+          setBlogs(res.data);
+        } else if (Array.isArray(res.data?.data)) {
+          setBlogs(res.data.data);
+        } else {
+          console.error("Unexpected blog API response shape:", res.data);
+          setBlogs([]);
+        }
       } catch (err) {
         console.error("Error fetching blogs:", err);
       } finally {

@@ -26,26 +26,35 @@ const About = () => {
   const { teamMembers } = useTeam();
   const { cmsContent } = useCMSContent("about");
 
+  // 🔥 Safety layer
+  const safeTeamMembers = Array.isArray(teamMembers) ? teamMembers : [];
+
   // Filter team by categories
-  const foundingMembers = teamMembers.filter(
+  const foundingMembers = safeTeamMembers.filter(
     (m) => m.category === "founding" && m.isActive,
   );
-  const directors = teamMembers.filter(
+
+  const directors = safeTeamMembers.filter(
     (m) => m.category === "director" && m.isActive,
   );
-  const leadership = teamMembers.filter(
+
+  const leadership = safeTeamMembers.filter(
     (m) => m.category === "leadership" && m.isActive,
   );
-  const associatePartners = teamMembers.filter(
+
+  const associatePartners = safeTeamMembers.filter(
     (m) => m.category === "associate_partner" && m.isActive,
   );
-  const insuranceHeads = teamMembers.filter(
+
+  const insuranceHeads = safeTeamMembers.filter(
     (m) => m.category === "insurance_head" && m.isActive,
   );
-  const relationshipManagers = teamMembers.filter(
+
+  const relationshipManagers = safeTeamMembers.filter(
     (m) => m.category === "rm" && m.isActive,
   );
-  const equityHead = teamMembers.filter(
+
+  const equityHead = safeTeamMembers.filter(
     (m) => m.category === "equity_head" && m.isActive,
   );
 
