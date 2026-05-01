@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import axios from "axios";
+import api from "../../utils/api";
 import {
   FaTrash,
   FaEnvelope,
@@ -23,7 +23,7 @@ const NewsletterManager = () => {
 
   const fetchSubscribers = async () => {
     try {
-      const res = await axios.get("/api/newsletter");
+      const res = await api.get("/newsletter");
       setSubscribers(res.data);
     } catch (err) {
       console.error("Error fetching subscribers:", err);
@@ -35,10 +35,10 @@ const NewsletterManager = () => {
   const toggleSubscription = async (subscriber) => {
     try {
       if (subscriber.isActive) {
-        await axios.patch(`/api/newsletter/${subscriber._id}/unsubscribe`);
+        await api.patch(`/newsletter/${subscriber._id}/unsubscribe`);
       } else {
         // Reactivate - using the subscribe endpoint won't work, update directly
-        await axios.patch(`/api/newsletter/${subscriber._id}/unsubscribe`);
+        await api.patch(`/newsletter/${subscriber._id}/unsubscribe`);
       }
       fetchSubscribers();
     } catch (err) {
@@ -49,7 +49,7 @@ const NewsletterManager = () => {
   const handleDelete = async (id) => {
     if (!window.confirm("Delete this subscriber permanently?")) return;
     try {
-      await axios.delete(`/api/newsletter/${id}`);
+      await api.delete(`/newsletter/${id}`);
       fetchSubscribers();
     } catch (err) {
       console.error("Error deleting subscriber:", err);

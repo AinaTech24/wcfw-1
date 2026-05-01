@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import axios from "axios";
+import api from "../../utils/api";
 import {
   FaPlus,
   FaTrash,
@@ -30,7 +30,7 @@ const RedirectManager = () => {
 
   const fetchRedirects = async () => {
     try {
-      const res = await axios.get("/api/redirects");
+      const res = await api.get("/redirects");
       setRedirects(res.data);
     } catch (err) {
       console.error("Error fetching redirects:", err);
@@ -43,12 +43,12 @@ const RedirectManager = () => {
     e.preventDefault();
     try {
       if (currentRedirect._id) {
-        await axios.put(
-          `/api/redirects/${currentRedirect._id}`,
+        await api.put(
+          `/redirects/${currentRedirect._id}`,
           currentRedirect,
         );
       } else {
-        await axios.post("/api/redirects", currentRedirect);
+        await api.post("/redirects", currentRedirect);
       }
       setIsEditing(false);
       resetForm();
@@ -66,7 +66,7 @@ const RedirectManager = () => {
   const handleDelete = async (id) => {
     if (!window.confirm("Delete this redirect?")) return;
     try {
-      await axios.delete(`/api/redirects/${id}`);
+      await api.delete(`/redirects/${id}`);
       fetchRedirects();
     } catch (err) {
       console.error("Error deleting redirect:", err);
@@ -75,7 +75,7 @@ const RedirectManager = () => {
 
   const toggleActive = async (redirect) => {
     try {
-      await axios.put(`/api/redirects/${redirect._id}`, {
+      await api.put(`/redirects/${redirect._id}`, {
         ...redirect,
         isActive: !redirect.isActive,
       });

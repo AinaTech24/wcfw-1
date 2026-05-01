@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import axios from "axios";
+import api from "../../utils/api";
 import {
   FaPlus,
   FaTrash,
@@ -49,7 +49,7 @@ const VideoManager = () => {
 
   const fetchVideos = async () => {
     try {
-      const res = await axios.get("/api/videos");
+      const res = await api.get("/videos");
       setVideos(res.data);
     } catch (err) {
       console.error("Error fetching videos:", err);
@@ -70,9 +70,9 @@ const VideoManager = () => {
       }
 
       if (currentVideo._id) {
-        await axios.put(`/api/videos/${currentVideo._id}`, videoData);
+        await api.put(`/videos/${currentVideo._id}`, videoData);
       } else {
-        await axios.post("/api/videos", videoData);
+        await api.post("/videos", videoData);
       }
       setIsEditing(false);
       resetForm();
@@ -90,7 +90,7 @@ const VideoManager = () => {
   const handleDelete = async (id) => {
     if (!window.confirm("Delete this video?")) return;
     try {
-      await axios.delete(`/api/videos/${id}`);
+      await api.delete(`/videos/${id}`);
       fetchVideos();
     } catch (err) {
       console.error("Error deleting video:", err);

@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useCallback, useMemo } from "react";
-import axios from "axios";
+import api from "../../utils/api";
 import {
   FaSave,
   FaSync,
@@ -101,7 +101,7 @@ const ContentEditor = () => {
   // Fetch all unique pages
   const fetchPages = useCallback(async () => {
     try {
-      const res = await axios.get(API);
+      const res = await api.get(API);
       const allContent = res.data;
       const dbPages = [...new Set(allContent.map((c) => c.page))];
 
@@ -132,7 +132,7 @@ const ContentEditor = () => {
     setLoading(true);
     setError("");
     try {
-      const res = await axios.get(`${API}?page=${selectedPage}`);
+      const res = await api.get(`${API}?page=${selectedPage}`);
       setSections(res.data);
 
       // SEO settings
@@ -186,13 +186,13 @@ const ContentEditor = () => {
       const parsedContent = JSON.parse(content);
       const parsedSeo = JSON.parse(seoContent);
 
-      await axios.post(`${API}/update`, {
+      await api.post(`${API}/update`, {
         page: selectedPage,
         section: selectedSection.section,
         content: parsedContent,
       });
 
-      await axios.post(`${API}/update`, {
+      await api.post(`${API}/update`, {
         page: selectedPage,
         section: "seo-settings",
         content: {},
@@ -218,7 +218,7 @@ const ContentEditor = () => {
     if (!newPageName.trim()) return;
     const pageName = newPageName.trim().toLowerCase().replace(/\s+/g, "-");
     try {
-      await axios.post(`${API}/update`, {
+      await api.post(`${API}/update`, {
         page: pageName,
         section: "hero",
         content: {
@@ -247,7 +247,7 @@ const ContentEditor = () => {
       .toLowerCase()
       .replace(/\s+/g, "-");
     try {
-      await axios.post(`${API}/update`, {
+      await api.post(`${API}/update`, {
         page: selectedPage,
         section: sectionName,
         content: { title: "", description: "", items: [] },
@@ -272,7 +272,7 @@ const ContentEditor = () => {
       return;
     try {
       // Use the delete content endpoint
-      await axios.delete(`${API}/${section._id}`);
+      await api.delete(`${API}/${section._id}`);
       fetchSections();
       setMessage(`Section "${section.section}" deleted.`);
       setTimeout(() => setMessage(""), 3000);
@@ -292,7 +292,7 @@ const ContentEditor = () => {
     )
       return;
     try {
-      await axios.delete(`${API}/page/${pageName}`);
+      await api.delete(`${API}/page/${pageName}`);
       const remaining = pages.filter((p) => p !== pageName);
       setPages(remaining);
       setSelectedPage(remaining.length > 0 ? remaining[0] : "");

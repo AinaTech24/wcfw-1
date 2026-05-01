@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import axios from "axios";
+import api from "../../utils/api";
 import {
   FaPlus,
   FaTrash,
@@ -31,7 +31,7 @@ const TestimonialManager = () => {
 
   const fetchTestimonials = async () => {
     try {
-      const res = await axios.get("/api/testimonials");
+      const res = await api.get("/testimonials");
       setTestimonials(res.data);
     } catch (err) {
       console.error("Error fetching testimonials:", err);
@@ -44,12 +44,12 @@ const TestimonialManager = () => {
     e.preventDefault();
     try {
       if (currentTestimonial._id) {
-        await axios.put(
-          `/api/testimonials/${currentTestimonial._id}`,
+        await api.put(
+          `/testimonials/${currentTestimonial._id}`,
           currentTestimonial,
         );
       } else {
-        await axios.post("/api/testimonials", currentTestimonial);
+        await api.post("/testimonials", currentTestimonial);
       }
       setIsEditing(false);
       resetForm();
@@ -67,7 +67,7 @@ const TestimonialManager = () => {
   const handleDelete = async (id) => {
     if (!window.confirm("Delete this testimonial?")) return;
     try {
-      await axios.delete(`/api/testimonials/${id}`);
+      await api.delete(`/testimonials/${id}`);
       fetchTestimonials();
     } catch (err) {
       console.error("Error deleting testimonial:", err);

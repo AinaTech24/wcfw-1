@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import axios from "axios";
+import api from "../../utils/api";
 import {
   FaTrash,
   FaCheck,
@@ -22,7 +22,7 @@ const EnquiryList = () => {
 
   const fetchEnquiries = async () => {
     try {
-      const res = await axios.get("/api/enquiry");
+      const res = await api.get("/enquiry");
       setEnquiries(res.data);
     } catch (err) {
       console.error("Error fetching enquiries:", err);
@@ -33,7 +33,7 @@ const EnquiryList = () => {
 
   const updateStatus = async (id, status) => {
     try {
-      await axios.patch(`/api/enquiry/${id}/status`, { status });
+      await api.patch(`/enquiry/${id}/status`, { status });
       setEnquiries(enquiries.map((e) => (e._id === id ? { ...e, status } : e)));
       if (selectedEnquiry && selectedEnquiry._id === id) {
         setSelectedEnquiry({ ...selectedEnquiry, status });

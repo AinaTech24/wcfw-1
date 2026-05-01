@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import axios from "axios";
+import api from "../../utils/api";
 import {
   FaSave,
   FaSync,
@@ -35,7 +35,7 @@ const SiteSettings = () => {
 
   const fetchSettings = async () => {
     try {
-      const res = await axios.get("/api/settings");
+      const res = await api.get("/settings");
       setSettings(res.data);
     } catch (err) {
       console.error("Error fetching settings:", err);
@@ -48,7 +48,7 @@ const SiteSettings = () => {
     setSaving(true);
     setMessage("");
     try {
-      await axios.put("/api/settings", settings);
+      await api.put("/settings", settings);
       setMessage("Settings saved successfully!");
       setTimeout(() => setMessage(""), 3000);
     } catch (err) {

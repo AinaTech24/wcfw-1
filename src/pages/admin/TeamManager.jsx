@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import axios from "axios";
+import api from "../../utils/api";
 import {
   FaPlus,
   FaTrash,
@@ -33,7 +33,7 @@ const TeamManager = () => {
 
   const fetchMembers = async () => {
     try {
-      const res = await axios.get("/api/team");
+      const res = await api.get("/team");
       setMembers(res.data);
     } catch (err) {
       console.error("Error fetching team:", err);
@@ -46,9 +46,9 @@ const TeamManager = () => {
     e.preventDefault();
     try {
       if (currentMember._id) {
-        await axios.put(`/api/team/${currentMember._id}`, currentMember);
+        await api.put(`/team/${currentMember._id}`, currentMember);
       } else {
-        await axios.post("/api/team", currentMember);
+        await api.post("/team", currentMember);
       }
       setIsEditing(false);
       resetForm();
@@ -66,7 +66,7 @@ const TeamManager = () => {
   const handleDelete = async (id) => {
     if (!window.confirm("Delete this team member?")) return;
     try {
-      await axios.delete(`/api/team/${id}`);
+      await api.delete(`/team/${id}`);
       fetchMembers();
     } catch (err) {
       console.error("Error deleting member:", err);
@@ -85,7 +85,7 @@ const TeamManager = () => {
     const orderedIds = newMembers.map((m) => m._id);
 
     try {
-      await axios.post("/api/team/reorder", { orderedIds });
+      await api.post("/team/reorder", { orderedIds });
       fetchMembers();
     } catch (err) {
       console.error("Error reordering:", err);
