@@ -15,6 +15,8 @@ import goalBasedImg from "../assets/images/services/goal-based-investing.png";
 import mutualFundsImg from "../assets/images/services/mutual-funds.png";
 import stocksImg from "../assets/images/services/stocks.png";
 
+import { PageLoader } from "../components/LoadingSkeletons";
+
 const Blog = () => {
   const [blogs, setBlogs] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -86,13 +88,7 @@ const Blog = () => {
         ];
 
   if (loading) {
-    return (
-      <div className="min-h-screen flex items-center justify-center bg-[#f8fafc]">
-        <div className="text-lg font-bold text-slate-600 animate-pulse">
-          Loading Blogs...
-        </div>
-      </div>
-    );
+    return <PageLoader />;
   }
 
   return (

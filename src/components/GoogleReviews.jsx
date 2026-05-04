@@ -148,46 +148,6 @@ const GoogleReviews = () => {
 
   return (
     <section className="relative w-full overflow-hidden">
-      <style jsx>{`
-        @keyframes marquee {
-          0% {
-            transform: translateX(0%);
-          }
-          100% {
-            transform: translateX(-50%);
-          }
-        }
-
-        .marquee {
-          animation: marquee 30s linear infinite;
-        }
-
-        .reverse {
-          animation-direction: reverse;
-        }
-
-        .marquee:hover {
-          animation-play-state: paused;
-        }
-
-        .mask-edge {
-          mask-image: linear-gradient(
-            to right,
-            transparent,
-            black 8%,
-            black 92%,
-            transparent
-          );
-          -webkit-mask-image: linear-gradient(
-            to right,
-            transparent,
-            black 8%,
-            black 92%,
-            transparent
-          );
-        }
-      `}</style>
-
       {/* Top Summary */}
       <motion.div
         initial={{ opacity: 0, y: -20 }}

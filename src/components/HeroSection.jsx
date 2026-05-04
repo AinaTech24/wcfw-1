@@ -1,9 +1,9 @@
 import React, { useState, useEffect, useMemo } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { FaArrowRight } from "react-icons/fa";
-import heroNikhil from "../assets/hero_nikhil.png";
-import heroCoins from "../assets/hero_coins.jpg";
-import heroPrepared from "../assets/hero_prepared.png";
+import heroNikhil from "../assets/image1.png";
+import heroCoins from "../assets/image2.png";
+import heroPrepared from "../assets/image3.png";
 import CTAButton from "./CTAButton";
 
 const slides = [
@@ -87,7 +87,7 @@ const HeroSection = ({ content }) => {
 
   return (
     <section
-      className="relative min-h-[80vh] flex items-center bg-gray-50 py-12 sm:py-16"
+      className="relative min-h-[80vh] flex items-center bg-gray-50 py-6 sm:py-10"
       onMouseEnter={() => setPaused(true)}
       onMouseLeave={() => setPaused(false)}
     >
@@ -145,7 +145,7 @@ const HeroSection = ({ content }) => {
                 <button
                   key={index}
                   onClick={() => changeSlide(index)}
-                  className={`h-2 rounded-full transition-all duration-200 ${
+                  className={`h-2 rounded-full transition-all duration-200 outline-none ${
                     currentSlide === index
                       ? "w-6 bg-orange-600"
                       : "w-2 bg-gray-300 hover:bg-gray-400"
@@ -167,9 +167,9 @@ const HeroSection = ({ content }) => {
                 transition={{ duration: 0.3 }}
                 className="relative"
               >
-                <div className="relative w-64 h-64 sm:w-80 sm:h-80 lg:w-[32vw] lg:h-[32vw]">
+                <div className="relative w-64 h-64 sm:w-80 sm:h-80 lg:w-[36vw] lg:h-[36vw] lg:mb-[-6rem]">
                   {/* Main Image Circle */}
-                  <div className="absolute inset-0 rounded-full overflow-hidden border-4 border-white shadow-lg bg-white">
+                  <div className="absolute inset-0 rounded-3xl overflow-hidden">
                     <img
                       src={
                         currentSlide === 0
@@ -178,6 +178,7 @@ const HeroSection = ({ content }) => {
                             ? heroCoins
                             : heroPrepared
                       }
+                      loading="lazy"
                       alt="Financial Advisory"
                       className="w-full h-full object-cover"
                     />
