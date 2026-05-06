@@ -65,7 +65,7 @@ const About = () => {
       role: "Managing Director",
       img: nikhil,
       exp: "15+ Years",
-      bio: "Leading the firm's strategic expansion and digital-first advisory model with institutional precision.",
+      bio: "Leading the firm's strategic expansion and digital-first investment services model with institutional precision.",
     },
     {
       name: "Megha Thakkar",
@@ -79,7 +79,7 @@ const About = () => {
       role: "Director",
       img: priyang,
       exp: "10+ Years",
-      bio: "Driving innovation in wealth management and client portfolio optimization strategies.",
+      bio: "Driving innovation in investment services and client portfolio review processes.",
     },
     {
       name: "Dwij Thakkar",
@@ -103,7 +103,7 @@ const About = () => {
       role: "Chief Operating Officer",
       img: hraday,
       location: "Advisory Board",
-      bio: "Providing institutional wisdom and strategic guidance for long-term growth initiatives.",
+      bio: "Providing institutional experience and strategic direction for long-term business initiatives.",
     },
     {
       name: "Hetal Mehta",
@@ -148,7 +148,7 @@ const About = () => {
       role: "Associate Partner",
       img: pavan,
       location: "Delhi",
-      bio: "Expanding our footprint in the Delhi NCR region with premium advisory services.",
+      bio: "Expanding our footprint in the Delhi NCR region with investment-related services.",
     },
     {
       name: "Amit Arora",
@@ -165,14 +165,14 @@ const About = () => {
       role: "Associate Partner (Insurance - Personal Line)",
       img: prakash,
       location: "Corporate Office",
-      bio: "Focusing on personal insurance solutions and client protection.",
+      bio: "Focusing on retirement-oriented investment options and capital preservation approaches.",
     },
     {
       name: "Nishith Pandya",
       role: "Associate Partner (Insurance - Commercial Line)",
       img: nishith,
       location: "Corporate Office",
-      bio: "Specializing in commercial insurance strategies and risk management.",
+      bio: "Handling commercial insurance solutions and risk coverage services.",
     },
   ];
 
@@ -181,25 +181,25 @@ const About = () => {
       name: "Chintal Patel",
       role: "Relationship Manager",
       img: chintal,
-      bio: "Dedicated to building long-term client relationships and personalized wealth strategies.",
+      bio: "Dedicated to building long-term client relationships and supporting investment needs.",
     },
     {
       name: "Dhruvi Sheth",
       role: "Relationship Manager",
       img: dhruvi,
-      bio: "Providing expert guidance on investment solution and portfolio optimization.",
+      bio: "Assisting with investment processes and portfolio review support.",
     },
     {
       name: "Rohan Goswami",
       role: "Relationship Manager",
       img: rohan,
-      bio: "Focused on goal-based investing and comprehensive financial solution.",
+      bio: "Focused on goal-based investing and investment-related services.",
     },
     {
       name: "Harikrushna Gadhvi",
       role: "Relationship Manager",
       img: hari,
-      bio: "Expert in mutual fund advisory and systematic investment solution.",
+      bio: "Experienced in mutual fund distribution and systematic investment processes.",
     },
   ];
 
@@ -208,7 +208,7 @@ const About = () => {
       name: "Pratik Shah",
       role: "Equity Head",
       img: pratik,
-      bio: "Conducting in-depth market analysis and stock recommendations.",
+      bio: "Conducting market analysis for internal research and insights.",
     },
   ];
 
@@ -310,10 +310,10 @@ const About = () => {
               <div className="p-6 bg-white border shadow-xl rounded-3xl border-slate-100">
                 <FaGem className="mb-4 text-3xl text-orange-500" />
                 <h4 className="mb-2 text-lg font-black text-slate-900">
-                  Premium Advisory
+                  Investment Services
                 </h4>
                 <p className="text-sm text-slate-500">
-                  Strategic planning with elite wealth solutions.
+                  Structured investment services with disciplined approach.
                 </p>
               </div>
 
@@ -383,7 +383,7 @@ const About = () => {
                       The Gold Standard
                     </p>
                     <p className="text-slate-400 text-[8px] sm:text-[10px] font-bold uppercase tracking-widest">
-                      Quality Driven Advisory
+                      Quality Driven Services
                     </p>
                   </div>
                 </div>
@@ -435,9 +435,9 @@ const About = () => {
               <p className="text-slate-400 text-lg sm:text-xl leading-relaxed font-medium">
                 To cultivate{" "}
                 <span className="text-white">absolute financial literacy</span>{" "}
-                across the sub-continent, enabling families to secure a
-                stress-free existence through scientific capital engineering and
-                disciplined deployment.
+                across the sub-continent, enabling families to support informed
+                financial decision-making through disciplined investment
+                approaches.
               </p>
             </motion.div>
 
@@ -452,10 +452,10 @@ const About = () => {
                 Our Vision
               </h3>
               <p className="text-slate-400 text-lg sm:text-xl leading-relaxed font-medium">
-                To empower{" "}
+                Reach{" "}
                 <span className="text-white">1,000,000 individual lives</span>{" "}
-                with sophisticated financial wisdom by 2025, architecting a
-                sustainable roadmap for generational prosperity.
+                through accessible investment services and financial awareness
+                initiatives.
               </p>
             </motion.div>
           </div>
@@ -537,7 +537,7 @@ const About = () => {
         <div id="relationship-managers">
           <TeamSection
             title="Relationship Managers"
-            subtitle="Your Trusted Advisors"
+            subtitle="Your Relationship Managers"
             icon={FaHandshake}
             members={relationshipManagers}
             columns="lg:grid-cols-4"
@@ -559,14 +559,14 @@ const About = () => {
               "Building Legacies, <br /> Together."
             </h2>
             <p className="text-slate-500 text-lg sm:text-xl mb-8 sm:mb-12 max-w-2xl mx-auto font-medium">
-              Ready to architect your own financial legacy? Let's build a future
-              where your capital works for your vision.
+              Ready to start your investment journey with suitable options
+              aligned to your financial goals?
             </p>
             <Link
               to="/contact"
               className="inline-flex items-center px-8 py-4 sm:px-12 sm:py-6 bg-slate-900 text-white font-black rounded-xl sm:rounded-2xl shadow-2xl hover:bg-orange-600 transition-all transform hover:scale-105 group text-sm sm:text-base"
             >
-              Schedule a Vision Meeting{" "}
+              Get in Touch{" "}
               <FaArrowRight className="ml-3 group-hover:translate-x-2 transition-transform" />
             </Link>
           </div>

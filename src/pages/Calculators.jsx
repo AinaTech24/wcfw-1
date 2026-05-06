@@ -30,7 +30,8 @@ const Calculators = () => {
       name: "SIP Calculator",
       path: "/calculator/sip",
       icon: FaChartLine,
-      description: "Calculate your SIP returns and plan systematic investments",
+      description:
+        "Estimate potential returns for SIP investments based on assumed rates of return.",
       color: "from-orange-500 to-yellow-500",
       category: "Investment",
       popular: true,
@@ -39,7 +40,8 @@ const Calculators = () => {
       name: "Lumpsum Calculator",
       path: "/calculator/lumpsum",
       icon: FaPiggyBank,
-      description: "Calculate returns on one-time lump sum investments",
+      description:
+        "Estimate potential returns on one-time investments based on assumed returns.",
       color: "from-green-500 to-emerald-500",
       category: "Investment",
       popular: true,
@@ -48,7 +50,8 @@ const Calculators = () => {
       name: "SWP Calculator",
       path: "/calculator/swp",
       icon: FaExchangeAlt,
-      description: "Systematic Withdrawal Plan calculator for regular income",
+      description:
+        "Systematic Withdrawal Plan calculator for estimating withdrawals",
       color: "from-blue-500 to-indigo-500",
       category: "Investment",
     },
@@ -64,7 +67,7 @@ const Calculators = () => {
       name: "Retirement Calculator",
       path: "/calculator/retirement",
       icon: FaPiggyBank,
-      description: "Plan your retirement corpus and secure your future",
+      description: "Estimate retirement corpus based on assumptions and inputs",
       color: "from-red-500 to-orange-500",
       category: "Solution",
       popular: true,
@@ -81,7 +84,7 @@ const Calculators = () => {
       name: "Insurance Calculator",
       path: "/calculator/insurance",
       icon: FaUmbrella,
-      description: "Calculate your ideal life insurance coverage",
+      description: "Estimate life insurance coverage requirements",
       color: "from-teal-500 to-cyan-500",
       category: "Solution",
     },
@@ -89,7 +92,8 @@ const Calculators = () => {
       name: "EMI Calculator",
       path: "/calculator/emi",
       icon: FaCalculator,
-      description: "Calculate your loan EMI payments",
+      description:
+        "Estimate your income tax liability based on applicable rules",
       color: "from-indigo-500 to-purple-500",
       category: "Loan",
       popular: true,
@@ -98,7 +102,8 @@ const Calculators = () => {
       name: "Tax Calculator",
       path: "/calculator/tax",
       icon: FaFileInvoiceDollar,
-      description: "Calculate your income tax and plan savings",
+      description:
+        "Estimate your income tax liability based on applicable rules",
       color: "from-green-600 to-teal-600",
       category: "Tax",
     },
@@ -106,7 +111,7 @@ const Calculators = () => {
       name: "Marriage Calculator",
       path: "/calculator/marriage",
       icon: FaRing,
-      description: "Plan and save for your dream wedding",
+      description: "Estimate expenses and savings required for your wedding",
       color: "from-pink-500 to-rose-500",
       category: "Solution",
     },
@@ -114,7 +119,7 @@ const Calculators = () => {
       name: "Education Calculator",
       path: "/calculator/education",
       icon: FaGraduationCap,
-      description: "Plan for your child's education expenses",
+      description: "Estimate education expenses and required savings",
       color: "from-blue-600 to-cyan-600",
       category: "Solution",
     },
@@ -138,7 +143,7 @@ const Calculators = () => {
       name: "Vacation Calculator",
       path: "/calculator/vacation",
       icon: FaPlane,
-      description: "Plan and save for your dream vacation",
+      description: "Estimate savings required for your vacation",
       color: "from-sky-400 to-blue-500",
       category: "Solution",
     },
@@ -195,18 +200,17 @@ const Calculators = () => {
               </h1>
 
               <p className="max-w-xl mb-12 text-lg font-medium leading-relaxed md:text-xl text-slate-700">
-                Institutional-grade tools engineered to provide absolute
-                clarity. Plan, project, and achieve your financial milestones
-                with clinical precision.
+                Tools to help you estimate and understand financial outcomes.
+                Plan and review your financial goals with informed calculations.
               </p>
 
               <div className="flex flex-wrap gap-10">
                 <div className="flex flex-col">
                   <span className="text-3xl font-black text-slate-900">
-                    100%
+                    Estimation Tools
                   </span>
                   <span className="text-slate-500 text-[10px] font-bold uppercase tracking-widest">
-                    Accuracy Protocol
+                    For Illustration
                   </span>
                 </div>
                 <div className="w-px h-12 bg-slate-200"></div>
@@ -266,7 +270,7 @@ const Calculators = () => {
                 Refine Search
               </h3>
               <p className="text-slate-500 text-[10px] sm:text-sm font-medium uppercase tracking-wider italic">
-                Find your specialized instrument
+                Find a Calculator
               </p>
             </div>
             <div className="flex flex-col w-full gap-4 lg:col-span-9 sm:gap-6">

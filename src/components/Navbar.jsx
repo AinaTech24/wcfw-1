@@ -21,20 +21,6 @@ import {
 import useCMSContent from "../hooks/useCMSContent";
 import logo from "../assets/logo.png";
 
-// Import About Images
-import legacyImg from "../assets/images/about/legacy.png";
-import storyImg from "../assets/images/about/story.png";
-import missionImg from "../assets/images/about/mission.png";
-import teamImg from "../assets/images/about/team.jpg";
-
-// Import Service Images for Mega Menu
-import goalBasedImg from "../assets/images/services/goal-based-investing.png";
-import mutualFundsImg from "../assets/images/services/mutual-funds.png";
-import stocksImg from "../assets/images/services/stocks.png";
-import fixedDepositsImg from "../assets/images/services/fixed-deposits.png";
-import taxSolutionImg from "../assets/images/services/tax-solution.png";
-import lifeInsuranceImg from "../assets/images/services/life-insurance.png";
-
 // Import CTA Button Component
 import CTAButton from "./CTAButton";
 
@@ -137,6 +123,22 @@ const Navbar = () => {
   }, []);
 
   useEffect(() => {
+    const handleScrollClose = () => {
+      closeAllDesktopDropdowns();
+    };
+
+    window.addEventListener("scroll", handleScrollClose);
+
+    return () => {
+      window.removeEventListener("scroll", handleScrollClose);
+    };
+  }, []);
+
+  useEffect(() => {
+    closeAllDesktopDropdowns();
+  }, [location.pathname]);
+
+  useEffect(() => {
     const isAnyOpen =
       showAboutDropdown || showServicesDropdown || showKnowledgeDropdown;
 
@@ -196,7 +198,6 @@ const Navbar = () => {
       name: "Our Legacy",
       path: "/about#our-legacy",
       icon: FaHistory,
-      image: legacyImg,
       desc: "Built on decades of financial wisdom",
       color: "text-orange-600",
     },
@@ -204,7 +205,6 @@ const Navbar = () => {
       name: "Our Story",
       path: "/about#our-story",
       icon: FaBookOpen,
-      image: storyImg,
       desc: "The evolution of wealth advisory",
       color: "text-blue-600",
     },
@@ -212,7 +212,6 @@ const Navbar = () => {
       name: "Mission & Vision",
       path: "/about#mission-vision",
       icon: FaLightbulb,
-      image: missionImg,
       desc: "Architecting the future of independence",
       color: "text-purple-600",
     },
@@ -220,7 +219,6 @@ const Navbar = () => {
       name: "Our Team",
       path: "/about#our-team",
       icon: FaUsers,
-      image: teamImg,
       desc: "Meet the minds behind your wealth",
       color: "text-green-600",
     },
@@ -231,54 +229,42 @@ const Navbar = () => {
       name: "Goal Based Investing",
       path: "/services/goal-base-investing",
       icon: FaBullseye,
-      image: goalBasedImg,
       desc: "Scientific mapping of life milestones",
-      metric: "Target Success Solution",
       color: "text-orange-600",
     },
     {
       name: "Mutual Funds",
       path: "/services/mutual-fund",
       icon: FaChartLine,
-      image: mutualFundsImg,
       desc: "Alpha-seeking curated portfolios",
-      metric: "Top 5% Schemes",
       color: "text-blue-600",
     },
     {
       name: "Direct Equities",
       path: "/services/stocks",
       icon: FaChartPie,
-      image: stocksImg,
       desc: "Advisor-guided equity exposure",
-      metric: "Research Backed",
       color: "text-green-600",
     },
     {
       name: "Life Insurance",
       path: "/services/life-insurance",
       icon: FaUmbrella,
-      image: lifeInsuranceImg,
       desc: "Human Life Value protection tranches",
-      metric: "Maximum HLV",
       color: "text-red-600",
     },
     {
       name: "Fixed Income",
       path: "/services/fixed-deposit",
       icon: FaLandmark,
-      image: fixedDepositsImg,
       desc: "Strategic capital preservation models",
-      metric: "AAA Insured",
       color: "text-amber-600",
     },
     {
       name: "Tax Solution",
       path: "/services/tax-solution",
       icon: FaFileInvoiceDollar,
-      image: taxSolutionImg,
       desc: "Optimization of net-take-home income",
-      metric: "Efficiency Audit",
       color: "text-purple-600",
     },
   ];
@@ -288,14 +274,12 @@ const Navbar = () => {
       name: "Newsletter",
       path: "/newsletter",
       icon: FaBookOpen,
-      image: legacyImg,
       desc: "Institutional Analysis & Daily Pulse",
     },
     {
-      name: "Insights Blog",
+      name: "Blog",
       path: "/blog",
       icon: FaLightbulb,
-      image: storyImg,
       desc: "Strategic Research & Wisdom",
     },
   ];
@@ -334,12 +318,7 @@ const Navbar = () => {
           <Logo />
 
           {/* Desktop Nav */}
-          <div
-            className="items-center hidden space-x-1 desktop-nav-wrap lg:flex"
-            onMouseLeave={() => {
-              setTimeout(closeAllDesktopDropdowns, 120);
-            }}
-          >
+          <div className="items-center hidden space-x-1 desktop-nav-wrap lg:flex">
             {navItems.map((item, index) => (
               <motion.div
                 key={item.name}
@@ -349,11 +328,24 @@ const Navbar = () => {
                 className="relative"
               >
                 <div
-                  onMouseEnter={() => {
-                    if (item.name === "About Us") openDropdown("about");
-                    if (item.name === "Services") openDropdown("services");
-                    if (item.name === "Knowledge Hub")
-                      openDropdown("knowledge");
+                  onClick={() => {
+                    if (item.name === "About Us") {
+                      setShowAboutDropdown((prev) => !prev);
+                      setShowServicesDropdown(false);
+                      setShowKnowledgeDropdown(false);
+                    }
+
+                    if (item.name === "Services") {
+                      setShowServicesDropdown((prev) => !prev);
+                      setShowAboutDropdown(false);
+                      setShowKnowledgeDropdown(false);
+                    }
+
+                    if (item.name === "Knowledge Hub") {
+                      setShowKnowledgeDropdown((prev) => !prev);
+                      setShowAboutDropdown(false);
+                      setShowServicesDropdown(false);
+                    }
                   }}
                   className={`relative px-4 py-2 text-sm font-bold tracking-tight transition-all duration-300 group flex items-center cursor-pointer ${
                     location.pathname === item.path ||
@@ -394,73 +386,41 @@ const Navbar = () => {
                   ></span>
                 </div>
 
-                {/* Overlay for closing dropdowns when clicking outside */}
-                {(showAboutDropdown ||
-                  showServicesDropdown ||
-                  showKnowledgeDropdown) && (
-                  <div
-                    className="fixed inset-0 z-[-1] cursor-default bg-orange-100/5 backdrop-blur-sm transition-opacity"
-                    onClick={() => {
-                      setShowAboutDropdown(false);
-                      setShowServicesDropdown(false);
-                      setShowKnowledgeDropdown(false);
-                    }}
-                  />
-                )}
-
                 {/* Dropdown Menu for About Us */}
                 <AnimatePresence mode="wait">
                   {item.name === "About Us" && showAboutDropdown && (
                     <motion.div
                       variants={megaMenuAnimation}
                       onMouseEnter={() => {}}
-                      onMouseLeave={() => closeAllDesktopDropdowns()}
+                      onMouseLeave={(e) => {
+                        const relatedTarget = e.relatedTarget;
+
+                        if (
+                          !relatedTarget ||
+                          !(relatedTarget instanceof Node) ||
+                          !e.currentTarget.contains(relatedTarget)
+                        ) {
+                          closeAllDesktopDropdowns();
+                        }
+                      }}
                       initial="initial"
                       animate="animate"
                       exit="exit"
                       style={{ transformOrigin: "top center" }}
-                      className="fixed top-28 left-0 right-0 mx-auto w-[95vw] max-w-7xl bg-white rounded-[3rem] shadow-[0_50px_100px_-20px_rgba(0,0,0,0.15)] border border-slate-200 overflow-hidden z-[1001] p-10"
+                      className="absolute top-full -left-32 mt-4 w-[300px] bg-white rounded-2xl border border-slate-200 shadow-xl z-[1001] p-4"
                     >
-                      <div className="flex items-center justify-between px-4 mb-10">
-                        <div className="flex items-center space-x-4">
-                          <div className="w-1.5 h-8 bg-orange-500 rounded-full" />
-                          <h3 className="text-2xl font-black tracking-tighter uppercase text-slate-900">
-                            Corporate Identity
-                          </h3>
-                        </div>
-                        <button
-                          onClick={() => setShowAboutDropdown(false)}
-                          className="p-2 transition-colors rounded-full hover:bg-slate-100 text-slate-400"
-                        >
-                          <svg
-                            className="w-6 h-6"
-                            fill="none"
-                            stroke="currentColor"
-                            viewBox="0 0 24 24"
-                          >
-                            <path
-                              strokeLinecap="round"
-                              strokeLinejoin="round"
-                              strokeWidth="2"
-                              d="M6 18L18 6M6 6l12 12"
-                            />
-                          </svg>
-                        </button>
-                      </div>
-
-                      <div className="grid grid-cols-6 gap-6">
-                        {/* Empty space to center 4 items in a 6-column grid */}
-                        <div className="hidden lg:block"></div>
+                      <div className="space-y-1">
                         {aboutSections.map((section, idx) => (
                           <Link
                             key={idx}
                             to={section.path}
                             onClick={() => {
                               setShowAboutDropdown(false);
-                              // Scroll to section after navigation
+
                               setTimeout(() => {
                                 const id = section.path.split("#")[1];
                                 const element = document.getElementById(id);
+
                                 if (element) {
                                   const offset = 120;
                                   const elementPosition =
@@ -469,6 +429,7 @@ const Navbar = () => {
                                     elementPosition +
                                     window.pageYOffset -
                                     offset;
+
                                   window.scrollTo({
                                     top: offsetPosition,
                                     behavior: "smooth",
@@ -476,251 +437,111 @@ const Navbar = () => {
                                 }
                               }, 100);
                             }}
-                            className={`${idx === 0 ? "lg:col-start-2" : ""} group/item relative aspect-square rounded-[2.5rem] overflow-hidden bg-slate-50 border border-slate-100 shadow-sm transition-all hover:shadow-2xl hover:border-orange-200 outline-none focus:ring-2 focus:ring-orange-400 focus:ring-offset-2 focus:ring-offset-white`}
+                            className="block px-4 py-3 rounded-xl transition-all duration-200 hover:bg-slate-50"
                           >
-                            {/* Image */}
-                            <img
-                              src={section.image}
-                              alt={section.name}
-                              loading="lazy"
-                              decoding="async"
-                              className="absolute inset-0 object-cover w-full h-full transition-transform duration-700 group-hover/item:scale-110"
-                            />
-
-                            {/* Rich Gradient Overlay */}
-                            <div className="absolute inset-x-0 bottom-0 h-2/3 bg-gradient-to-t from-slate-950 via-slate-900/40 to-transparent" />
-
-                            {/* Label */}
-                            <div className="absolute inset-x-0 bottom-0 p-6 text-center transition-transform transform group-hover/item:-translate-y-1">
-                              <div className="flex justify-center mb-3 transition-opacity opacity-80 group-hover/item:opacity-100">
-                                <section.icon className="text-2xl text-white" />
-                              </div>
-                              <p className="font-black text-white text-[10px] uppercase tracking-widest leading-tight">
+                            <div className="space-y-1">
+                              <h4 className="text-sm font-bold text-slate-900">
                                 {section.name}
+                              </h4>
+
+                              <p className="mt-1 text-xs leading-relaxed text-slate-500">
+                                {section.desc}
                               </p>
                             </div>
-
-                            {/* Interactive Border Effect */}
-                            <div className="absolute inset-0 border-4 border-orange-500/0 group-hover/item:border-orange-500/20 rounded-[2.5rem] transition-all" />
                           </Link>
                         ))}
-                      </div>
-
-                      <div className="flex items-center justify-between px-4 pt-8 mt-10 border-t border-slate-100">
-                        <div className="flex items-center space-x-8">
-                          <p className="text-[10px] font-bold text-slate-400 uppercase tracking-[0.3em]">
-                            We Care Freedom Wealth Pvt Ltd
-                          </p>
-                          <div className="w-px h-4 bg-slate-200" />
-                          <p className="text-[10px] font-black text-slate-900 uppercase tracking-widest flex items-center">
-                            <span className="w-2 h-2 mr-2 bg-green-500 rounded-full animate-pulse" />
-                            Institutional Integrity Verified
-                          </p>
-                        </div>
-                        <Link
-                          to="/about"
-                          onClick={() => setShowAboutDropdown(false)}
-                          className="text-[10px] flex items-center gap-1 font-black text-orange-600 uppercase tracking-widest hover:text-orange-700 transition-colors"
-                        >
-                          Explore Corporate Profile <FaArrowRight />
-                        </Link>
                       </div>
                     </motion.div>
                   )}
                 </AnimatePresence>
-
                 {/* Mega Menu for Services */}
                 <AnimatePresence mode="wait">
                   {item.name === "Services" && showServicesDropdown && (
                     <motion.div
                       variants={megaMenuAnimation}
                       onMouseEnter={() => {}}
-                      onMouseLeave={() => closeAllDesktopDropdowns()}
+                      onMouseLeave={(e) => {
+                        const relatedTarget = e.relatedTarget;
+
+                        if (
+                          !relatedTarget ||
+                          !(relatedTarget instanceof Node) ||
+                          !e.currentTarget.contains(relatedTarget)
+                        ) {
+                          closeAllDesktopDropdowns();
+                        }
+                      }}
                       initial="initial"
                       animate="animate"
                       exit="exit"
                       style={{ transformOrigin: "top center" }}
-                      className="fixed top-28 left-0 right-0 mx-auto w-[95vw] max-w-7xl bg-white rounded-[3rem] shadow-[0_50px_100px_-20px_rgba(0,0,0,0.15)] border border-slate-200 overflow-hidden z-[1001] p-10"
+                      className="absolute top-full -left-32 mt-4 w-[300px] bg-white rounded-2xl border border-slate-200 shadow-xl z-[1001] p-4"
                     >
-                      <div className="flex items-center justify-between px-4 mb-10">
-                        <div className="flex items-center space-x-4">
-                          <div className="w-1.5 h-8 bg-orange-500 rounded-full" />
-                          <h3 className="text-2xl font-black tracking-tighter uppercase text-slate-900">
-                            Portfolio Tranches
-                          </h3>
-                        </div>
-                        <button
-                          onClick={() => setShowServicesDropdown(false)}
-                          className="p-2 transition-colors rounded-full hover:bg-slate-100 text-slate-400"
-                        >
-                          <svg
-                            className="w-6 h-6"
-                            fill="none"
-                            stroke="currentColor"
-                            viewBox="0 0 24 24"
-                          >
-                            <path
-                              strokeLinecap="round"
-                              strokeLinejoin="round"
-                              strokeWidth="2"
-                              d="M6 18L18 6M6 6l12 12"
-                            />
-                          </svg>
-                        </button>
-                      </div>
-
-                      <div className="grid grid-cols-6 gap-6">
+                      <div className="space-y-1">
                         {serviceSections.map((section, idx) => (
                           <Link
                             key={idx}
                             to={section.path}
                             onClick={() => setShowServicesDropdown(false)}
-                            className="group/item relative aspect-square rounded-[2.5rem] overflow-hidden bg-slate-50 border border-slate-100 shadow-sm transition-all hover:shadow-2xl hover:border-orange-200 outline-none"
+                            className="block px-4 py-3 rounded-xl transition-all duration-200 hover:bg-slate-50"
                           >
-                            {/* Service Image */}
-                            <img
-                              src={section.image}
-                              alt={section.name}
-                              loading="lazy"
-                              decoding="async"
-                              className="absolute inset-0 object-cover w-full h-full transition-transform duration-700 group-hover/item:scale-110"
-                            />
-
-                            {/* Rich Gradient Overlay */}
-                            <div className="absolute inset-x-0 bottom-0 h-2/3 bg-gradient-to-t from-slate-950 via-slate-900/40 to-transparent" />
-
-                            {/* Service Label */}
-                            <div className="absolute inset-x-0 bottom-0 p-6 text-center transition-transform transform group-hover/item:-translate-y-1">
-                              <div className="flex justify-center mb-3 transition-opacity opacity-80 group-hover/item:opacity-100">
-                                <section.icon className="text-2xl text-white" />
-                              </div>
-                              <p className="font-black text-white text-[10px] uppercase tracking-widest leading-tight">
+                            <div className="space-y-1">
+                              <h4 className="text-sm font-bold text-slate-900">
                                 {section.name}
+                              </h4>
+
+                              <p className="mt-1 text-xs leading-relaxed text-slate-500">
+                                {section.desc}
                               </p>
                             </div>
-
-                            {/* Interactive Border Effect */}
-                            <div className="absolute inset-0 border-4 border-orange-500/0 group-hover/item:border-orange-500/20 rounded-[2.5rem] transition-all" />
                           </Link>
                         ))}
-                      </div>
-
-                      <div className="flex items-center justify-between px-4 pt-8 mt-10 border-t border-slate-100">
-                        <div className="flex items-center space-x-8">
-                          <p className="text-[10px] font-bold text-slate-400 uppercase tracking-[0.3em]">
-                            We Care Freedom Wealth Pvt Ltd
-                          </p>
-                          <div className="w-px h-4 bg-slate-200" />
-                          <p className="text-[10px] font-black text-slate-900 uppercase tracking-widest flex items-center">
-                            <span className="w-2 h-2 mr-2 bg-green-500 rounded-full animate-pulse" />
-                            Secure Advisory Connectivity
-                          </p>
-                        </div>
-                        <Link
-                          to="/contact"
-                          onClick={() => setShowServicesDropdown(false)}
-                          className="text-[10px] flex items-center gap-1 font-black text-orange-600 uppercase tracking-widest hover:text-orange-700 transition-colors outline-none"
-                        >
-                          Initialize Consultation <FaArrowRight />
-                        </Link>
                       </div>
                     </motion.div>
                   )}
                 </AnimatePresence>
-
                 {/* Mega Menu for Knowledge Hub */}
                 <AnimatePresence mode="wait">
                   {item.name === "Knowledge Hub" && showKnowledgeDropdown && (
                     <motion.div
                       variants={megaMenuAnimation}
                       onMouseEnter={() => {}}
-                      onMouseLeave={() => closeAllDesktopDropdowns()}
+                      onMouseLeave={(e) => {
+                        const relatedTarget = e.relatedTarget;
+
+                        if (
+                          !relatedTarget ||
+                          !(relatedTarget instanceof Node) ||
+                          !e.currentTarget.contains(relatedTarget)
+                        ) {
+                          closeAllDesktopDropdowns();
+                        }
+                      }}
                       initial="initial"
                       animate="animate"
                       exit="exit"
                       style={{ transformOrigin: "top center" }}
-                      className="fixed top-28 left-0 right-0 mx-auto w-[95vw] max-w-7xl bg-white rounded-[3rem] shadow-[0_50px_100px_-20px_rgba(0,0,0,0.15)] border border-slate-200 overflow-hidden z-[1001] p-10"
+                      className="absolute top-full -left-32 mt-4 w-[300px] bg-white rounded-2xl border border-slate-200 shadow-xl z-[1001] p-4"
                     >
-                      <div className="flex items-center justify-between px-4 mb-10">
-                        <div className="flex items-center space-x-4">
-                          <div className="w-1.5 h-8 bg-orange-500 rounded-full" />
-                          <h3 className="text-2xl font-black tracking-tighter uppercase text-slate-900">
-                            Knowledge Repository
-                          </h3>
-                        </div>
-                        <button
-                          onClick={() => setShowKnowledgeDropdown(false)}
-                          className="p-2 transition-colors rounded-full hover:bg-slate-100 text-slate-400"
-                        >
-                          <svg
-                            className="w-6 h-6"
-                            fill="none"
-                            stroke="currentColor"
-                            viewBox="0 0 24 24"
-                          >
-                            <path
-                              strokeLinecap="round"
-                              strokeLinejoin="round"
-                              strokeWidth="2"
-                              d="M6 18L18 6M6 6l12 12"
-                            />
-                          </svg>
-                        </button>
-                      </div>
-
-                      <div className="grid grid-cols-6 gap-6">
-                        {/* Empty space to center 2 items in a 6-column grid */}
-                        <div className="lg:col-span-2"></div>
-
+                      <div className="space-y-1">
                         {knowledgeSections.map((section, idx) => (
                           <Link
                             key={idx}
                             to={section.path}
                             onClick={() => setShowKnowledgeDropdown(false)}
-                            className="group/item relative aspect-square rounded-[2.5rem] overflow-hidden bg-slate-50 border border-slate-100 shadow-sm transition-all hover:shadow-2xl hover:border-orange-200 outline-none focus:ring-2 focus:ring-orange-400 focus:ring-offset-2 focus:ring-offset-white"
+                            className="block px-4 py-3 rounded-xl transition-all duration-200 hover:bg-slate-50"
                           >
-                            {/* Image */}
-                            <img
-                              src={section.image}
-                              alt={section.name}
-                              loading="lazy"
-                              decoding="async"
-                              className="absolute inset-0 object-cover w-full h-full transition-transform duration-700 group-hover/item:scale-110"
-                            />
-
-                            {/* Rich Gradient Overlay */}
-                            <div className="absolute inset-x-0 bottom-0 h-2/3 bg-gradient-to-t from-slate-950 via-slate-900/40 to-transparent" />
-
-                            {/* Label */}
-                            <div className="absolute inset-x-0 bottom-0 p-6 text-center transition-transform transform group-hover/item:-translate-y-1">
-                              <div className="flex justify-center mb-3 transition-opacity opacity-80 group-hover/item:opacity-100">
-                                <section.icon className="text-2xl text-white" />
-                              </div>
-                              <p className="font-black text-white text-[10px] uppercase tracking-widest leading-tight mb-1">
+                            <div className="space-y-1">
+                              <h4 className="text-sm font-bold text-slate-900">
                                 {section.name}
-                              </p>
-                              <p className="text-[8px] text-slate-300 font-bold uppercase tracking-wider opacity-0 group-hover/item:opacity-100 transition-opacity">
+                              </h4>
+
+                              <p className="mt-1 text-xs leading-relaxed text-slate-500">
                                 {section.desc}
                               </p>
                             </div>
-
-                            {/* Interactive Border Effect */}
-                            <div className="absolute inset-0 border-4 border-orange-500/0 group-hover/item:border-orange-500/20 rounded-[2.5rem] transition-all" />
                           </Link>
                         ))}
-                      </div>
-
-                      <div className="flex items-center justify-between px-4 pt-8 mt-10 border-t border-slate-100">
-                        <div className="flex items-center space-x-8">
-                          <p className="text-[10px] font-bold text-slate-400 uppercase tracking-[0.3em]">
-                            Intelligence Hub
-                          </p>
-                          <div className="w-px h-4 bg-slate-200" />
-                          <p className="text-[10px] font-black text-slate-900 uppercase tracking-widest flex items-center">
-                            <span className="w-2 h-2 mr-2 bg-orange-500 rounded-full animate-pulse" />
-                            Institutional Analysis
-                          </p>
-                        </div>
                       </div>
                     </motion.div>
                   )}

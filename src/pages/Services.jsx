@@ -55,14 +55,14 @@ const Services = () => {
       icon: FaBullseye,
       image: goalBasedImg,
       description:
-        "Transform your dreams into achievable milestones. We design portfolios that align perfectly with your life events.",
+        "Align your investments with your financial goals and time horizon through suitable mutual fund options.",
       howWeHelp:
-        "Our scientific approach maps every rupee you invest to a specific life goal. We Solution your daughter's education, your dream retirement, and your legacy, ensuring you have the right amount at precisely the right time.",
+        "We help you align investments with financial goals such as education, retirement, and other needs through disciplined investing.",
       gradient: "from-orange-500 to-red-600",
       link: "/services/goal-base-investing",
       features: [
         "Goal Mapping",
-        "Timeline Solution",
+        "Timeline Alignment",
         "Progress Tracking",
         "Rebalancing",
       ],
@@ -73,13 +73,13 @@ const Services = () => {
       icon: FaChartLine,
       image: mutualFundsImg,
       description:
-        "Wealth creation for the long term through disciplined systematic investment. Elite fund curation.",
+        "Long-term investing through disciplined systematic investment plans and diversified mutual fund options.",
       howWeHelp:
-        "With over 35 years of experience, we select funds based on consistent performance and institutional grade metrics. We ensure you stay disciplined during market volatility.",
+        "With over 35 years of experience, we select mutual fund schemes based on defined parameters and consistency. We ensure you stay disciplined during market volatility.",
       gradient: "from-blue-500 to-indigo-600",
       link: "/services/mutual-fund",
       features: [
-        "Curated Selection",
+        "Scheme Selection",
         "SIP Strategies",
         "Tax Efficiency",
         "Diversification",
@@ -91,9 +91,9 @@ const Services = () => {
       icon: FaChartPie,
       image: stocksImg,
       description:
-        "Direct participation with research-backed guidance. Navigate the markets with confidence.",
+        "Direct equity investments based on market information and research insights.",
       howWeHelp:
-        "We provide advisor-guided equity portfolios. Our focus is on fundamentally strong companies and emerging sectors, helping you build a direct ownership stake in the Indian growth story.",
+        "We facilitate access to equity investments based on available market data. Our focus is on fundamentally strong companies and emerging sectors, helping you build a direct ownership stake in the Indian growth story.",
       gradient: "from-green-500 to-emerald-600",
       link: "/services/stocks",
       features: [
@@ -111,12 +111,12 @@ const Services = () => {
       description:
         "Protecting what matters most. Comprehensive risk coverage solutions for family security.",
       howWeHelp:
-        "Insurance is a foundation, not just an investment. We perform a Human Life Value (HLV) analysis to determine exact coverage, ensuring you're protected without over-paying.",
+        "Insurance is a foundation, not just an investment. We assess coverage needs based on financial responsibilities, ensuring you're protected without over-paying.",
       gradient: "from-red-500 to-rose-600",
       link: "/services/life-insurance",
       features: [
-        "HLV Analysis",
-        "Term Solution",
+        "Coverage Need Assessment",
+        "Term Insurance Options",
         "Family Security",
         "Optimal Cover",
       ],
@@ -127,15 +127,15 @@ const Services = () => {
       icon: FaLandmark,
       image: fixedDepositsImg,
       description:
-        "Stable and secured returns for capital preservation. High-yield institutional deposits.",
+        "Fixed income options for capital stability based on issuer terms and conditions.",
       howWeHelp:
-        "We select AAA-rated deposits that offer higher returns than traditional bank savings while maintaining capital safety. Ideal for short-term targets or emergency corpus.",
+        "We select AAA-rated deposits that offer fixed returns as per issuer terms, subject to associated conditions. Ideal for short-term targets or emergency corpus.",
       gradient: "from-yellow-400 to-orange-500",
       link: "/services/fixed-deposit",
       features: [
-        "AAA Ratings",
+        "Issuer Rating Based",
         "Capital Safety",
-        "Stable Yields",
+        "Fixed Returns",
         "High Liquidity",
       ],
     },
@@ -144,17 +144,16 @@ const Services = () => {
       category: "Tax",
       icon: FaFileInvoiceDollar,
       image: taxSolutionImg,
-      description:
-        "Efficient strategies to maximize take-home income. Utilizing all legal available tools.",
+      description: "Tax-saving options available under applicable laws.",
       howWeHelp:
-        "Tax saving is integral to wealth creation. We identify ELSS, insurance, and other 80C/80D opportunities that not only save taxes but contribute meaningfully to wealth.",
+        "Tax-saving investments can support overall financial goals. We identify ELSS, insurance, and other 80C/80D opportunities that help in tax saving while aligning with financial goals.",
       gradient: "from-purple-500 to-violet-600",
       link: "/services/tax-solution",
       features: [
-        "80C Optimization",
+        "Tax Saving Options",
         "Tax-Loss Harvesting",
         "Efficiency Audits",
-        "Elite Solution",
+        "Tax Options",
       ],
     },
   ];
@@ -170,9 +169,9 @@ const Services = () => {
 
   const faqs = [
     {
-      question: "How do you select the best investment schemes?",
+      question: "How do you select the suitable investment schemes?",
       answer:
-        "We use a proprietary 7-tier institutional screening process that analyzes rolling returns, downside capture, and fund manager pedigree across 2,500+ schemes.",
+        "We use a defined internal selection process that analyzes rolling returns, downside capture, and fund manager pedigree across 2,500+ schemes.",
     },
     {
       question: "Is there a minimum investment to start?",
@@ -182,7 +181,7 @@ const Services = () => {
     {
       question: "How often do you review my portfolio?",
       answer:
-        "We conduct tactical reviews every quarter and semi-annual strategic audits. However, our internal algorithms monitor your asset allocation daily for trigger events.",
+        "We conduct tactical reviews every quarter and semi-annual strategic audits. However, our investments are periodically reviewed for trigger events.",
     },
   ];
 
@@ -190,22 +189,22 @@ const Services = () => {
     {
       icon: FaSearch,
       title: "Deep Discovery",
-      desc: "We analyze your current finances and psychological risk profile.",
+      desc: "We understand your financial situation and risk preference.",
     },
     {
       icon: FaClipboardList,
       title: "Strategic Audit",
-      desc: "A clinical review of your goals versus current market reality.",
+      desc: "Review of your financial goals and current investments.",
     },
     {
       icon: FaUserTie,
       title: "Elite Execution",
-      desc: "Implementation through institutional-grade platforms.",
+      desc: "Execution through available investment platforms.",
     },
     {
       icon: FaRocket,
       title: "Velocity Check",
-      desc: "Constant monitoring and orbital adjustments for your wealth.",
+      desc: "Periodic review and updates based on investment performance.",
     },
   ];
 
@@ -240,8 +239,8 @@ const Services = () => {
                   <span
                     dangerouslySetInnerHTML={{
                       __html: cmsContent["hero"].title.replace(
-                        /Advisory\./g,
-                        '<span class="text-transparent bg-clip-text bg-gradient-to-r from-orange-600 to-amber-500">Advisory.</span>',
+                        /Services\./g,
+                        '<span class="text-transparent bg-clip-text bg-gradient-to-r from-orange-600 to-amber-500">Services.</span>',
                       ),
                     }}
                   />
@@ -249,7 +248,7 @@ const Services = () => {
                   <>
                     Precision <br />{" "}
                     <span className="text-transparent bg-clip-text bg-gradient-to-r from-orange-600 to-amber-500">
-                      Advisory.
+                      Services.
                     </span>
                   </>
                 )}
@@ -259,7 +258,7 @@ const Services = () => {
                 dangerouslySetInnerHTML={{
                   __html:
                     cmsContent["hero"]?.description ||
-                    "We don't just sell products; we engineer outcomes. Our services are the components of your financial freedom architecture.",
+                    "We offer investment-related services and solutions to support your financial goals through suitable options.",
                 }}
               />
 
@@ -268,7 +267,7 @@ const Services = () => {
                 <FaSearch className="absolute -translate-y-1/2 left-5 top-1/2 text-slate-400" />
                 <input
                   type="text"
-                  placeholder="Search solutions..."
+                  placeholder="Search services..."
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
                   className="w-full py-4 pr-6 font-medium transition-all border shadow-xl outline-none pl-14 bg-white/80 backdrop-blur-md border-slate-200 rounded-3xl focus:ring-2 ring-orange-500/20 text-slate-800"
@@ -383,7 +382,7 @@ const Services = () => {
                       to={service.link}
                       className={`w-full py-5 rounded-2xl bg-gradient-to-r ${service.gradient} text-white font-black text-center text-sm uppercase tracking-widest shadow-xl hover:shadow-2xl transition-all flex items-center justify-center group/btn`}
                     >
-                      Analyze Solution
+                      View Details
                       <FaArrowRight className="ml-3 transition-transform group-hover/btn:translate-x-2" />
                     </Link>
                   </div>
@@ -420,7 +419,7 @@ const Services = () => {
               dangerouslySetInnerHTML={{
                 __html:
                   cmsContent["edge-section"]?.description ||
-                  "Beyond numbers, we manage the behavior that determines wealth.",
+                  "Beyond numbers, we focus on disciplined investing behavior.",
               }}
             />
           </div>
@@ -429,15 +428,15 @@ const Services = () => {
             {[
               {
                 title: "Institutional DNA",
-                desc: "We deploy the same analytical rigor used by sovereign wealth funds for your personal family portfolio.",
+                desc: "We deploy the same analytical rigor used by sovereign wealth funds for your investment portfolio.",
               },
               {
                 title: "Behavioral Coaching",
-                desc: "Investing is 20% math and 80% behavior. We act as your emotional anchor during market storms.",
+                desc: "Investing is 20% math and 80% behavior. We support disciplined investing during market fluctuations.",
               },
               {
                 title: "Multi-Generational",
-                desc: "We don't just Solution for years; we Solution for legacies. Our strategies bridge decades of wealth transfer.",
+                desc: "We support long-term investing across different life stages. Our strategies bridge decades of wealth transfer.",
               },
             ].map((item, i) => (
               <div
@@ -516,7 +515,7 @@ const Services = () => {
             <h2 className="mb-8 text-4xl font-black leading-tight tracking-tighter uppercase sm:text-6xl">
               {cmsContent["cta-section"]?.title || (
                 <>
-                  Start Your <span className="text-orange-500">Elite</span>{" "}
+                  Start Your <span className="text-orange-500">Investment</span>{" "}
                   Journey
                 </>
               )}
@@ -526,14 +525,14 @@ const Services = () => {
               dangerouslySetInnerHTML={{
                 __html:
                   cmsContent["cta-section"]?.description ||
-                  "Unlock institutional-grade wealth management starting today. Your future self will thank you.",
+                  "Start investing with suitable options aligned to your financial goals.",
               }}
             />
             <Link
               to="/contact"
               className="inline-flex items-center px-12 py-6 text-sm font-black tracking-widest text-white uppercase transition-all transform bg-orange-600 shadow-2xl rounded-3xl hover:bg-orange-500 hover:scale-105 group"
             >
-              Activate Advisory
+              Get Started
               <FaArrowRight className="ml-3 transition-transform group-hover:translate-x-2" />
             </Link>
           </div>

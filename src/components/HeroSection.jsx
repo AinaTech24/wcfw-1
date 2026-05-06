@@ -9,35 +9,35 @@ import CTAButton from "./CTAButton";
 const slides = [
   {
     id: 1,
-    keyword: "Financial Freedom",
-    title: "Starts With Clarity",
+    keyword: "Investment Approach",
+    title: "Starts With Clear Understanding",
     description:
-      "Build wealth with a goal-based investment strategy tailored to your income, family priorities, and future plans.",
+      "Invest based on your financial goals, income, and time horizon through suitable mutual fund options.",
     disclaimer:
       "Mutual Fund investments are subject to market risks. Read all scheme related documents carefully.",
-    primaryBtn: "Schedule Now",
+    primaryBtn: "Get Started",
     primaryLink: "/contact",
   },
   {
     id: 2,
-    keyword: "Grow Wealth",
-    title: "With Smart Investing",
+    keyword: "Disciplined Investing",
+    title: "Through SIP & Diversification",
     description:
-      "Create long-term wealth through SIPs, diversified portfolios, tax-efficient planning, and disciplined investing.",
+      "Invest regularly through SIPs and diversified mutual fund options based on your risk profile and investment horizon.",
     disclaimer:
       "Past performance does not guarantee future returns. Please assess risk appetite before investing.",
-    primaryBtn: "Invest Now",
+    primaryBtn: "Explore Options",
     primaryLink: "/goals/wealth-creation",
   },
   {
     id: 3,
-    keyword: "Stay Ready",
-    title: "For Every Life Goal",
+    keyword: "Goal-Based Investing",
+    title: "For Different Life Needs",
     description:
-      "From child education to retirement and emergency funds, stay financially prepared with regular portfolio reviews.",
+      "Invest for goals like education, retirement, and contingencies with periodic review of your mutual fund investments.",
     disclaimer:
       "Mutual Fund investments are subject to market risks. Read all scheme related documents carefully.",
-    primaryBtn: "Start Planning",
+    primaryBtn: "View Services",
     primaryLink: "/services",
   },
 ];
@@ -107,7 +107,7 @@ const HeroSection = ({ content }) => {
               >
                 {/* Badge */}
                 <span className="inline-block px-3 py-1 mb-4 text-xs font-semibold text-orange-700 bg-orange-100 rounded-full">
-                  Trusted Financial Guidance
+                  Trusted Mutual Fund Services
                 </span>
 
                 {/* Heading */}
@@ -179,7 +179,7 @@ const HeroSection = ({ content }) => {
                             : heroPrepared
                       }
                       loading="lazy"
-                      alt="Financial Advisory"
+                      alt="Mutual Fund Services"
                       className="w-full h-full object-cover"
                     />
                   </div>
