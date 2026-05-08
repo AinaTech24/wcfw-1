@@ -236,8 +236,8 @@ const GoogleReviews = () => {
         </a>
 
         <p className="mt-6 text-sm italic text-gray-400">
-          "Transparency and Trust are the cornerstones of our financial advisory
-          legacy since 1990."
+          "Transparency and trust have guided our commitment to investors since
+          1990."
         </p>
       </div>
     </section>
