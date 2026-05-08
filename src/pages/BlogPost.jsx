@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useParams, Link } from "react-router-dom";
-import axios from "axios";
+import api from "../utils/api";
 import { motion } from "framer-motion";
 import { FaCalendarAlt, FaUser, FaArrowLeft, FaClock } from "react-icons/fa";
 import useMetaTags from "../hooks/useMetaTags";
@@ -14,7 +14,7 @@ const BlogPost = () => {
   useEffect(() => {
     const fetchBlog = async () => {
       try {
-        const res = await axios.get(`/api/blog/${slug}`);
+        const res = await api.get(`/blog/${slug}`);
         setBlog(res.data);
       } catch (err) {
         console.error("Error fetching blog:", err);

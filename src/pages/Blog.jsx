@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import axios from "axios";
+import api from "../utils/api";
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import {
@@ -24,7 +24,7 @@ const Blog = () => {
   useEffect(() => {
     const fetchBlogs = async () => {
       try {
-        const res = await axios.get("/api/blog");
+        const res = await api.get("/blog");
         // Normalize: handle bare array or wrapped { data: [...] }
         if (Array.isArray(res.data)) {
           setBlogs(res.data);
