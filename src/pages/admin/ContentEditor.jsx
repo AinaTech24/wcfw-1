@@ -317,7 +317,7 @@ const ContentEditor = () => {
         <div className="space-y-4">
           {Object.entries(parsed).map(([key, value]) => (
             <div key={key}>
-              <label className="block text-sm font-semibold text-gray-700 mb-2 capitalize">
+              <label className="block mb-2 text-sm font-semibold text-gray-700 capitalize">
                 {key.replace(/([A-Z])/g, " $1").replace(/_/g, " ")}
               </label>
               {Array.isArray(value) ? (
@@ -325,7 +325,7 @@ const ContentEditor = () => {
                   {value.map((item, idx) => (
                     <div
                       key={idx}
-                      className="p-4 bg-gray-50 rounded-xl border border-gray-100 relative group"
+                      className="relative p-4 border border-gray-100 bg-gray-50 rounded-xl group"
                     >
                       <button
                         type="button"
@@ -335,20 +335,20 @@ const ContentEditor = () => {
                           const newParsed = { ...parsed, [key]: newArr };
                           setContent(JSON.stringify(newParsed, null, 4));
                         }}
-                        className="absolute top-2 right-2 text-gray-300 hover:text-red-500 opacity-0 group-hover:opacity-100 transition-opacity"
+                        className="absolute text-gray-300 transition-opacity opacity-0 top-2 right-2 hover:text-red-500 group-hover:opacity-100"
                       >
                         <FaTrash size={12} />
                       </button>
                       {typeof item === "object" && item !== null ? (
                         Object.entries(item).map(([subKey, subValue]) => (
                           <div key={subKey} className="mb-2">
-                            <label className="block text-xs font-semibold text-gray-500 mb-1 capitalize">
+                            <label className="block mb-1 text-xs font-semibold text-gray-500 capitalize">
                               {subKey
                                 .replace(/([A-Z])/g, " $1")
                                 .replace(/_/g, " ")}
                             </label>
                             {isTextareaField(subKey, subValue) ? (
-                              <div className="bg-white border text-black border-gray-200 rounded-lg pb-2">
+                              <div className="pb-2 text-black bg-white border border-gray-200 rounded-lg">
                                 <ReactQuill
                                   theme="snow"
                                   modules={quillModules}
@@ -385,7 +385,7 @@ const ContentEditor = () => {
                                     JSON.stringify(newParsed, null, 4),
                                   );
                                 }}
-                                className="w-full p-2 bg-white border border-gray-200 rounded-lg focus:ring-2 focus:ring-orange-500 outline-none text-sm"
+                                className="w-full p-2 text-sm bg-white border border-gray-200 rounded-lg outline-none focus:ring-2 focus:ring-orange-500"
                               />
                             )}
                           </div>
@@ -393,7 +393,7 @@ const ContentEditor = () => {
                       ) : (
                         <div>
                           {isTextareaField(key, item) ? (
-                            <div className="bg-white border text-black border-gray-200 rounded-lg pb-2">
+                            <div className="pb-2 text-black bg-white border border-gray-200 rounded-lg">
                               <ReactQuill
                                 theme="snow"
                                 modules={quillModules}
@@ -422,7 +422,7 @@ const ContentEditor = () => {
                                 const newParsed = { ...parsed, [key]: newArr };
                                 setContent(JSON.stringify(newParsed, null, 4));
                               }}
-                              className="w-full p-2 bg-white border border-gray-200 rounded-lg focus:ring-2 focus:ring-orange-500 outline-none text-sm"
+                              className="w-full p-2 text-sm bg-white border border-gray-200 rounded-lg outline-none focus:ring-2 focus:ring-orange-500"
                             />
                           )}
                         </div>
@@ -442,20 +442,20 @@ const ContentEditor = () => {
                       const newParsed = { ...parsed, [key]: newArr };
                       setContent(JSON.stringify(newParsed, null, 4));
                     }}
-                    className="text-xs font-bold text-orange-600 uppercase tracking-widest hover:text-orange-700"
+                    className="text-xs font-bold tracking-widest text-orange-600 uppercase hover:text-orange-700"
                   >
                     + Add Item
                   </button>
                 </div>
               ) : typeof value === "object" && value !== null ? (
-                <div className="p-4 bg-gray-50 rounded-xl border border-gray-100 space-y-3">
+                <div className="p-4 space-y-3 border border-gray-100 bg-gray-50 rounded-xl">
                   {Object.entries(value).map(([subKey, subValue]) => (
                     <div key={subKey}>
-                      <label className="block text-xs font-semibold text-gray-500 mb-1 capitalize">
+                      <label className="block mb-1 text-xs font-semibold text-gray-500 capitalize">
                         {subKey.replace(/([A-Z])/g, " $1").replace(/_/g, " ")}
                       </label>
                       {isTextareaField(subKey, subValue) ? (
-                        <div className="bg-white border text-black border-gray-200 rounded-lg pb-2">
+                        <div className="pb-2 text-black bg-white border border-gray-200 rounded-lg">
                           <ReactQuill
                             theme="snow"
                             modules={quillModules}
@@ -481,7 +481,7 @@ const ContentEditor = () => {
                             };
                             setContent(JSON.stringify(newParsed, null, 4));
                           }}
-                          className="w-full p-2 bg-white border border-gray-200 rounded-lg focus:ring-2 focus:ring-orange-500 outline-none text-sm"
+                          className="w-full p-2 text-sm bg-white border border-gray-200 rounded-lg outline-none focus:ring-2 focus:ring-orange-500"
                         />
                       )}
                     </div>
@@ -490,7 +490,7 @@ const ContentEditor = () => {
               ) : (
                 <div>
                   {isTextareaField(key, value) ? (
-                    <div className="bg-white border text-black border-gray-100 rounded-lg pb-2 shadow-sm">
+                    <div className="pb-2 text-black bg-white border border-gray-100 rounded-lg shadow-sm">
                       <ReactQuill
                         theme="snow"
                         modules={quillModules}
@@ -510,7 +510,7 @@ const ContentEditor = () => {
                         const newParsed = { ...parsed, [key]: e.target.value };
                         setContent(JSON.stringify(newParsed, null, 4));
                       }}
-                      className="w-full p-3 bg-gray-50 border border-gray-100 rounded-xl focus:ring-2 focus:ring-orange-500 outline-none"
+                      className="w-full p-3 border border-gray-100 outline-none bg-gray-50 rounded-xl focus:ring-2 focus:ring-orange-500"
                     />
                   )}
                 </div>
@@ -526,12 +526,12 @@ const ContentEditor = () => {
 
   return (
     <div className="space-y-6">
-      <div className="flex flex-col md:flex-row md:items-end justify-between gap-4">
+      <div className="flex flex-col justify-between gap-4 md:flex-row md:items-end">
         <div>
           <h1 className="text-3xl font-bold text-gray-900">
             Page Content Editor
           </h1>
-          <p className="text-gray-500 mt-1">
+          <p className="mt-1 text-gray-500">
             Manage all text, images, and data across every page of the website.
           </p>
         </div>
@@ -541,7 +541,7 @@ const ContentEditor = () => {
               fetchPages();
               if (selectedPage) fetchSections();
             }}
-            className="p-4 bg-gray-100 text-gray-600 rounded-2xl hover:bg-gray-200 transition-all shadow-sm"
+            className="p-4 text-gray-600 transition-all bg-gray-100 shadow-sm rounded-2xl hover:bg-gray-200"
             title="Refresh Content"
           >
             <FaSync className={loading ? "animate-spin" : ""} />
@@ -552,7 +552,7 @@ const ContentEditor = () => {
             className={`px-8 py-4 bg-orange-600 text-white font-bold rounded-2xl shadow-lg hover:shadow-orange-200 flex items-center gap-3 transition-all ${saveLoading || !selectedSection ? "opacity-50 cursor-not-allowed" : "hover:-translate-y-0.5"}`}
           >
             {saveLoading ? (
-              <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
+              <div className="w-5 h-5 border-2 border-white rounded-full border-t-transparent animate-spin"></div>
             ) : (
               <FaSave />
             )}
@@ -568,7 +568,7 @@ const ContentEditor = () => {
             initial={{ opacity: 0, y: -10 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0 }}
-            className="p-4 bg-red-50 border border-red-100 rounded-2xl flex items-center gap-3 text-red-600 text-sm"
+            className="flex items-center gap-3 p-4 text-sm text-red-600 border border-red-100 bg-red-50 rounded-2xl"
           >
             <FaExclamationTriangle /> <span>{error}</span>
             <button onClick={() => setError("")} className="ml-auto">
@@ -581,25 +581,25 @@ const ContentEditor = () => {
             initial={{ opacity: 0, y: -10 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0 }}
-            className="p-4 bg-emerald-50 border border-emerald-100 rounded-2xl flex items-center gap-3 text-emerald-600 text-sm"
+            className="flex items-center gap-3 p-4 text-sm border bg-emerald-50 border-emerald-100 rounded-2xl text-emerald-600"
           >
             <FaSave /> <span>{message}</span>
           </motion.div>
         )}
       </AnimatePresence>
 
-      <div className="grid grid-cols-1 lg:grid-cols-4 gap-6">
+      <div className="grid grid-cols-1 gap-6 lg:grid-cols-4">
         {/* Left Sidebar - Pages & Sections */}
-        <div className="lg:col-span-1 space-y-6">
+        <div className="space-y-6 lg:col-span-1">
           {/* Pages */}
           <div>
             <div className="flex items-center justify-between mb-3">
-              <label className="text-xs font-bold text-gray-400 uppercase tracking-widest flex items-center gap-2">
+              <label className="flex items-center gap-2 text-xs font-bold tracking-widest text-gray-400 uppercase">
                 <FaFileAlt className="text-orange-500" /> Pages
               </label>
               <button
                 onClick={() => setShowAddPage(true)}
-                className="text-xs font-bold text-orange-600 hover:text-orange-700 flex items-center gap-1"
+                className="flex items-center gap-1 text-xs font-bold text-orange-600 hover:text-orange-700"
               >
                 <FaPlus size={10} /> Add
               </button>
@@ -619,7 +619,7 @@ const ContentEditor = () => {
                   </button>
                   <button
                     onClick={() => handleDeletePage(page)}
-                    className="p-2 text-gray-300 hover:text-red-500 transition-colors flex-shrink-0"
+                    className="flex-shrink-0 p-2 text-gray-300 transition-colors hover:text-red-500"
                     title="Delete page"
                   >
                     <FaTrash size={12} />
@@ -627,7 +627,7 @@ const ContentEditor = () => {
                 </div>
               ))}
               {pages.length === 0 && (
-                <div className="p-4 text-xs text-gray-400 bg-gray-50 rounded-xl border-2 border-dashed border-gray-200 text-center">
+                <div className="p-4 text-xs text-center text-gray-400 border-2 border-gray-200 border-dashed bg-gray-50 rounded-xl">
                   No pages yet. Click "Add" to create one.
                 </div>
               )}
@@ -637,13 +637,13 @@ const ContentEditor = () => {
           {/* Sections */}
           <div>
             <div className="flex items-center justify-between mb-3">
-              <label className="text-xs font-bold text-gray-400 uppercase tracking-widest flex items-center gap-2">
+              <label className="flex items-center gap-2 text-xs font-bold tracking-widest text-gray-400 uppercase">
                 <FaLayerGroup className="text-blue-500" /> Sections
               </label>
               {selectedPage && (
                 <button
                   onClick={() => setShowAddSection(true)}
-                  className="text-xs font-bold text-blue-600 hover:text-blue-700 flex items-center gap-1"
+                  className="flex items-center gap-1 text-xs font-bold text-blue-600 hover:text-blue-700"
                 >
                   <FaPlus size={10} /> Add
                 </button>
@@ -669,7 +669,7 @@ const ContentEditor = () => {
                     </button>
                     <button
                       onClick={() => handleDeleteSection(sec)}
-                      className="p-2 text-gray-300 hover:text-red-500 transition-colors flex-shrink-0"
+                      className="flex-shrink-0 p-2 text-gray-300 transition-colors hover:text-red-500"
                       title="Delete section"
                     >
                       <FaTrash size={12} />
@@ -679,7 +679,7 @@ const ContentEditor = () => {
               {sections.filter((s) => s.section !== "seo-settings").length ===
                 0 &&
                 selectedPage && (
-                  <div className="p-4 text-xs text-gray-400 bg-gray-50 rounded-xl border-2 border-dashed border-gray-200 text-center">
+                  <div className="p-4 text-xs text-center text-gray-400 border-2 border-gray-200 border-dashed bg-gray-50 rounded-xl">
                     No sections. Click "Add" to create one.
                   </div>
                 )}
@@ -688,7 +688,7 @@ const ContentEditor = () => {
         </div>
 
         {/* Main Editor Area */}
-        <div className="lg:col-span-3 space-y-4">
+        <div className="space-y-4 lg:col-span-3">
           {selectedSection ? (
             <>
               {/* View Mode Toggle */}
@@ -708,8 +708,8 @@ const ContentEditor = () => {
               </div>
 
               {/* Content Editor */}
-              <div className="bg-white rounded-3xl border border-gray-100 shadow-sm overflow-hidden">
-                <div className="p-4 bg-gray-50 border-b border-gray-100 flex items-center justify-between">
+              <div className="overflow-hidden bg-white border border-gray-100 shadow-sm rounded-3xl">
+                <div className="flex items-center justify-between p-4 border-b border-gray-100 bg-gray-50">
                   <div className="flex items-center gap-3 text-gray-400">
                     <FaLayerGroup className="text-orange-500" />
                     <span className="text-xs font-bold tracking-widest uppercase">
@@ -724,11 +724,11 @@ const ContentEditor = () => {
                 <div className="p-6">
                   {viewMode === "form" ? (
                     renderFormFields() || (
-                      <div className="text-center text-gray-400 py-8">
+                      <div className="py-8 text-center text-gray-400">
                         <p>Cannot render form for this content structure.</p>
                         <button
                           onClick={() => setViewMode("json")}
-                          className="text-orange-600 font-bold mt-2"
+                          className="mt-2 font-bold text-orange-600"
                         >
                           Switch to JSON View
                         </button>
@@ -773,17 +773,17 @@ const ContentEditor = () => {
                     );
 
                   return (
-                    <div className="bg-white rounded-3xl border border-gray-100 shadow-sm overflow-hidden mt-6">
-                      <div className="p-4 bg-gray-50 border-b border-gray-100 flex items-center gap-3 text-gray-500">
+                    <div className="mt-6 overflow-hidden bg-white border border-gray-100 shadow-sm rounded-3xl">
+                      <div className="flex items-center gap-3 p-4 text-gray-500 border-b border-gray-100 bg-gray-50">
                         <FaCode className="text-orange-500" />
                         <span className="text-xs font-bold tracking-widest uppercase">
                           Page SEO Settings
                         </span>
                       </div>
                       <div className="p-6 space-y-5">
-                        <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+                        <div className="grid grid-cols-1 gap-5 md:grid-cols-2">
                           <div>
-                            <label className="block text-sm font-semibold text-gray-700 mb-1">
+                            <label className="block mb-1 text-sm font-semibold text-gray-700">
                               Meta Title
                             </label>
                             <input
@@ -796,7 +796,7 @@ const ContentEditor = () => {
                             />
                           </div>
                           <div>
-                            <label className="block text-sm font-semibold text-gray-700 mb-1">
+                            <label className="block mb-1 text-sm font-semibold text-gray-700">
                               Meta Keywords
                             </label>
                             <input
@@ -810,7 +810,7 @@ const ContentEditor = () => {
                             />
                           </div>
                           <div>
-                            <label className="block text-sm font-semibold text-gray-700 mb-1">
+                            <label className="block mb-1 text-sm font-semibold text-gray-700">
                               Canonical URL
                             </label>
                             <input
@@ -823,7 +823,7 @@ const ContentEditor = () => {
                             />
                           </div>
                           <div>
-                            <label className="block text-sm font-semibold text-gray-700 mb-1">
+                            <label className="block mb-1 text-sm font-semibold text-gray-700">
                               Robots Tag
                             </label>
                             <input
@@ -838,7 +838,7 @@ const ContentEditor = () => {
                           </div>
                         </div>
                         <div>
-                          <label className="block text-sm font-semibold text-gray-700 mb-1">
+                          <label className="block mb-1 text-sm font-semibold text-gray-700">
                             Meta Description
                           </label>
                           <textarea
@@ -850,10 +850,10 @@ const ContentEditor = () => {
                           />
                         </div>
                         <div>
-                          <label className="block text-sm font-semibold text-gray-700 mb-1">
+                          <label className="block mb-1 text-sm font-semibold text-gray-700">
                             Schema Markup (JSON-LD)
                           </label>
-                          <p className="text-xs text-gray-400 mb-2">
+                          <p className="mb-2 text-xs text-gray-400">
                             Paste raw JSON-LD schema objects without script tags
                             here. Used for structured data like Person,
                             Organization, etc.
@@ -863,7 +863,7 @@ const ContentEditor = () => {
                             onChange={(e) =>
                               updateSeo("schemaMarkup", e.target.value)
                             }
-                            className="w-full p-3 font-mono text-xs text-green-400 bg-slate-900 border border-slate-700 rounded-lg focus:ring-2 focus:ring-orange-500 outline-none h-32 transition-all shadow-inner"
+                            className="w-full h-32 p-3 font-mono text-xs text-green-400 transition-all border rounded-lg shadow-inner outline-none bg-slate-900 border-slate-700 focus:ring-2 focus:ring-orange-500"
                             placeholder='{ "@context": "https://schema.org", "@type": "Organization", "name": "WCFW" }'
                             spellCheck="false"
                           />
@@ -875,7 +875,7 @@ const ContentEditor = () => {
                               <h4 className="text-sm font-bold text-gray-800">
                                 FAQ Schema Builder
                               </h4>
-                              <p className="text-xs text-gray-500 mt-1">
+                              <p className="mt-1 text-xs text-gray-500">
                                 Automatically generates FAQPage schema for this
                                 page.
                               </p>
@@ -883,7 +883,7 @@ const ContentEditor = () => {
                             <button
                               type="button"
                               onClick={addFaq}
-                              className="flex items-center gap-1 px-4 py-2 bg-blue-50 text-blue-600 font-bold text-xs rounded-lg hover:bg-blue-100 transition-colors"
+                              className="flex items-center gap-1 px-4 py-2 text-xs font-bold text-blue-600 transition-colors rounded-lg bg-blue-50 hover:bg-blue-100"
                             >
                               <FaPlus /> Add FAQ
                             </button>
@@ -892,7 +892,7 @@ const ContentEditor = () => {
                             {(seo.faqSchema || []).map((faq, idx) => (
                               <div
                                 key={idx}
-                                className="p-4 bg-gray-50 border border-gray-200 rounded-xl relative group transition-all hover:border-gray-300"
+                                className="relative p-4 transition-all border border-gray-200 bg-gray-50 rounded-xl group hover:border-gray-300"
                               >
                                 <button
                                   type="button"
@@ -901,8 +901,8 @@ const ContentEditor = () => {
                                 >
                                   <FaTrash size={12} />
                                 </button>
-                                <div className="mb-3 pr-8">
-                                  <label className="block text-xs font-bold text-gray-500 uppercase tracking-wider mb-1">
+                                <div className="pr-8 mb-3">
+                                  <label className="block mb-1 text-xs font-bold tracking-wider text-gray-500 uppercase">
                                     Question {idx + 1}
                                   </label>
                                   <input
@@ -916,7 +916,7 @@ const ContentEditor = () => {
                                   />
                                 </div>
                                 <div>
-                                  <label className="block text-xs font-bold text-gray-500 uppercase tracking-wider mb-1">
+                                  <label className="block mb-1 text-xs font-bold tracking-wider text-gray-500 uppercase">
                                     Answer
                                   </label>
                                   <textarea
@@ -931,7 +931,7 @@ const ContentEditor = () => {
                               </div>
                             ))}
                             {(seo.faqSchema || []).length === 0 && (
-                              <div className="text-sm text-center font-medium border-2 border-dashed border-gray-200 rounded-xl text-gray-400 py-8 bg-gray-50">
+                              <div className="py-8 text-sm font-medium text-center text-gray-400 border-2 border-gray-200 border-dashed rounded-xl bg-gray-50">
                                 No FAQs added. Click "Add FAQ" to start building
                                 FAQPage schema.
                               </div>
@@ -943,14 +943,14 @@ const ContentEditor = () => {
                   );
                 } catch (e) {
                   return (
-                    <div className="bg-slate-900 rounded-3xl border border-slate-800 shadow-xl overflow-hidden mt-6">
-                      <div className="p-4 bg-slate-800 border-b border-slate-700 flex items-center gap-3 text-slate-400">
+                    <div className="mt-6 overflow-hidden border shadow-xl bg-slate-900 rounded-3xl border-slate-800">
+                      <div className="flex items-center gap-3 p-4 border-b bg-slate-800 border-slate-700 text-slate-400">
                         <FaCode className="text-orange-500" />
                         <span className="text-xs font-bold tracking-widest uppercase">
                           Page SEO Settings (Raw JSON)
                         </span>
                       </div>
-                      <div className="p-4 bg-red-900/20 text-red-400 border-b border-red-900/30 text-xs font-mono">
+                      <div className="p-4 font-mono text-xs text-red-400 border-b bg-red-900/20 border-red-900/30">
                         Error parsing SEO settings. Showing raw JSON editor as
                         fallback.
                       </div>
@@ -967,12 +967,12 @@ const ContentEditor = () => {
               })()}
             </>
           ) : (
-            <div className="bg-gray-50 rounded-3xl p-16 border-2 border-dashed border-gray-200 text-center text-gray-400">
-              <FaFileAlt className="text-5xl mx-auto mb-4 opacity-20" />
-              <p className="font-medium text-lg">
+            <div className="p-16 text-center text-gray-400 border-2 border-gray-200 border-dashed bg-gray-50 rounded-3xl">
+              <FaFileAlt className="mx-auto mb-4 text-5xl opacity-20" />
+              <p className="text-lg font-medium">
                 Select a page and section to start editing
               </p>
-              <p className="text-sm mt-2">
+              <p className="mt-2 text-sm">
                 Or create a new page using the "Add" button on the left.
               </p>
             </div>
@@ -987,17 +987,17 @@ const ContentEditor = () => {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4"
+            className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50"
             onClick={() => setShowAddPage(false)}
           >
             <motion.div
               initial={{ scale: 0.9, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
               exit={{ scale: 0.9, opacity: 0 }}
-              className="bg-white rounded-3xl p-8 max-w-md w-full shadow-2xl"
+              className="w-full max-w-md p-8 bg-white shadow-2xl rounded-3xl"
               onClick={(e) => e.stopPropagation()}
             >
-              <h3 className="text-xl font-bold text-gray-900 mb-4">
+              <h3 className="mb-4 text-xl font-bold text-gray-900">
                 Add New Page
               </h3>
               <input
@@ -1005,24 +1005,24 @@ const ContentEditor = () => {
                 value={newPageName}
                 onChange={(e) => setNewPageName(e.target.value)}
                 placeholder="e.g. careers, faq, pricing"
-                className="w-full p-3 bg-gray-50 border border-gray-100 rounded-xl focus:ring-2 focus:ring-orange-500 outline-none mb-4"
+                className="w-full p-3 mb-4 border border-gray-100 outline-none bg-gray-50 rounded-xl focus:ring-2 focus:ring-orange-500"
                 autoFocus
                 onKeyDown={(e) => e.key === "Enter" && handleAddPage()}
               />
-              <p className="text-xs text-gray-400 mb-6">
+              <p className="mb-6 text-xs text-gray-400">
                 Page name will be auto-formatted (lowercase, hyphenated). A
                 default "hero" section will be created.
               </p>
               <div className="flex justify-end gap-3">
                 <button
                   onClick={() => setShowAddPage(false)}
-                  className="px-4 py-2 text-gray-500 font-bold hover:bg-gray-100 rounded-xl"
+                  className="px-4 py-2 font-bold text-gray-500 hover:bg-gray-100 rounded-xl"
                 >
                   Cancel
                 </button>
                 <button
                   onClick={handleAddPage}
-                  className="px-6 py-2 bg-orange-600 text-white font-bold rounded-xl shadow-lg"
+                  className="px-6 py-2 font-bold text-white bg-orange-600 shadow-lg rounded-xl"
                 >
                   Create Page
                 </button>
@@ -1039,17 +1039,17 @@ const ContentEditor = () => {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4"
+            className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50"
             onClick={() => setShowAddSection(false)}
           >
             <motion.div
               initial={{ scale: 0.9, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
               exit={{ scale: 0.9, opacity: 0 }}
-              className="bg-white rounded-3xl p-8 max-w-md w-full shadow-2xl"
+              className="w-full max-w-md p-8 bg-white shadow-2xl rounded-3xl"
               onClick={(e) => e.stopPropagation()}
             >
-              <h3 className="text-xl font-bold text-gray-900 mb-4">
+              <h3 className="mb-4 text-xl font-bold text-gray-900">
                 Add Section to "{selectedPage}"
               </h3>
               <input
@@ -1057,24 +1057,24 @@ const ContentEditor = () => {
                 value={newSectionName}
                 onChange={(e) => setNewSectionName(e.target.value)}
                 placeholder="e.g. hero, features, cta, stats"
-                className="w-full p-3 bg-gray-50 border border-gray-100 rounded-xl focus:ring-2 focus:ring-orange-500 outline-none mb-4"
+                className="w-full p-3 mb-4 border border-gray-100 outline-none bg-gray-50 rounded-xl focus:ring-2 focus:ring-orange-500"
                 autoFocus
                 onKeyDown={(e) => e.key === "Enter" && handleAddSection()}
               />
-              <p className="text-xs text-gray-400 mb-6">
+              <p className="mb-6 text-xs text-gray-400">
                 Section name will be auto-formatted. A default content structure
                 will be created.
               </p>
               <div className="flex justify-end gap-3">
                 <button
                   onClick={() => setShowAddSection(false)}
-                  className="px-4 py-2 text-gray-500 font-bold hover:bg-gray-100 rounded-xl"
+                  className="px-4 py-2 font-bold text-gray-500 hover:bg-gray-100 rounded-xl"
                 >
                   Cancel
                 </button>
                 <button
                   onClick={handleAddSection}
-                  className="px-6 py-2 bg-blue-600 text-white font-bold rounded-xl shadow-lg"
+                  className="px-6 py-2 font-bold text-white bg-blue-600 shadow-lg rounded-xl"
                 >
                   Add Section
                 </button>

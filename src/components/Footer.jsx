@@ -67,7 +67,7 @@ const Footer = () => {
     {
       title: "Ahmedabad Branch",
       address:
-        "301, 3rd floor, Avani 1, Besides JMC House, Nr Panmal Garden, Off C.G Road, Ahmedabad - 380 006",
+        "301, 3rd floor, Avani 1, Besides JMC House, Nr Parimal Garden, Off C.G Road, Ahmedabad - 380 006",
       phone: "+91 78430 47366 , +91 93772 77703",
       email: "ahmedabad@wcfw.in, info@wcfw.in",
     },

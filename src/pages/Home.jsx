@@ -253,7 +253,8 @@ const Home = () => {
         id: 3,
         title: "Stocks",
         icon: FaChartPie,
-        description: "Equity investments and stock market advisory services",
+        description:
+          "Equity investment solutions for long-term wealth creation",
         image: stocksImg,
         link: "/services/stocks",
         gradient: "from-emerald-500 to-teal-600",
@@ -263,7 +264,7 @@ const Home = () => {
         id: 4,
         title: "Fixed Deposits",
         icon: FaUniversity,
-        description: "Safe and guaranteed returns with flexible tenure options",
+        description: "Stable fixed-income options with flexible tenure choices",
         image: fdImg,
         link: "/services/fixed-deposit",
         gradient: "from-yellow-500 to-orange-600",
@@ -273,7 +274,8 @@ const Home = () => {
         id: 5,
         title: "Tax Solution",
         icon: FaFileInvoiceDollar,
-        description: "Optimize your tax savings with expert financial solution",
+        description:
+          "Optimize your tax savings with Tax-saving investment solutions",
         image: taxImg,
         link: "/services/tax-solution",
         gradient: "from-rose-500 to-pink-600",

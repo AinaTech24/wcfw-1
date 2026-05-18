@@ -22,9 +22,9 @@ const MutualFund = () => {
   // SEO Hook
   useMetaTags(
     cmsContent["_seo"] || {
-      title: "Mutual Fund Advisory Services | We Care Freedom Wealth",
+      title: "Mutual Fund Solutions | We Care Freedom Wealth",
       description:
-        "Expert mutual fund advisory services to help you invest smartly, manage risk, and achieve long-term financial goals with We Care Freedom Wealth.",
+        "Expert mutual fund solutions to help you invest smartly, manage risk, and achieve long-term financial goals with We Care Freedom Wealth.",
       robotsTag: "index, follow",
     },
   );
