@@ -47,20 +47,20 @@ const Contact = () => {
     },
     {
       city: "Vadodara",
-      address: "304-306, The Park, Above Nexa, Akshar Chowk, Vadodara - 390020",
+      address: "The Park, 304-306, Old Padra Rd, Akshar Chowk, Madhav Nagar, Akota, Vadodara, Gujarat 390012",
       phone: "+91 98241 43812",
       email: "tushar@wcfw.in",
       mapEmbed:
-        "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3691.2!2d73.1812!3d22.3072!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMjLCsDE4JzI2LjAiTiA3M8KwMTAnNTIuMyJF!5e0!3m2!1sen!2sin!4v1696920000000!5m2!1sen!2sin",
+        "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d939925.7823892118!2d71.45011253125!3d23.039001799999994!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x395fc901e1815611%3A0x325de8c1e4967ee5!2sWe%20Care%20Freedom%20Wealth%20Pvt.%20Ltd%20-%20Financial%20Advisors%20in%20Vadodara!5e0!3m2!1sen!2sin!4v1779360489650!5m2!1sen!2sin",
     },
     {
       city: "Ahmedabad",
       address:
-        "301, Anam 1, Nr. Parimal Garden, Off. C G Road, Ahmedabad - 380006",
+        "Dinesh Hall, AWFIS, 6th Floor, World Center, Besides, Ashram Rd, Ahmedabad, Gujarat 380009",
       phone: "+91 72840 47366",
       email: "dhruvik@wcfw.in",
       mapEmbed:
-        "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3672.1!2d72.5566!3d23.0340!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMjPCsDAyJzAyLjQiTiA3MsKwMzMnMjMuOCJF!5e0!3m2!1sen!2sin!4v1696920000000!5m2!1sen!2sin",
+        "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d939925.7823892118!2d71.45011253125!3d23.039001799999994!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x395e858c9d6531ad%3A0x4007da5bf66f16ac!2sWe%20Care%20Freedom%20Wealth%20Pvt.%20Ltd.!5e0!3m2!1sen!2sin!4v1779360385063!5m2!1sen!2sin",
     },
     {
       city: "Delhi",

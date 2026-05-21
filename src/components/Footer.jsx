@@ -60,14 +60,14 @@ const Footer = () => {
     {
       title: "Vadodara Branch",
       address:
-        "The Park, 304-306, Old Padra Road, Akshar Chowk, Madhav Nagar, Akota, Vadodara, Gujarat, 390 012",
+        "The Park, 304-306, Old Padra Rd, Akshar Chowk, Madhav Nagar, Akota, Vadodara, Gujarat 390012",
       phone: "+91 98241 43812 , +91 93772 77703",
       email: "tushar@wcfw.in, vadodara@wcfw.in",
     },
     {
       title: "Ahmedabad Branch",
       address:
-        "Dinesh Hall, AWFIS, 6th Floor, World Center Besides, Ashram Road, Ahmedabad - 380 009",
+        "Dinesh Hall, AWFIS, 6th Floor, World Center, Besides, Ashram Rd, Ahmedabad, Gujarat 380009",
       phone: "+91 78430 47366 , +91 93772 77703",
       email: "ahmedabad@wcfw.in, info@wcfw.in",
     },
