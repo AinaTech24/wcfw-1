@@ -39,6 +39,29 @@ import pratik from "../assets/team/pratik.png";
 import prakash from "../assets/team/prakash.png";
 import nishith from "../assets/team/nishith.png";
 import amitArora from "../assets/team/amit.png";
+import amit from "../assets/team/amit.jpeg";
+import dinesh from "../assets/team/dinesh.png";
+import disha from "../assets/team/disha.png";
+import durgesh from "../assets/team/durgesh.png";
+import harshita from "../assets/team/harshita.jpeg";
+import hemant from "../assets/team/hemant.png";
+import hiteksha from "../assets/team/hiteksha.png";
+import khushi from "../assets/team/khushi.png";
+import meena from "../assets/team/meena.png";
+import meenu from "../assets/team/meenu.jpeg";
+import mitali from "../assets/team/mitali.png";
+import neha from "../assets/team/neha.jpeg";
+import parul from "../assets/team/parul.jpeg";
+import pravin from "../assets/team/pravin.png";
+import pritesh from "../assets/team/pritesh.png";
+import rahul from "../assets/team/rahul.png";
+import satvik from "../assets/team/satvik.png";
+import shivang from "../assets/team/shivang.png";
+import tannu from "../assets/team/tannu.png";
+import tina from "../assets/team/tina.png";
+import vaidehi from "../assets/team/vaidehi.png";
+import vandana from "../assets/team/vandana.png";
+import vijay from "../assets/team/vijay.png";
 
 const About = () => {
   // Team Data Structure
@@ -200,6 +223,140 @@ const About = () => {
       role: "Relationship Manager",
       img: hari,
       bio: "Experienced in mutual fund distribution and systematic investment processes.",
+    },
+
+    // Newly Added
+    {
+      name: "Dinesh",
+      role: "Relationship Manager",
+      img: dinesh,
+      bio: "Supporting clients with investment coordination and relationship management services.",
+    },
+    {
+      name: "Disha",
+      role: "Relationship Manager",
+      img: disha,
+      bio: "Helping clients with onboarding, servicing, and portfolio assistance.",
+    },
+    {
+      name: "Durgesh",
+      role: "Relationship Manager",
+      img: durgesh,
+      bio: "Focused on client servicing and investment support activities.",
+    },
+    {
+      name: "Harshita",
+      role: "Relationship Manager",
+      img: harshita,
+      bio: "Providing personalized assistance for investment and service-related queries.",
+    },
+    {
+      name: "Hemant",
+      role: "Relationship Manager",
+      img: hemant,
+      bio: "Assisting clients with operational support and relationship management.",
+    },
+    {
+      name: "Hiteksha",
+      role: "Relationship Manager",
+      img: hiteksha,
+      bio: "Dedicated to ensuring smooth customer engagement and support services.",
+    },
+    {
+      name: "Khushi",
+      role: "Relationship Manager",
+      img: khushi,
+      bio: "Supporting investment-related communication and client coordination.",
+    },
+    {
+      name: "Meena",
+      role: "Relationship Manager",
+      img: meena,
+      bio: "Managing customer interactions and servicing support.",
+    },
+    {
+      name: "Meenu",
+      role: "Relationship Manager",
+      img: meenu,
+      bio: "Focused on assisting clients with financial service processes.",
+    },
+    {
+      name: "Mitali",
+      role: "Relationship Manager",
+      img: mitali,
+      bio: "Providing relationship support and operational assistance.",
+    },
+    {
+      name: "Neha",
+      role: "Relationship Manager",
+      img: neha,
+      bio: "Helping maintain strong client engagement and communication.",
+    },
+    {
+      name: "Parul",
+      role: "Relationship Manager",
+      img: parul,
+      bio: "Supporting client relationship activities and service coordination.",
+    },
+    {
+      name: "Pravin",
+      role: "Relationship Manager",
+      img: pravin,
+      bio: "Handling client servicing and investment-related assistance.",
+    },
+    {
+      name: "Pritesh",
+      role: "Relationship Manager",
+      img: pritesh,
+      bio: "Focused on customer support and relationship-building initiatives.",
+    },
+    {
+      name: "Rahul",
+      role: "Relationship Manager",
+      img: rahul,
+      bio: "Providing operational and relationship management support.",
+    },
+    {
+      name: "Satvik",
+      role: "Relationship Manager",
+      img: satvik,
+      bio: "Assisting clients with investment servicing and support functions.",
+    },
+    {
+      name: "Shivang",
+      role: "Relationship Manager",
+      img: shivang,
+      bio: "Focused on customer engagement and portfolio assistance.",
+    },
+    {
+      name: "Tannu",
+      role: "Relationship Manager",
+      img: tannu,
+      bio: "Helping clients with servicing requests and operational support.",
+    },
+    {
+      name: "Tina",
+      role: "Relationship Manager",
+      img: tina,
+      bio: "Providing assistance in relationship management and client servicing.",
+    },
+    {
+      name: "Vaidehi",
+      role: "Relationship Manager",
+      img: vaidehi,
+      bio: "Supporting customer interactions and investment service coordination.",
+    },
+    {
+      name: "Vandana",
+      role: "Relationship Manager",
+      img: vandana,
+      bio: "Focused on client support and relationship management activities.",
+    },
+    {
+      name: "Vijay",
+      role: "Relationship Manager",
+      img: vijay,
+      bio: "Providing operational support and customer relationship assistance.",
     },
   ];
 

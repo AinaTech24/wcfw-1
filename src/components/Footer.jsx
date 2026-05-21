@@ -60,14 +60,14 @@ const Footer = () => {
     {
       title: "Vadodara Branch",
       address:
-        "304-305-306, The Park, Above Nexa Car Showroom, Opp. Blue Lagoon Restaurant, Akshar Chowk, Old Padra Road, Vadodara - 390 020",
+        "The Park, 304-306, Old Padra Road, Akshar Chowk, Madhav Nagar, Akota, Vadodara, Gujarat, 390 012",
       phone: "+91 98241 43812 , +91 93772 77703",
       email: "tushar@wcfw.in, vadodara@wcfw.in",
     },
     {
       title: "Ahmedabad Branch",
       address:
-        "301, 3rd floor, Avani 1, Besides JMC House, Nr Parimal Garden, Off C.G Road, Ahmedabad - 380 006",
+        "Dinesh Hall, AWFIS, 6th Floor, World Center Besides, Ashram Road, Ahmedabad - 380 009",
       phone: "+91 78430 47366 , +91 93772 77703",
       email: "ahmedabad@wcfw.in, info@wcfw.in",
     },
@@ -91,42 +91,42 @@ const Footer = () => {
 
   const socialLinks = cmsSocialLinks
     ? cmsSocialLinks.map((link) => ({
-        icon: socialIconsMap[link.name] || FaFacebook,
-        href: link.href,
-        color:
-          link.name === "Instagram"
-            ? "hover:text-pink-400"
-            : link.name === "YouTube"
-              ? "hover:text-red-400"
-              : "hover:text-blue-400",
-      }))
+      icon: socialIconsMap[link.name] || FaFacebook,
+      href: link.href,
+      color:
+        link.name === "Instagram"
+          ? "hover:text-pink-400"
+          : link.name === "YouTube"
+            ? "hover:text-red-400"
+            : "hover:text-blue-400",
+    }))
     : [
-        {
-          icon: FaFacebook,
-          href: "https://www.facebook.com/wecarefreedom",
-          color: "hover:text-blue-400",
-        },
-        {
-          icon: FaTwitter,
-          href: "https://x.com/we_care_invest",
-          color: "hover:text-blue-300",
-        },
-        {
-          icon: FaLinkedin,
-          href: "https://www.linkedin.com/company/we-care-freedom/",
-          color: "hover:text-blue-400",
-        },
-        {
-          icon: FaInstagram,
-          href: "https://www.instagram.com/wecarefreedomwealth/",
-          color: "hover:text-pink-400",
-        },
-        {
-          icon: FaYoutube,
-          href: "https://www.youtube.com/@wecarefreedomwealth",
-          color: "hover:text-red-400",
-        },
-      ];
+      {
+        icon: FaFacebook,
+        href: "https://www.facebook.com/wecarefreedom",
+        color: "hover:text-blue-400",
+      },
+      {
+        icon: FaTwitter,
+        href: "https://x.com/we_care_invest",
+        color: "hover:text-blue-300",
+      },
+      {
+        icon: FaLinkedin,
+        href: "https://www.linkedin.com/company/we-care-freedom/",
+        color: "hover:text-blue-400",
+      },
+      {
+        icon: FaInstagram,
+        href: "https://www.instagram.com/wecarefreedomwealth/",
+        color: "hover:text-pink-400",
+      },
+      {
+        icon: FaYoutube,
+        href: "https://www.youtube.com/@wecarefreedomwealth",
+        color: "hover:text-red-400",
+      },
+    ];
 
   const marketIndices = footerContent?.["market-indices"]?.list || [
     { name: "NSE", link: "https://www.nseindia.com/" },
@@ -510,11 +510,10 @@ const Footer = () => {
         whileTap={{ scale: 0.95 }}
         className={`group fixed right-4 bottom-4 sm:right-6 sm:bottom-6 z-[99999] flex items-center justify-center overflow-hidden h-14 w-14 hover:w-36 rounded-full hover:rounded-[40px] bg-gradient-to-r from-yellow-400 to-orange-500 shadow-[0_0_0_4px_rgba(251,191,36,0.25)] transition-all duration-300 ease-in-out cursor-pointer outline-none 
         ${isClicked ? "outline-none" : ""}
-        ${
-          showScrollTop
+        ${showScrollTop
             ? "opacity-100 translate-y-0"
             : "opacity-0 translate-y-10 pointer-events-none"
-        }`}
+          }`}
         aria-label="Scroll to top"
       >
         {/* Icon */}

@@ -16,16 +16,26 @@ const pageContentSchema = new mongoose.Schema({
         required: true
     },
     seoSettings: {
-        metaTitle: String,
-        metaDescription: String,
-        metaKeywords: String,
-        canonicalUrl: String,
-        ogImage: String,
-        robotsTag: {
-            type: String,
-            default: 'index, follow'
+    metaTitle: String,
+    metaDescription: String,
+    metaKeywords: String,
+    canonicalUrl: String,
+    ogImage: String,
+
+    robotsTag: {
+        type: String,
+        default: 'index, follow'
+    },
+
+    faqSchema: [
+        {
+            question: String,
+            answer: String
         }
-    }
+    ],
+
+    schemaMarkup: String
+}
 }, { timestamps: true });
 
 // Ensure unique combination of page and section

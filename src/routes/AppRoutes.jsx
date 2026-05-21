@@ -1,6 +1,7 @@
 import React, { Suspense, lazy } from "react";
 import { Routes, Route } from "react-router-dom";
 import { PageLoader } from "../components/LoadingSkeletons";
+import DynamicServicePage from "../pages/services/DynamicServicePage";
 
 // Lazy imports for pages
 const Home = lazy(() => import("../pages/Home"));
@@ -128,6 +129,10 @@ const AppRoutes = () => {
           />
           <Route path="/services/life-insurance" element={<LifeInsurance />} />
           <Route path="/services/mutual-fund" element={<MutualFund />} />
+          <Route
+  path="/services/:slug"
+  element={<DynamicServicePage />}
+/>
 
           {/* Goals */}
           <Route path="/goals/retirement" element={<Retirement />} />
