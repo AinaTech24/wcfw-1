@@ -67,7 +67,7 @@ const Footer = () => {
     {
       title: "Ahmedabad Branch",
       address:
-        "Dinesh Hall, AWFIS, 6th Floor, World Center, Besides, Ashram Rd, Ahmedabad, Gujarat 380009",
+        "6th Floor, Dinesh Hall, AWFIS, World Center, Besides, Ashram Rd, Ahmedabad, Gujarat 380009",
       phone: "+91 78430 47366 , +91 93772 77703",
       email: "ahmedabad@wcfw.in, info@wcfw.in",
     },
