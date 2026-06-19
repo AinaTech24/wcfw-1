@@ -209,7 +209,7 @@ app.get("/sitemap.xml", async (req, res) => {
   }
 });
 
-const path = require("path");
+// const path = require("path");
 
 app.use(express.static(path.join(__dirname, "../build")));
 

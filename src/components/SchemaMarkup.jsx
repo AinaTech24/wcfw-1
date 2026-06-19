@@ -13,8 +13,8 @@ export const OrganizationSchema = () => {
         "@context": "https://schema.org",
         "@type": "Organization",
         "name": "We Care Freedom Wealth Pvt Ltd",
-        "url": "https://wcfw.in",
-        "logo": "https://wcfw.in/logo.png", // Ensure this exists
+        "url": "https://www.wcfw.in",
+        "logo": "https://www.wcfw.in/logo.png", // Ensure this exists
         "contactPoint": {
             "@type": "ContactPoint",
             "telephone": "+91-1234567890",
@@ -41,7 +41,7 @@ export const FinancialServiceSchema = () => {
             "postalCode": "380001",
             "addressCountry": "IN"
         },
-        "url": "https://wcfw.in",
+        "url": "https://www.wcfw.in",
         "priceRange": "$$"
     };
     return <SchemaMarkup data={data} />;

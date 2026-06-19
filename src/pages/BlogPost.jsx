@@ -5,6 +5,7 @@ import { motion } from "framer-motion";
 import { FaCalendarAlt, FaUser, FaArrowLeft, FaClock } from "react-icons/fa";
 import useMetaTags from "../hooks/useMetaTags";
 import { FAQSchema } from "../components/SchemaMarkup";
+import renderBlogContent from "../utils/renderBlogContent";
 
 const BlogPost = () => {
   const { slug } = useParams();
@@ -72,9 +73,12 @@ const BlogPost = () => {
         ) : (
           <div className="w-full h-full bg-gradient-to-br from-slate-900 to-slate-800 flex items-center justify-center overflow-hidden relative">
             <div className="absolute top-0 right-0 w-96 h-96 bg-orange-500/10 rounded-full blur-[100px] translate-x-1/2 -translate-y-1/2"></div>
-            <h1 className="text-white/10 text-[20vw] font-black absolute select-none">
+            <span
+              aria-hidden="true"
+              className="text-white/10 text-[20vw] font-black absolute select-none"
+            >
               WCFW
-            </h1>
+            </span>
           </div>
         )}
         <div className="absolute inset-0 bg-gradient-to-t from-slate-900 via-slate-900/40 to-transparent"></div>
@@ -113,9 +117,12 @@ const BlogPost = () => {
           <p className="text-xl sm:text-2xl text-slate-500 font-medium italic mb-12 leading-relaxed border-l-4 border-orange-500 pl-8">
             {blog.summary}
           </p>
-          <div className="text-slate-700 leading-[1.8] text-lg space-y-8 whitespace-pre-wrap">
-            {blog.content}
-          </div>
+          <div
+            className="text-slate-700 leading-[1.8] text-lg prose-headings:font-black prose-headings:text-slate-900 prose-h2:text-3xl prose-h3:text-2xl prose-h4:text-xl prose-a:text-orange-600 prose-a:font-semibold prose-a:no-underline hover:prose-a:underline prose-strong:text-slate-900 prose-li:marker:text-orange-500"
+            dangerouslySetInnerHTML={{
+              __html: renderBlogContent(blog.content),
+            }}
+          />
         </div>
 
         {/* Tags */}
@@ -129,6 +136,33 @@ const BlogPost = () => {
                 #{tag}
               </span>
             ))}
+          </div>
+        )}
+
+        {/* FAQs */}
+        {blog.faq && blog.faq.length > 0 && (
+          <div className="mt-24">
+            <h2 className="text-3xl sm:text-4xl font-black text-slate-900 mb-8 tracking-tight">
+              Frequently Asked Questions
+            </h2>
+            <div className="space-y-4">
+              {blog.faq.map((item, idx) => (
+                <details
+                  key={idx}
+                  className="group bg-slate-50 border border-slate-100 rounded-2xl px-6 py-5 [&_summary::-webkit-details-marker]:hidden"
+                >
+                  <summary className="flex items-center justify-between cursor-pointer font-bold text-slate-900 text-lg list-none">
+                    {item.question}
+                    <span className="ml-4 text-orange-500 text-2xl leading-none transition-transform group-open:rotate-45">
+                      +
+                    </span>
+                  </summary>
+                  <p className="mt-4 text-slate-600 leading-relaxed">
+                    {item.answer}
+                  </p>
+                </details>
+              ))}
+            </div>
           </div>
         )}
 

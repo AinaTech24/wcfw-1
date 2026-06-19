@@ -3,9 +3,27 @@ import { useEffect } from 'react';
 const useMetaTags = (seoData) => {
     useEffect(() => {
         if (!seoData) return;
-        const { title, description, keywords, canonicalUrl, robotsTag, ogImage } = seoData;
+        const {
+  metaTitle,
+  metaDescription,
+  metaKeywords,
+  canonicalUrl,
+  robotsTag,
+  ogImage,
+} = seoData;
 
-        // Title
+const title =
+  seoData?.metaTitle ||
+  seoData?.title;
+
+const description =
+  seoData?.metaDescription ||
+  seoData?.description;
+
+const keywords =
+  seoData?.metaKeywords ||
+  seoData?.keywords;
+        // Title    
         if (title) document.title = title;
 
         // Meta Tags Helper

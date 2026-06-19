@@ -19,11 +19,14 @@ const LifeInsurance = () => {
 
   useMetaTags(
     cmsContent["_seo"] || {
-      title: "Life Insurance Services in India | We Care Freedom Wealth",
-      description:
+      metaTitle:
+        "Life Insurance Services in India | We Care Freedom Wealth",
+      metaDescription:
         "Secure your family’s future with expert life insurance services in India. We Care Freedom Wealth offers trusted guidance for complete financial protection.",
+      canonicalUrl:
+        "https://www.wcfw.in/services/life-insurance",
       robotsTag: "index, follow",
-    },
+    }
   );
 
   const hardcodedInsuranceTypes = [
@@ -186,9 +189,8 @@ const LifeInsurance = () => {
                   <React.Fragment key={i}>
                     <div className="flex flex-col">
                       <span
-                        className={`${
-                          i % 2 === 0 ? "text-orange-600" : "text-slate-900"
-                        } text-2xl sm:text-3xl font-black`}
+                        className={`${i % 2 === 0 ? "text-orange-600" : "text-slate-900"
+                          } text-2xl sm:text-3xl font-black`}
                       >
                         {stat.val}
                       </span>

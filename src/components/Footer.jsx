@@ -54,21 +54,21 @@ const Footer = () => {
       title: "Anand - Headquarters",
       address:
         "312 - 316, 3rd Floor, Krishna Shrey Complex, Nr. Sanket Sales, Raj Marg, Anand - 388001",
-      phone: "+91 98201 35296 , +91 93772 77703",
+      phone: "+91 98241 29366",
       email: "info@wcfw.in",
     },
     {
       title: "Vadodara Branch",
       address:
         "The Park, 304-306, Old Padra Rd, Akshar Chowk, Madhav Nagar, Akota, Vadodara, Gujarat 390012",
-      phone: "+91 98241 43812 , +91 93772 77703",
+      phone: "+91 98241 43812",
       email: "tushar@wcfw.in, vadodara@wcfw.in",
     },
     {
       title: "Ahmedabad Branch",
       address:
-        "6th Floor, Dinesh Hall, AWFIS, World Center, Besides, Ashram Rd, Ahmedabad, Gujarat 380009",
-      phone: "+91 78430 47366 , +91 93772 77703",
+        "Office 6th Floor, Dinesh Hall, AWFIS, World Center, Besides, Ashram Rd, Ahmedabad, Gujarat 380009",
+      phone: "+91 78430 47366",
       email: "ahmedabad@wcfw.in, info@wcfw.in",
     },
     {
@@ -357,6 +357,23 @@ const Footer = () => {
                 </div>
               </div>
             ))}
+          </div>
+          {/* Customer Care Number */}
+          <div className="mt-8 text-center">
+            <div className="inline-flex items-center px-6 py-4 border rounded-xl bg-gradient-to-br from-gray-800/50 to-gray-900/50 border-orange-500/20">
+              <FaPhone className="mr-3 text-orange-400" />
+              <span className="text-sm text-gray-300 sm:text-base">
+                <span className="font-semibold text-orange-400">
+                  Customer Care Number :
+                </span>{" "}
+                <a
+                  href="tel:+919377277703"
+                  className="transition-colors hover:text-orange-400"
+                >
+                  +91 93772 77703
+                </a>
+              </span>
+            </div>
           </div>
         </motion.div>
 

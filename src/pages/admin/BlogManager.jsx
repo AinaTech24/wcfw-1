@@ -9,8 +9,33 @@ import {
   FaTimes,
 } from "react-icons/fa";
 import { motion, AnimatePresence } from "framer-motion";
+import ReactQuill from "react-quill";
+import "react-quill/dist/quill.snow.css";
 import { PageLoader } from "../../components/LoadingSkeletons";
 import api from "../../utils/api";
+import renderBlogContent from "../../utils/renderBlogContent";
+
+// Toolbar limited to H2/H3/H4 (no H1) so each post keeps a single H1 (its title).
+const quillModules = {
+  toolbar: [
+    [{ header: [2, 3, 4, false] }],
+    ["bold", "italic", "underline"],
+    [{ list: "ordered" }, { list: "bullet" }],
+    ["blockquote", "link"],
+    ["clean"],
+  ],
+};
+
+const quillFormats = [
+  "header",
+  "bold",
+  "italic",
+  "underline",
+  "list",
+  "bullet",
+  "blockquote",
+  "link",
+];
 
 const BlogManager = () => {
   const [blogs, setBlogs] = useState([]);
@@ -75,7 +100,9 @@ const BlogManager = () => {
   };
 
   const handleEdit = (blog) => {
-    setCurrentBlog(blog);
+    // Legacy posts were stored as plain text; convert to HTML so the rich-text
+    // editor shows them with their original paragraphs intact.
+    setCurrentBlog({ ...blog, content: renderBlogContent(blog.content) });
     setIsEditing(true);
   };
 
@@ -290,14 +317,27 @@ const BlogManager = () => {
                 <label className="block text-sm font-semibold text-gray-700 mb-2">
                   Content
                 </label>
-                <textarea
-                  required
-                  value={currentBlog.content}
-                  onChange={(e) =>
-                    setCurrentBlog({ ...currentBlog, content: e.target.value })
-                  }
-                  className="w-full p-4 bg-gray-50 border border-gray-100 rounded-xl focus:ring-2 focus:ring-orange-500 outline-none h-80 font-mono text-sm"
-                />
+                <p className="text-xs text-gray-500 mb-2">
+                  Use the toolbar to add headings (H2/H3), bold text, lists, and
+                  links. Highlight text and click the link icon to add an
+                  internal link (e.g. /services/mutual-fund) or an external URL.
+                </p>
+                <style>{`
+                  .blog-editor .ql-container { border-bottom-left-radius: 0.75rem; border-bottom-right-radius: 0.75rem; background: #f9fafb; }
+                  .blog-editor .ql-toolbar { border-top-left-radius: 0.75rem; border-top-right-radius: 0.75rem; background: #fff; }
+                  .blog-editor .ql-editor { min-height: 20rem; font-size: 0.95rem; }
+                `}</style>
+                <div className="blog-editor">
+                  <ReactQuill
+                    theme="snow"
+                    value={currentBlog.content}
+                    onChange={(value) =>
+                      setCurrentBlog({ ...currentBlog, content: value })
+                    }
+                    modules={quillModules}
+                    formats={quillFormats}
+                  />
+                </div>
               </div>
 
               {/* SEO Settings Section */}
