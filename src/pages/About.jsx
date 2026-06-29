@@ -62,8 +62,21 @@ import tina from "../assets/team/tina.png";
 import vaidehi from "../assets/team/vaidehi.png";
 import vandana from "../assets/team/vandana.png";
 import vijay from "../assets/team/vijay.png";
+import useCMSContent from "../hooks/useCMSContent";
+import useMetaTags from "../hooks/useMetaTags";
 
 const About = () => {
+  const { cmsContent } = useCMSContent("about");
+
+  // SEO Hook
+  useMetaTags(
+    cmsContent["_seo"] || {
+      title: "About Us | We Care Freedom Wealth",
+      description:
+        "Learn about We Care Freedom Wealth — our story, our team, and our mission to help you achieve financial freedom.",
+      robotsTag: "index, follow",
+    },
+  );
   // Team Data Structure
   const foundingMembers = [
     {

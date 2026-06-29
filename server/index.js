@@ -84,6 +84,8 @@ const testimonialRoutes = require("./routes/testimonial");
 const videoRoutes = require("./routes/video");
 const settingsRoutes = require("./routes/settings");
 const uploadRoutes = require("./routes/upload");
+const seoRoutes = require("./routes/seo");
+const seoController = require("./controllers/seoController");
 
 app.use("/api/auth", authRoutes);
 app.use("/api/content", contentRoutes);
@@ -96,6 +98,7 @@ app.use("/api/testimonials", testimonialRoutes);
 app.use("/api/videos", videoRoutes);
 app.use("/api/settings", settingsRoutes);
 app.use("/api/upload", uploadRoutes);
+app.use("/api/seo", seoRoutes);
 
 // Serve uploaded files
 const path = require("path");
@@ -157,57 +160,11 @@ app.get("/api/dashboard/stats", auth, async (req, res) => {
   }
 });
 
-// Dynamic robots.txt
-app.get("/robots.txt", (req, res) => {
-  res.type("text/plain");
-  res.send(`User-agent: *
-Allow: /
-Sitemap: ${req.protocol}://${req.get("host")}/sitemap.xml`);
-});
-
-// Dynamic sitemap.xml
-app.get("/sitemap.xml", async (req, res) => {
-  try {
-    const root = xmlbuilder
-      .create("urlset", { version: "1.0", encoding: "UTF-8" })
-      .att("xmlns", "http://www.sitemaps.org/schemas/sitemap/0.9");
-
-    const baseUrl = `${req.protocol}://${req.get("host")}`;
-
-    // Fixed Pages
-    const staticPages = ["", "/about", "/services", "/contact", "/blog"];
-    staticPages.forEach((page) => {
-      root
-        .ele("url")
-        .ele("loc", `${baseUrl}${page}`)
-        .up()
-        .ele("changefreq", "weekly")
-        .up()
-        .ele("priority", page === "" ? "1.0" : "0.8")
-        .up();
-    });
-
-    // Dynamic Blogs
-    const blogs = await Blog.find({ isPublished: true });
-    blogs.forEach((blog) => {
-      root
-        .ele("url")
-        .ele("loc", `${baseUrl}/blog/${blog.slug}`)
-        .up()
-        .ele("lastmod", blog.updatedAt.toISOString().split("T")[0])
-        .up()
-        .ele("changefreq", "monthly")
-        .up()
-        .ele("priority", "0.6")
-        .up();
-    });
-
-    res.set("Content-Type", "text/xml");
-    res.send(root.end({ pretty: true }));
-  } catch (err) {
-    res.status(500).end();
-  }
-});
+// Dynamic, admin-controlled robots.txt and sitemap.xml.
+// The live site (wcfw.in, static hPanel hosting) routes these two paths to the
+// API via .htaccess, so they always reflect the latest admin changes.
+app.get("/robots.txt", seoController.serveRobots);
+app.get("/sitemap.xml", seoController.serveSitemap);
 
 // const path = require("path");
 

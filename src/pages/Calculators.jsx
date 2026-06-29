@@ -20,10 +20,23 @@ import {
   FaArrowRight,
   FaToolbox,
 } from "react-icons/fa";
+import useCMSContent from "../hooks/useCMSContent";
+import useMetaTags from "../hooks/useMetaTags";
 
 const Calculators = () => {
+  const { cmsContent } = useCMSContent("calculators");
   const [searchTerm, setSearchTerm] = useState("");
   const [activeCategory, setActiveCategory] = useState("All");
+
+  // SEO Hook
+  useMetaTags(
+    cmsContent["_seo"] || {
+      title: "Financial Calculators | We Care Freedom Wealth",
+      description:
+        "Free financial calculators for SIP, lumpsum, retirement, EMI, and more to plan your investments.",
+      robotsTag: "index, follow",
+    },
+  );
 
   const calculators = [
     {

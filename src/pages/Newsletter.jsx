@@ -8,8 +8,22 @@ import {
   FaArrowRight,
   FaTerminal,
 } from "react-icons/fa";
+import useCMSContent from "../hooks/useCMSContent";
+import useMetaTags from "../hooks/useMetaTags";
 
 const Newsletter = () => {
+  const { cmsContent } = useCMSContent("newsletter");
+
+  // SEO Hook
+  useMetaTags(
+    cmsContent["_seo"] || {
+      title: "Newsletter | We Care Freedom Wealth",
+      description:
+        "Read our latest articles and insights on personal finance, investing, tax, and wealth creation.",
+      robotsTag: "index, follow",
+    },
+  );
+
   const [selectedCategory, setSelectedCategory] = useState("All");
   const [searchTerm, setSearchTerm] = useState("");
   const [posts, setPosts] = useState([]);

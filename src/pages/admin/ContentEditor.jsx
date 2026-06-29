@@ -59,6 +59,7 @@ const DEFAULT_PAGES = [
   "blog",
   "videos",
   "newsletter",
+  "calculators",
   "financial-freedom",
   "asset-allocation",
   "retirement",

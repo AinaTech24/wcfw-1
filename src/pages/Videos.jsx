@@ -3,8 +3,22 @@ import { motion } from 'framer-motion';
 import { FaPlay, FaYoutube, FaSearch, FaClock, FaEye, FaVideo, FaArrowRight, FaTv } from 'react-icons/fa';
 import axios from 'axios';
 import { CardSkeleton } from '../components/LoadingSkeletons';
+import useCMSContent from '../hooks/useCMSContent';
+import useMetaTags from '../hooks/useMetaTags';
 
 const Videos = () => {
+  const { cmsContent } = useCMSContent('videos');
+
+  // SEO Hook
+  useMetaTags(
+    cmsContent['_seo'] || {
+      title: 'Videos | We Care Freedom Wealth',
+      description:
+        'Watch our latest videos on SIP, mutual funds, tax planning, insurance, and market analysis.',
+      robotsTag: 'index, follow',
+    },
+  );
+
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedCategory, setSelectedCategory] = useState('All');
   const [videos, setVideos] = useState([]);
