@@ -13,9 +13,11 @@ const SiteSeoSchema = new mongoose.Schema(
     // Full robots.txt body served verbatim. Editable from the admin panel.
     robotsTxt: { type: String, default: "" },
 
-    // Full sitemap.xml body served verbatim. Editable from the admin panel
-    // (simple paste-and-save, just like robots.txt).
+    // Legacy field — no longer served; kept so existing DB data isn't lost.
     sitemapXml: { type: String, default: "" },
+
+    // Optional extra URLs (one per line) appended to the auto-generated sitemap.
+    sitemapCustomUrls: { type: String, default: "" },
   },
   { timestamps: true },
 );

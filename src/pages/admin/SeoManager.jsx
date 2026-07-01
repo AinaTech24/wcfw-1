@@ -25,7 +25,7 @@ const SeoManager = () => {
       setSeo({
         siteUrl: res.data.siteUrl || "https://www.wcfw.in",
         robotsTxt: res.data.robotsTxt || "",
-        sitemapXml: res.data.sitemapXml || "",
+        sitemapCustomUrls: res.data.sitemapCustomUrls || "",
       });
     } catch (err) {
       setError("Failed to load SEO settings.");
@@ -54,9 +54,9 @@ const SeoManager = () => {
       setSeo({
         siteUrl: res.data.siteUrl,
         robotsTxt: res.data.robotsTxt,
-        sitemapXml: res.data.sitemapXml,
+        sitemapCustomUrls: res.data.sitemapCustomUrls || "",
       });
-      flash(setMessage, "Saved. robots.txt & sitemap.xml are now live.");
+      flash(setMessage, "Saved. Changes are now live.");
     } catch (err) {
       flash(setError, "Failed to save SEO settings.");
     } finally {
@@ -74,50 +74,20 @@ const SeoManager = () => {
     }
   };
 
-  const resetSitemap = async () => {
-    try {
-      const res = await api.get("/seo/default-sitemap");
-      update("sitemapXml", res.data.sitemapXml);
-      flash(setMessage, "Loaded recommended sitemap.xml. Click Save to apply.");
-    } catch {
-      flash(setError, "Failed to load default sitemap.xml.");
-    }
-  };
-
-  const insertBlogUrls = async () => {
-    try {
-      const res = await api.get("/seo/blog-urls");
-      const all = res.data.urls || [];
-      let xml = seo.sitemapXml || "";
-      const fresh = all.filter((u) => !xml.includes(`<loc>${u.loc}</loc>`));
-      if (fresh.length === 0) {
-        flash(setMessage, "All blog URLs are already in the sitemap.");
-        return;
-      }
-      const blocks = fresh
-        .map(
-          (u) =>
-            `  <url>\n    <loc>${u.loc}</loc>${u.lastmod ? `\n    <lastmod>${u.lastmod}</lastmod>` : ""}\n    <changefreq>monthly</changefreq>\n  </url>`,
-        )
-        .join("\n");
-      if (xml.includes("</urlset>")) {
-        xml = xml.replace("</urlset>", `${blocks}\n</urlset>`);
-      } else {
-        xml = `${xml}\n${blocks}`.trim();
-      }
-      update("sitemapXml", xml);
-      flash(
-        setMessage,
-        `Inserted ${fresh.length} blog URL(s). Click Save to apply.`,
-      );
-    } catch {
-      flash(setError, "Failed to load blog URLs.");
-    }
-  };
-
   if (loading) return <PageLoader />;
 
   const liveBase = (seo.siteUrl || "https://www.wcfw.in").replace(/\/+$/, "");
+
+  const autoPages = [
+    "/",
+    "/about",
+    "/services",
+    "/contact",
+    "/blog",
+    "/calculators",
+    "/videos",
+    "/newsletter",
+  ];
 
   return (
     <div className="space-y-6">
@@ -126,7 +96,7 @@ const SeoManager = () => {
         <div>
           <h1 className="text-3xl font-bold text-gray-900">SEO & Sitemap</h1>
           <p className="mt-1 text-gray-500">
-            Edit your robots.txt and sitemap.xml. Changes go live instantly.
+            Manage robots.txt and sitemap.xml. Sitemap updates automatically when blogs are published.
           </p>
         </div>
         <div className="flex gap-2">
@@ -189,7 +159,7 @@ const SeoManager = () => {
           placeholder="https://www.wcfw.in"
         />
         <p className="mt-2 text-xs text-gray-400">
-          Used by the "Reset to recommended" buttons below.
+          Used to build all URLs in the sitemap and the Sitemap directive in robots.txt.
         </p>
       </div>
 
@@ -239,43 +209,68 @@ const SeoManager = () => {
               sitemap.xml
             </span>
           </div>
-          <div className="flex items-center gap-3">
-            <button
-              onClick={insertBlogUrls}
-              className="text-xs font-bold text-emerald-600 hover:text-emerald-700"
-            >
-              Insert all current blog URLs
-            </button>
-            <button
-              onClick={resetSitemap}
-              className="text-xs font-bold text-orange-600 hover:text-orange-700"
-            >
-              Reset to recommended
-            </button>
-            <a
-              href={`${liveBase}/sitemap.xml`}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex items-center gap-1 text-xs font-bold text-blue-600 hover:text-blue-700"
-            >
-              View live <FaExternalLinkAlt size={9} />
-            </a>
-          </div>
+          <a
+            href={`${liveBase}/sitemap.xml`}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex items-center gap-1 text-xs font-bold text-blue-600 hover:text-blue-700"
+          >
+            View live <FaExternalLinkAlt size={9} />
+          </a>
         </div>
-        <div className="p-6">
-          <textarea
-            value={seo.sitemapXml}
-            onChange={(e) => update("sitemapXml", e.target.value)}
-            spellCheck="false"
-            className="w-full p-4 font-mono text-sm text-slate-800 bg-gray-50 rounded-xl outline-none resize-none leading-relaxed border border-gray-100 focus:ring-2 focus:ring-orange-500 min-h-[320px]"
-            placeholder={
-              '<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n  ...\n</urlset>'
-            }
-          />
-          <p className="mt-2 text-xs text-gray-400">
-            Paste your full sitemap XML here and Save. It is served exactly as
-            entered at {liveBase}/sitemap.xml.
-          </p>
+        <div className="p-6 space-y-5">
+          {/* Auto status */}
+          <div className="flex items-start gap-3 p-4 bg-emerald-50 border border-emerald-100 rounded-xl text-sm text-emerald-700">
+            <FaCheckCircle className="mt-0.5 shrink-0 text-emerald-500" />
+            <div>
+              <p className="font-semibold">Auto-generated — always up to date</p>
+              <p className="mt-1 text-xs text-emerald-600 leading-relaxed">
+                All published blog posts are added to the sitemap automatically
+                the moment they go live. No manual updates needed.
+              </p>
+            </div>
+          </div>
+
+          {/* Static pages list */}
+          <div>
+            <p className="text-xs font-semibold text-gray-500 mb-2 uppercase tracking-wider">
+              Always included
+            </p>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-1.5">
+              {autoPages.map((p) => (
+                <span
+                  key={p}
+                  className="text-xs font-mono text-slate-600 bg-gray-50 border border-gray-100 rounded-lg px-3 py-1.5 truncate"
+                >
+                  {liveBase}{p === "/" ? "" : p}
+                </span>
+              ))}
+            </div>
+            <p className="mt-2 text-xs text-gray-400">
+              + All published, indexable blog posts (auto-added on publish)
+            </p>
+          </div>
+
+          {/* Custom additional URLs */}
+          <div>
+            <label className="block mb-2 text-xs font-semibold text-gray-600 uppercase tracking-wider">
+              Additional custom URLs{" "}
+              <span className="font-normal normal-case text-gray-400">
+                — optional, one per line
+              </span>
+            </label>
+            <textarea
+              value={seo.sitemapCustomUrls}
+              onChange={(e) => update("sitemapCustomUrls", e.target.value)}
+              spellCheck="false"
+              className="w-full p-4 font-mono text-sm text-slate-800 bg-gray-50 rounded-xl outline-none resize-none leading-relaxed border border-gray-100 focus:ring-2 focus:ring-orange-500 min-h-[100px]"
+              placeholder={`https://www.wcfw.in/some-custom-page\nhttps://www.wcfw.in/another-page`}
+            />
+            <p className="mt-2 text-xs text-gray-400">
+              Add any pages not in the auto list above. These are appended to
+              the sitemap on every request.
+            </p>
+          </div>
         </div>
       </div>
     </div>

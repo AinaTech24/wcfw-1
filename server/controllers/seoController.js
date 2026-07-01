@@ -12,40 +12,58 @@ Disallow: /login
 
 Sitemap: ${normalizeBase(siteUrl)}/sitemap.xml`;
 
-// A recommended starter sitemap (the main pages). Used to seed the field and
-// for the optional "Reset to recommended" button — after that it is fully
-// hand-edited from the admin, just like robots.txt.
-const recommendedSitemap = (siteUrl) => {
-  const base = normalizeBase(siteUrl);
-  const paths = [
-    "/",
-    "/about",
-    "/services",
-    "/contact",
-    "/blog",
-    "/calculators",
-    "/videos",
-    "/newsletter",
-  ];
-  const urls = paths
-    .map(
-      (p) =>
-        `  <url>\n    <loc>${base}${p === "/" ? "" : p}</loc>\n    <changefreq>weekly</changefreq>\n  </url>`,
-    )
-    .join("\n");
-  return `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${urls}\n</urlset>`;
-};
+const STATIC_PAGES = [
+  { path: "", priority: "1.0" },
+  { path: "/about", priority: "0.8" },
+  { path: "/services", priority: "0.8" },
+  { path: "/contact", priority: "0.8" },
+  { path: "/blog", priority: "0.8" },
+  { path: "/calculators", priority: "0.8" },
+  { path: "/videos", priority: "0.8" },
+  { path: "/newsletter", priority: "0.8" },
+];
 
 // Always operate on a single settings document.
 const getOrCreateSettings = async () => {
   let settings = await SiteSeo.findOne();
   if (!settings) {
-    settings = await SiteSeo.create({
-      robotsTxt: defaultRobots(),
-      sitemapXml: recommendedSitemap(),
-    });
+    settings = await SiteSeo.create({ robotsTxt: defaultRobots() });
   }
   return settings;
+};
+
+// Build sitemap XML dynamically from static pages + published blogs + custom URLs.
+const buildSitemap = async (settings) => {
+  const base = normalizeBase(settings.siteUrl);
+
+  const staticEntries = STATIC_PAGES.map(
+    (p) =>
+      `  <url>\n    <loc>${base}${p.path}</loc>\n    <changefreq>weekly</changefreq>\n    <priority>${p.priority}</priority>\n  </url>`,
+  );
+
+  const blogs = await Blog.find({ isPublished: true }).select(
+    "slug updatedAt robotsTag",
+  );
+  const blogEntries = blogs
+    .filter((b) => !(b.robotsTag || "").toLowerCase().includes("noindex"))
+    .map((b) => {
+      const lastmod = b.updatedAt
+        ? `\n    <lastmod>${new Date(b.updatedAt).toISOString().split("T")[0]}</lastmod>`
+        : "";
+      return `  <url>\n    <loc>${base}/blog/${b.slug}</loc>${lastmod}\n    <changefreq>monthly</changefreq>\n    <priority>0.6</priority>\n  </url>`;
+    });
+
+  const customEntries = (settings.sitemapCustomUrls || "")
+    .split("\n")
+    .map((u) => u.trim())
+    .filter((u) => u.startsWith("http"))
+    .map(
+      (u) =>
+        `  <url>\n    <loc>${u}</loc>\n    <changefreq>monthly</changefreq>\n  </url>`,
+    );
+
+  const allEntries = [...staticEntries, ...blogEntries, ...customEntries];
+  return `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${allEntries.join("\n")}\n</urlset>`;
 };
 
 // ---- Public endpoints (served at the site root, routed from hPanel) ----
@@ -63,8 +81,9 @@ exports.serveRobots = async (req, res) => {
 exports.serveSitemap = async (req, res) => {
   try {
     const settings = await getOrCreateSettings();
+    const xml = await buildSitemap(settings);
     res.set("Content-Type", "text/xml");
-    res.send(settings.sitemapXml || recommendedSitemap(settings.siteUrl));
+    res.send(xml);
   } catch (err) {
     res.status(500).end();
   }
@@ -84,11 +103,12 @@ exports.getSeo = async (req, res) => {
 exports.updateSeo = async (req, res) => {
   try {
     const settings = await getOrCreateSettings();
-    const { siteUrl, robotsTxt, sitemapXml } = req.body;
+    const { siteUrl, robotsTxt, sitemapCustomUrls } = req.body;
 
     if (siteUrl !== undefined) settings.siteUrl = siteUrl;
     if (robotsTxt !== undefined) settings.robotsTxt = robotsTxt;
-    if (sitemapXml !== undefined) settings.sitemapXml = sitemapXml;
+    if (sitemapCustomUrls !== undefined)
+      settings.sitemapCustomUrls = sitemapCustomUrls;
 
     await settings.save();
     res.json(settings);
@@ -97,43 +117,10 @@ exports.updateSeo = async (req, res) => {
   }
 };
 
-// Recommended starter content for the "Reset to recommended" buttons.
 exports.defaultRobots = async (req, res) => {
   try {
     const settings = await getOrCreateSettings();
     res.json({ robotsTxt: defaultRobots(settings.siteUrl) });
-  } catch (err) {
-    res.status(500).json({ message: err.message });
-  }
-};
-
-exports.defaultSitemap = async (req, res) => {
-  try {
-    const settings = await getOrCreateSettings();
-    res.json({ sitemapXml: recommendedSitemap(settings.siteUrl) });
-  } catch (err) {
-    res.status(500).json({ message: err.message });
-  }
-};
-
-// Return <loc>/<lastmod> for every published, indexable blog post so the admin
-// can one-click insert them into the sitemap textarea.
-exports.blogUrls = async (req, res) => {
-  try {
-    const settings = await getOrCreateSettings();
-    const base = normalizeBase(settings.siteUrl);
-    const blogs = await Blog.find({ isPublished: true }).select(
-      "slug updatedAt robotsTag",
-    );
-    const urls = blogs
-      .filter((b) => !(b.robotsTag || "").toLowerCase().includes("noindex"))
-      .map((b) => ({
-        loc: `${base}/blog/${b.slug}`,
-        lastmod: b.updatedAt
-          ? new Date(b.updatedAt).toISOString().split("T")[0]
-          : undefined,
-      }));
-    res.json({ urls });
   } catch (err) {
     res.status(500).json({ message: err.message });
   }
