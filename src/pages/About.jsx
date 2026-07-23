@@ -11,56 +11,32 @@ import {
   FaCrown,
   FaUsers,
   FaBriefcase,
-  FaChartLine,
+  FaEnvelope,
+  FaPhone,
 } from "react-icons/fa";
 
 import groupImage from "../assets/groupimage.png";
 
-// Import all team images
 import vasudev from "../assets/team/vasudev.png";
 import geeta from "../assets/team/geeta.png";
 import nikhil from "../assets/team/nikhil.png";
 import megha from "../assets/team/megha.png";
-import priyang from "../assets/team/priyang.png";
-import dwij from "../assets/team/dwij.png";
 import kamlesh from "../assets/team/kamlesh.png";
-import hraday from "../assets/team/hraday.png";
 import dharmesh from "../assets/team/dharmesh.png";
 import tushar from "../assets/team/tushar.png";
 import dhruvik from "../assets/team/dhruvik.png";
-import pavan from "../assets/team/pavan.jpeg";
 import hetal from "../assets/team/hetal.png";
 import chintal from "../assets/team/chintal.png";
 import dhruvi from "../assets/team/dhruvi.png";
 import rajesh from "../assets/team/rajesh.png";
-import rohan from "../assets/team/rohan.png";
-import hari from "../assets/team/hari.png";
 import pratik from "../assets/team/pratik.png";
 import prakash from "../assets/team/prakash.png";
 import nishith from "../assets/team/nishith.png";
-import amitArora from "../assets/team/amit.png";
-import amit from "../assets/team/amit.jpeg";
-import dinesh from "../assets/team/dinesh.png";
-import disha from "../assets/team/disha.png";
-import durgesh from "../assets/team/durgesh.png";
-import harshita from "../assets/team/harshita.jpeg";
-import hemant from "../assets/team/hemant.png";
-import hiteksha from "../assets/team/hiteksha.png";
-import khushi from "../assets/team/khushi.png";
 import meena from "../assets/team/meena.png";
-import meenu from "../assets/team/meenu.jpeg";
-import mitali from "../assets/team/mitali.png";
-import neha from "../assets/team/neha.jpeg";
-import parul from "../assets/team/parul.jpeg";
 import pravin from "../assets/team/pravin.png";
 import pritesh from "../assets/team/pritesh.png";
 import rahul from "../assets/team/rahul.png";
-import satvik from "../assets/team/satvik.png";
-import shivang from "../assets/team/shivang.png";
-import tannu from "../assets/team/tannu.png";
-import tina from "../assets/team/tina.png";
 import vaidehi from "../assets/team/vaidehi.png";
-import vandana from "../assets/team/vandana.png";
 import vijay from "../assets/team/vijay.png";
 import useCMSContent from "../hooks/useCMSContent";
 import useMetaTags from "../hooks/useMetaTags";
@@ -68,7 +44,6 @@ import useMetaTags from "../hooks/useMetaTags";
 const About = () => {
   const { cmsContent } = useCMSContent("about");
 
-  // SEO Hook
   useMetaTags(
     cmsContent["_seo"] || {
       title: "About Us | We Care Freedom Wealth",
@@ -77,314 +52,169 @@ const About = () => {
       robotsTag: "index, follow",
     },
   );
-  // Team Data Structure
+
   const foundingMembers = [
     {
-      name: "Vasudev Thakkar",
+      name: "Shri Vasudev Thakker",
       role: "Founder & Chairman",
       img: vasudev,
       exp: "35+ Years",
-      bio: "Established the firm in 1989 with a vision to democratize financial literacy and empower families across India.",
+      bio: "Visionary leader who started the firm in 1989 with LIC and Post Office savings, later transforming it into a complete wealth creation platform.",
     },
     {
-      name: "Late Smt. Geetaben Thakkar",
+      name: "Lt. Smt. Geetaben Thakker",
       role: "Co-Founder",
       img: geeta,
       exp: "30+ Years",
-      bio: "The heart of our client-centric philosophy and relationship building. Her legacy continues to inspire our values.",
+      bio: "Co-founded the firm with unwavering dedication to helping families achieve financial security and peace of mind.",
     },
-  ];
-
-  const directors = [
+    {
+      name: "Megha Thakker",
+      role: "Director",
+      img: megha,
+      exp: "15+ Years",
+      bio: "Dedicated to improving client experiences and maintaining We Care's value-driven service standards.",
+    },
     {
       name: "Nikhil Thakkar",
       role: "Managing Director",
       img: nikhil,
       exp: "15+ Years",
-      bio: "Leading the firm's strategic expansion and digital-first investment services model with institutional precision.",
+      bio: "Leading the next generation of financial advisors with innovation, technology, and education-driven strategies.",
     },
+  ];
+
+  const headDepartment = [
     {
-      name: "Megha Thakkar",
-      role: "Director",
-      img: megha,
+      name: "Nishit Pandya",
+      role: "Financial Head",
+      img: nishith,
       exp: "12+ Years",
-      bio: "Ensuring operational excellence and superior client experience across all touchpoints.",
-    },
-    {
-      name: "Priyang Patel",
-      role: "Director",
-      img: priyang,
-      exp: "10+ Years",
-      bio: "Driving innovation in investment services and client portfolio review processes.",
-    },
-    {
-      name: "Dwij Thakkar",
-      role: "Director",
-      img: dwij,
-      exp: "8+ Years",
-      bio: "Spearheading technology integration and next-generation financial solutions.",
-    },
-  ];
-
-  const leadership = [
-    {
-      name: "Kamlesh Patel",
-      role: "Deputy Manager (Sales Support)",
-      img: kamlesh,
-      location: "Corporate Office",
-      bio: "Orchestrating operational excellence and strategic execution across all business verticals.",
-    },
-    {
-      name: "Dr. H. K. Desai",
-      role: "Chief Operating Officer",
-      img: hraday,
-      location: "Advisory Board",
-      bio: "Providing institutional experience and strategic direction for long-term business initiatives.",
-    },
-    {
-      name: "Hetal Mehta",
-      role: "Deputy Manager - Customer Relationship",
-      img: hetal,
-      location: "Corporate Office",
-      bio: "Ensuring seamless sales operations and client onboarding excellence.",
-    },
-  ];
-
-  const associatePartners = [
-    {
-      name: "Rajesh Chauhan",
-      role: "Associate Partner",
-      img: rajesh,
-      location: "Anand",
-      bio: "Specializing in retirement solution and wealth preservation strategies.",
-    },
-    {
-      name: "Tushar Shah",
-      role: "Associate Partner",
-      img: tushar,
-      location: "Vadodara",
-      bio: "Driving business growth and client satisfaction in the Vadodara market.",
+      location: "Insurance & Risk Management",
+      bio: "Expert in holistic protection planning and insurance advisory.",
+      email: "nishit@wcfw.in",
+      phone: "+91 98798 1221",
     },
     {
       name: "Dharmesh Kunadia",
       role: "Associate Partner",
       img: dharmesh,
-      location: "Anand",
-      bio: "Leading client acquisition and relationship management in the Anand region.",
+      exp: "10+ Years",
+      location: "Strategic Development",
+      bio: "Focused on building scalable advisory systems and investor growth models.",
+      email: "dharmesh@wcfw.in",
+      phone: "+91 98798 1221",
     },
     {
       name: "Dhruvik Shah",
       role: "Associate Partner",
       img: dhruvik,
-      location: "Ahmedabad",
-      bio: "Managing high-net-worth client portfolios and strategic partnerships in Ahmedabad.",
+      exp: "9+ Years",
+      location: "Financial Planning",
+      bio: "Promotes financial happiness through structured SIP and goal-based planning.",
+      email: "dhruvik@wcfw.in",
+      phone: "+91 98798 1221",
     },
     {
-      name: "Pavan Sachdeva",
+      name: "Tushar Shah",
       role: "Associate Partner",
-      img: pavan,
-      location: "Delhi",
-      bio: "Expanding our footprint in the Delhi NCR region with investment-related services.",
+      img: tushar,
+      exp: "8+ Years",
+      location: "Client Membership",
+      bio: "Ensures strong and long-lasting relationships with investors through personalised engagement.",
+      email: "tushar@wcfw.in",
+      phone: "+91 98798 1221",
     },
     {
-      name: "Amit Arora",
+      name: "Kamlesh Patel",
       role: "Associate Partner",
-      img: amitArora,
-      location: "Delhi",
-      bio: "Driving strategic partnerships and business expansion initiatives.",
+      img: kamlesh,
+      exp: "10+ Years",
+      location: "Administration & Operations",
+      bio: "Handles multi-channel coordination, administration, and process improvement.",
+      email: "kamlesh@wcfw.in",
+      phone: "+91 98798 1221",
     },
-  ];
-
-  const insuranceHeads = [
+    {
+      name: "Hetal Mehta",
+      role: "Back Office Head",
+      img: hetal,
+      exp: "8+ Years",
+      location: "Operations & Client Support",
+      bio: "Leads back-office operations ensuring smooth documentation and client service processes.",
+      email: "hetal@wcfw.in",
+      phone: "+91 98798 7757",
+    },
+    {
+      name: "Rajesh Chauhan",
+      role: "Associate Partner",
+      img: rajesh,
+      exp: "9+ Years",
+      location: "Client Relations",
+      bio: "Ensures consistent client engagement through periodic portfolio reviews.",
+      email: "rajesh@wcfw.in",
+      phone: "+91 98798 1221",
+    },
     {
       name: "Prakash Machhi",
-      role: "Associate Partner (Insurance - Personal Line)",
+      role: "General Manager",
       img: prakash,
-      location: "Corporate Office",
-      bio: "Focusing on retirement-oriented investment options and capital preservation approaches.",
+      exp: "12+ Years",
+      location: "Insurance & Risk Planning",
+      bio: "Expert in creating custom insurance portfolios and ensuring comprehensive coverage for clients.",
+      email: "prakash@wcfw.in",
+      phone: "+91 98798 1221",
     },
     {
-      name: "Nishith Pandya",
-      role: "Associate Partner (Insurance - Commercial Line)",
-      img: nishith,
-      location: "Corporate Office",
-      bio: "Handling commercial insurance solutions and risk coverage services.",
-    },
-  ];
-
-  const relationshipManagers = [
-    {
-      name: "Chintal Patel",
-      role: "Relationship Manager",
-      img: chintal,
-      bio: "Dedicated to building long-term client relationships and supporting investment needs.",
-    },
-    {
-      name: "Dhruvi Sheth",
-      role: "Relationship Manager",
-      img: dhruvi,
-      bio: "Assisting with investment processes and portfolio review support.",
-    },
-    {
-      name: "Rohan Goswami",
-      role: "Relationship Manager",
-      img: rohan,
-      bio: "Focused on goal-based investing and investment-related services.",
-    },
-    {
-      name: "Harikrushna Gadhvi",
-      role: "Relationship Manager",
-      img: hari,
-      bio: "Experienced in mutual fund distribution and systematic investment processes.",
-    },
-
-    // Newly Added
-    {
-      name: "Dinesh",
-      role: "Relationship Manager",
-      img: dinesh,
-      bio: "Supporting clients with investment coordination and relationship management services.",
-    },
-    {
-      name: "Disha",
-      role: "Relationship Manager",
-      img: disha,
-      bio: "Helping clients with onboarding, servicing, and portfolio assistance.",
-    },
-    {
-      name: "Durgesh",
-      role: "Relationship Manager",
-      img: durgesh,
-      bio: "Focused on client servicing and investment support activities.",
-    },
-    {
-      name: "Harshita",
-      role: "Relationship Manager",
-      img: harshita,
-      bio: "Providing personalized assistance for investment and service-related queries.",
-    },
-    {
-      name: "Hemant",
-      role: "Relationship Manager",
-      img: hemant,
-      bio: "Assisting clients with operational support and relationship management.",
-    },
-    {
-      name: "Hiteksha",
-      role: "Relationship Manager",
-      img: hiteksha,
-      bio: "Dedicated to ensuring smooth customer engagement and support services.",
-    },
-    {
-      name: "Khushi",
-      role: "Relationship Manager",
-      img: khushi,
-      bio: "Supporting investment-related communication and client coordination.",
-    },
-    {
-      name: "Meena",
-      role: "Relationship Manager",
-      img: meena,
-      bio: "Managing customer interactions and servicing support.",
-    },
-    {
-      name: "Meenu",
-      role: "Relationship Manager",
-      img: meenu,
-      bio: "Focused on assisting clients with financial service processes.",
-    },
-    {
-      name: "Mitali",
-      role: "Relationship Manager",
-      img: mitali,
-      bio: "Providing relationship support and operational assistance.",
-    },
-    {
-      name: "Neha",
-      role: "Relationship Manager",
-      img: neha,
-      bio: "Helping maintain strong client engagement and communication.",
-    },
-    {
-      name: "Parul",
-      role: "Relationship Manager",
-      img: parul,
-      bio: "Supporting client relationship activities and service coordination.",
-    },
-    {
-      name: "Pravin",
-      role: "Relationship Manager",
-      img: pravin,
-      bio: "Handling client servicing and investment-related assistance.",
-    },
-    {
-      name: "Pritesh",
-      role: "Relationship Manager",
-      img: pritesh,
-      bio: "Focused on customer support and relationship-building initiatives.",
-    },
-    {
-      name: "Rahul",
-      role: "Relationship Manager",
-      img: rahul,
-      bio: "Providing operational and relationship management support.",
-    },
-    {
-      name: "Satvik",
-      role: "Relationship Manager",
-      img: satvik,
-      bio: "Assisting clients with investment servicing and support functions.",
-    },
-    {
-      name: "Shivang",
-      role: "Relationship Manager",
-      img: shivang,
-      bio: "Focused on customer engagement and portfolio assistance.",
-    },
-    {
-      name: "Tannu",
-      role: "Relationship Manager",
-      img: tannu,
-      bio: "Helping clients with servicing requests and operational support.",
-    },
-    {
-      name: "Tina",
-      role: "Relationship Manager",
-      img: tina,
-      bio: "Providing assistance in relationship management and client servicing.",
-    },
-    {
-      name: "Vaidehi",
-      role: "Relationship Manager",
+      name: "Vaidehi Patel",
+      role: "Operations Executive – Vadodara",
       img: vaidehi,
-      bio: "Supporting customer interactions and investment service coordination.",
+      exp: "6+ Years",
+      location: "Branch Operations",
+      bio: "Manages client servicing and documentation at Vadodara branch.",
+      email: "vaidehi@wcfw.in",
+      phone: "+91 98798 1221",
     },
     {
-      name: "Vandana",
-      role: "Relationship Manager",
-      img: vandana,
-      bio: "Focused on client support and relationship management activities.",
-    },
-    {
-      name: "Vijay",
-      role: "Relationship Manager",
-      img: vijay,
-      bio: "Providing operational support and customer relationship assistance.",
+      name: "Pritesh Thakor",
+      role: "IT Head",
+      img: pritesh,
+      exp: "7+ Years",
+      location: "Technology & Automation",
+      bio: "Heads the tech division, driving automation and CRM integration across business processes.",
+      email: "pritesh@ainatech.in",
+      phone: "+91 98741 50427",
     },
   ];
 
-  const equityHead = [
+  const teamCategories = [
     {
-      name: "Pratik Shah",
-      role: "Equity Head",
-      img: pratik,
-      bio: "Conducting market analysis for internal research and insights.",
+      label: "Client Services",
+      members: [
+        { name: "Dhruvi Sheth", role: "Relationship Manager", img: dhruvi, exp: "5+ Years" },
+        { name: "Chintal Patel", role: "Relationship Manager", img: chintal, exp: "5+ Years" },
+        { name: "Meenaben Gohel", role: "Insurance Team", img: meena, exp: "8+ Years" },
+      ],
+    },
+    {
+      label: "Support & Operations",
+      members: [
+        { name: "Pravin Solanki", role: "Support Executive", img: pravin, exp: "6+ Years" },
+        { name: "Rahul Solanki", role: "Support Executive", img: rahul, exp: "5+ Years" },
+      ],
+    },
+    {
+      label: "Equity & Research",
+      members: [
+        { name: "Vijay Vaghela", role: "Equity Team Member", img: vijay, exp: "7+ Years" },
+        { name: "Pratik Shah", role: "Technical Operator", img: pratik, exp: "4+ Years" },
+      ],
     },
   ];
 
   return (
     <div className="bg-[#f8fafc] font-sans selection:bg-orange-100 selection:text-orange-600">
-      {/* Cinematic Light Header */}
+      {/* Hero */}
       <section
         id="our-legacy"
         className="relative flex items-center min-h-screen pt-24 overflow-hidden sm:pt-28 lg:pt-20 pb-14 sm:pb-20"
@@ -393,10 +223,8 @@ const About = () => {
             "linear-gradient(135deg, #ffe5bd 0%, #fffdf7 35%, #c7f1ff 100%)",
         }}
       >
-        {/* Background */}
         <div className="absolute inset-0 opacity-40">
           <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_rgba(255,255,255,0.8)_0%,_transparent_100%)]"></div>
-
           <img
             src={groupImage}
             alt="Legacy"
@@ -406,14 +234,12 @@ const About = () => {
 
         <div className="relative z-10 w-full px-4 mx-auto max-w-7xl sm:px-6 lg:px-8">
           <div className="grid items-center gap-10 lg:grid-cols-2 lg:gap-16">
-            {/* LEFT CONTENT */}
             <motion.div
               initial={{ opacity: 0, x: -30 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.8 }}
               className="text-center lg:text-left"
             >
-              {/* Badge */}
               <div className="inline-flex items-center gap-3 px-4 py-2 mb-6 border rounded-full bg-orange-500/10 border-orange-500/20">
                 <FaHistory className="text-sm text-orange-600" />
                 <span className="text-orange-900 font-bold text-[11px] sm:text-xs uppercase tracking-[0.2em]">
@@ -421,7 +247,6 @@ const About = () => {
                 </span>
               </div>
 
-              {/* Heading */}
               <h1 className="mb-6 text-4xl font-black leading-tight sm:text-5xl md:text-6xl lg:text-7xl text-slate-900">
                 Our <br />
                 <span className="text-transparent bg-clip-text bg-gradient-to-r from-orange-600 to-amber-500">
@@ -429,14 +254,12 @@ const About = () => {
                 </span>
               </h1>
 
-              {/* Paragraph */}
               <p className="max-w-xl mx-auto mb-8 text-base leading-relaxed sm:text-lg md:text-xl text-slate-700 lg:mx-0">
                 For over 35 years, we've helped families navigate the complex
                 world of finance with institutional precision and human-centric
                 care.
               </p>
 
-              {/* Stats */}
               <div className="flex flex-wrap justify-center gap-8 lg:justify-start sm:gap-10">
                 <div>
                   <h3 className="text-3xl font-black text-slate-900">35+</h3>
@@ -444,9 +267,7 @@ const About = () => {
                     Years of Trust
                   </p>
                 </div>
-
                 <div className="hidden w-px h-12 sm:block bg-slate-300"></div>
-
                 <div>
                   <h3 className="text-3xl font-black text-orange-600">10K+</h3>
                   <p className="text-[10px] uppercase tracking-widest text-slate-500 font-bold">
@@ -456,43 +277,33 @@ const About = () => {
               </div>
             </motion.div>
 
-            {/* RIGHT SIDE CARDS */}
             <motion.div
               initial={{ opacity: 0, x: 30 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 1 }}
               className="grid gap-5 sm:grid-cols-2"
             >
-              {/* Main Quote Card */}
               <div className="p-6 border shadow-2xl sm:col-span-2 bg-white/70 backdrop-blur-xl rounded-3xl sm:p-8 border-white/50">
                 <FaHandshake className="mb-5 text-4xl text-orange-500" />
-
                 <h3 className="mb-4 text-2xl italic font-black leading-snug sm:text-3xl text-slate-900">
                   "Our Word is our Bond."
                 </h3>
-
                 <p className="text-xs font-bold tracking-widest uppercase text-slate-500">
                   WCFW Fundamental Protocol
                 </p>
               </div>
 
-              {/* Card 2 */}
               <div className="p-6 bg-white border shadow-xl rounded-3xl border-slate-100">
                 <FaGem className="mb-4 text-3xl text-orange-500" />
-                <h4 className="mb-2 text-lg font-black text-slate-900">
-                  Investment Services
-                </h4>
+                <h4 className="mb-2 text-lg font-black text-slate-900">Investment Services</h4>
                 <p className="text-sm text-slate-500">
                   Structured investment services with disciplined approach.
                 </p>
               </div>
 
-              {/* Card 3 */}
               <div className="p-6 bg-white border shadow-xl rounded-3xl border-slate-100">
                 <FaRocket className="mb-4 text-3xl text-orange-500" />
-                <h4 className="mb-2 text-lg font-black text-slate-900">
-                  Growth Vision
-                </h4>
+                <h4 className="mb-2 text-lg font-black text-slate-900">Growth Vision</h4>
                 <p className="text-sm text-slate-500">
                   Helping families grow stronger financially.
                 </p>
@@ -502,56 +313,51 @@ const About = () => {
         </div>
       </section>
 
-      {/* Story & Evolution */}
-      <section id="our-story" className="py-24 -mt-16 relative z-20">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      {/* Story */}
+      <section id="our-story" className="relative z-20 py-24 -mt-16">
+        <div className="px-4 mx-auto max-w-7xl sm:px-6 lg:px-8">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             className="bg-white rounded-[3rem] shadow-[0_50px_100px_-20px_rgba(0,0,0,0.05)] p-8 sm:p-20 border border-slate-100"
           >
-            <div className="grid lg:grid-cols-2 gap-10 sm:gap-16 items-center">
+            <div className="grid items-center gap-10 lg:grid-cols-2 sm:gap-16">
               <div>
-                <div className="flex items-center space-x-4 mb-6 sm:mb-8">
-                  <span className="h-px w-8 sm:w-12 bg-orange-500"></span>
+                <div className="flex items-center mb-6 space-x-4 sm:mb-8">
+                  <span className="w-8 h-px bg-orange-500 sm:w-12"></span>
                   <span className="text-orange-600 font-bold uppercase tracking-widest text-[10px] sm:text-sm">
                     The Human Protocol
                   </span>
                 </div>
-                <h2 className="text-3xl sm:text-5xl font-extrabold text-slate-900 mb-6 sm:mb-8 leading-tight">
+                <h2 className="mb-6 text-3xl font-extrabold leading-tight sm:text-5xl text-slate-900 sm:mb-8">
                   From Vision to <br />
                   <span className="text-orange-600">Institutional Reality</span>
                 </h2>
-                <div className="space-y-6 sm:space-y-8 text-slate-500 text-base sm:text-lg leading-relaxed font-medium">
+                <div className="space-y-6 text-base font-medium leading-relaxed sm:space-y-8 text-slate-500 sm:text-lg">
                   <p>
                     In 1989,{" "}
-                    <span className="text-slate-900 font-black">
-                      Shri Vasudev Thakker
-                    </span>{" "}
-                    founded WeCare with a singular mission: to dismantle the
-                    barriers to financial literacy. He believed wealth wasn't an
-                    end state, but a vehicle for absolute independence.
+                    <span className="font-black text-slate-900">Shri Vasudev Thakker</span>{" "}
+                    founded WeCare with a singular mission: to dismantle the barriers to
+                    financial literacy. He believed wealth wasn't an end state, but a
+                    vehicle for absolute independence.
                   </p>
                   <p>
-                    Today, that vision has transformed into an institutional
-                    powerhouse, guiding over{" "}
-                    <span className="text-orange-600 font-black underline decoration-orange-500 decoration-4 underline-offset-4">
+                    Today, that vision has transformed into an institutional powerhouse,
+                    guiding over{" "}
+                    <span className="font-black text-orange-600 underline decoration-orange-500 decoration-4 underline-offset-4">
                       10,000+ elite families
                     </span>{" "}
-                    and managing a combined legacy of trust spanning
-                    generations.
+                    and managing a combined legacy of trust spanning generations.
                   </p>
                 </div>
 
-                <div className="mt-8 sm:mt-12 flex items-center space-x-4 sm:space-x-6">
-                  <div className="w-12 h-12 sm:w-16 sm:h-16 bg-slate-900 rounded-xl sm:rounded-2xl flex items-center justify-center text-white shadow-xl shadow-slate-900/20">
+                <div className="flex items-center mt-8 space-x-4 sm:mt-12 sm:space-x-6">
+                  <div className="flex items-center justify-center w-12 h-12 text-white shadow-xl sm:w-16 sm:h-16 bg-slate-900 rounded-xl sm:rounded-2xl shadow-slate-900/20">
                     <FaGem className="text-xl sm:text-2xl" />
                   </div>
                   <div>
-                    <p className="text-slate-900 font-black text-lg sm:text-xl">
-                      The Gold Standard
-                    </p>
+                    <p className="text-lg font-black text-slate-900 sm:text-xl">The Gold Standard</p>
                     <p className="text-slate-400 text-[8px] sm:text-[10px] font-bold uppercase tracking-widest">
                       Quality Driven Services
                     </p>
@@ -565,14 +371,14 @@ const About = () => {
                   <img
                     src={groupImage}
                     alt="Our Team"
-                    className="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-700 hover:scale-105"
+                    className="object-cover w-full h-full transition-all duration-700 grayscale hover:grayscale-0 hover:scale-105"
                   />
                   <div className="absolute inset-x-0 bottom-0 h-1/2 bg-gradient-to-t from-slate-900/80 to-transparent"></div>
                   <div className="absolute bottom-6 left-6 right-6 sm:bottom-8 sm:left-8 sm:right-8">
-                    <p className="text-orange-400 font-black text-xs sm:text-sm uppercase tracking-widest mb-1 sm:mb-2">
+                    <p className="mb-1 text-xs font-black tracking-widest text-orange-400 uppercase sm:text-sm sm:mb-2">
                       The Architecture of Trust
                     </p>
-                    <p className="text-white text-xl sm:text-2xl font-bold leading-tight">
+                    <p className="text-xl font-bold leading-tight text-white sm:text-2xl">
                       Elite Team WCFW
                     </p>
                   </div>
@@ -582,32 +388,32 @@ const About = () => {
           </motion.div>
         </div>
       </section>
+
       {/* Mission & Vision */}
       <section
         id="mission-vision"
         className="py-12 sm:py-24 bg-[#0f172a] relative overflow-hidden"
       >
-        <div className="absolute top-0 right-0 w-96 h-96 bg-orange-600/10 rounded-full blur-3xl translate-x-1/2 -translate-y-1/2"></div>
-        <div className="absolute bottom-0 left-0 w-96 h-96 bg-blue-600/10 rounded-full blur-3xl -translate-x-1/2 translate-y-1/2"></div>
+        <div className="absolute top-0 right-0 translate-x-1/2 -translate-y-1/2 rounded-full w-96 h-96 bg-orange-600/10 blur-3xl"></div>
+        <div className="absolute bottom-0 left-0 -translate-x-1/2 translate-y-1/2 rounded-full w-96 h-96 bg-blue-600/10 blur-3xl"></div>
 
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-          <div className="grid md:grid-cols-2 gap-6 sm:gap-8">
+        <div className="relative z-10 px-4 mx-auto max-w-7xl sm:px-6 lg:px-8">
+          <div className="grid gap-6 md:grid-cols-2 sm:gap-8">
             <motion.div
               whileHover={{ y: -5 }}
               className="bg-white/5 backdrop-blur-md rounded-[2rem] sm:rounded-[3rem] p-10 sm:p-16 border border-white/10 group"
             >
-              <div className="w-16 h-16 sm:w-20 sm:h-20 bg-orange-600 rounded-2xl sm:rounded-3xl flex items-center justify-center mb-6 sm:mb-10 shadow-2xl shadow-orange-600/20 group-hover:scale-110 transition-transform">
-                <FaRocket className="text-white text-2xl sm:text-3xl" />
+              <div className="flex items-center justify-center w-16 h-16 mb-6 transition-transform bg-orange-600 shadow-2xl sm:w-20 sm:h-20 rounded-2xl sm:rounded-3xl sm:mb-10 shadow-orange-600/20 group-hover:scale-110">
+                <FaRocket className="text-2xl text-white sm:text-3xl" />
               </div>
-              <h3 className="text-2xl sm:text-3xl font-black text-white mb-4 sm:mb-6 uppercase tracking-tight">
+              <h3 className="mb-4 text-2xl font-black tracking-tight text-white uppercase sm:text-3xl sm:mb-6">
                 Our Mission
               </h3>
-              <p className="text-slate-400 text-lg sm:text-xl leading-relaxed font-medium">
+              <p className="text-lg font-medium leading-relaxed text-slate-400 sm:text-xl">
                 To cultivate{" "}
                 <span className="text-white">absolute financial literacy</span>{" "}
                 across the sub-continent, enabling families to support informed
-                financial decision-making through disciplined investment
-                approaches.
+                financial decision-making through disciplined investment approaches.
               </p>
             </motion.div>
 
@@ -615,129 +421,74 @@ const About = () => {
               whileHover={{ y: -5 }}
               className="bg-white/5 backdrop-blur-md rounded-[2rem] sm:rounded-[3rem] p-10 sm:p-16 border border-white/10 group"
             >
-              <div className="w-16 h-16 sm:w-20 sm:h-20 bg-white/10 rounded-2xl sm:rounded-3xl flex items-center justify-center mb-6 sm:mb-10 border border-white/20 group-hover:scale-110 transition-transform">
-                <FaEye className="text-orange-500 text-2xl sm:text-3xl" />
+              <div className="flex items-center justify-center w-16 h-16 mb-6 transition-transform border sm:w-20 sm:h-20 bg-white/10 rounded-2xl sm:rounded-3xl sm:mb-10 border-white/20 group-hover:scale-110">
+                <FaEye className="text-2xl text-orange-500 sm:text-3xl" />
               </div>
-              <h3 className="text-2xl sm:text-3xl font-black text-white mb-4 sm:mb-6 uppercase tracking-tight">
+              <h3 className="mb-4 text-2xl font-black tracking-tight text-white uppercase sm:text-3xl sm:mb-6">
                 Our Vision
               </h3>
-              <p className="text-slate-400 text-lg sm:text-xl leading-relaxed font-medium">
+              <p className="text-lg font-medium leading-relaxed text-slate-400 sm:text-xl">
                 Reach{" "}
                 <span className="text-white">1,000,000 individual lives</span>{" "}
-                through accessible investment services and financial awareness
-                initiatives.
+                through accessible investment services and financial awareness initiatives.
               </p>
             </motion.div>
           </div>
         </div>
       </section>
 
-      {/* Founding Members */}
+      {/* Team Sections */}
       <div id="our-team">
         <div id="founding-members">
           <TeamSection
-            title="Founders"
-            subtitle="Visionaries Who Started It All"
+            title="Our Founding Members"
+            subtitle="Visionary leaders who laid the foundation of WeCare Investment in 1989"
             icon={FaCrown}
             members={foundingMembers}
-            columns="lg:grid-cols-4"
-            centerAlign
+            columns="sm:grid-cols-2 lg:grid-cols-4"
           />
         </div>
 
-        {/* Directors */}
-        <div id="directors">
+        <div id="head-department">
           <TeamSection
-            title="Board of Directors"
-            subtitle="Strategic Leadership"
+            title="Head Department"
+            subtitle="Leadership team driving our mission of financial literacy and client success"
             icon={FaBriefcase}
-            members={directors}
-            columns="lg:grid-cols-4"
-          />
-        </div>
-
-        {/* Leadership */}
-        <div id="leadership">
-          <TeamSection
-            title="Senior Executives"
-            subtitle="Operational Excellence"
-            icon={FaUsers}
-            members={leadership}
-            columns="lg:grid-cols-3"
-          />
-        </div>
-
-        {/* Associate Partners */}
-        <div id="associate-partners">
-          <TeamSection
-            title="Associate Partners"
-            subtitle="Regional & Functional Leaders"
-            icon={FaBriefcase}
-            members={associatePartners}
+            members={headDepartment}
             columns="lg:grid-cols-3"
             showLocation
+            showContact
           />
         </div>
 
-        {/* Insurance Head */}
-        <div id="insurance-head">
-          <TeamSection
-            title="Associate Partner (Insurance)"
-            subtitle="Risk Management & Protection"
-            icon={FaBriefcase}
-            members={insuranceHeads}
-            columns="lg:grid-cols-2"
-            centerAlign
-          />
-        </div>
-
-        {/* Equity Head */}
-        <div id="equity-head">
-          <TeamSection
-            title="Equity Team"
-            subtitle="Market Intelligence"
-            icon={FaChartLine}
-            members={equityHead}
-            columns="lg:grid-cols-3"
-            centerAlign
-          />
-        </div>
-
-        {/* Relationship Managers */}
-        <div id="relationship-managers">
-          <TeamSection
-            title="Relationship Managers"
-            subtitle="Your Relationship Managers"
-            icon={FaHandshake}
-            members={relationshipManagers}
-            columns="lg:grid-cols-4"
-          />
+        <div id="meet-our-team">
+          <MeetOurTeamSection categories={teamCategories} />
         </div>
       </div>
 
       {/* Bottom CTA */}
-      <section className="py-12 sm:py-24 relative overflow-hidden text-center max-w-5xl mx-auto px-4">
+      <section className="relative max-w-5xl px-4 py-12 mx-auto overflow-hidden text-center sm:py-24">
         <motion.div
           initial={{ opacity: 0, scale: 0.95 }}
           whileInView={{ opacity: 1, scale: 1 }}
           viewport={{ once: true }}
           className="bg-white p-10 sm:p-24 rounded-[3rem] sm:rounded-[4rem] border border-slate-100 shadow-2xl relative"
         >
-          <div className="absolute top-0 left-1/2 -translate-x-1/2 w-48 h-48 bg-orange-500/5 rounded-full blur-3xl"></div>
+          <div className="absolute top-0 w-48 h-48 -translate-x-1/2 rounded-full left-1/2 bg-orange-500/5 blur-3xl"></div>
           <div className="relative z-10">
-            <h2 className="text-3xl sm:text-6xl font-black text-slate-900 mb-6 sm:mb-8 leading-tight italic decoration-orange-500 decoration-8 underline-offset-8">
+            <h2 className="mb-6 text-3xl italic font-black leading-tight sm:text-6xl text-slate-900 sm:mb-8 decoration-orange-500 decoration-8 underline-offset-8">
               "Building Legacies, <br /> Together."
             </h2>
-            <p className="text-slate-500 text-lg sm:text-xl mb-8 sm:mb-12 max-w-2xl mx-auto font-medium">
+            <p className="max-w-2xl mx-auto mb-8 text-lg font-medium text-slate-500 sm:text-xl sm:mb-12">
               Ready to start your investment journey with suitable options
               aligned to your financial goals?
             </p>
             <Link
               to="/contact"
-              className="inline-flex items-center px-8 py-4 sm:px-12 sm:py-6 bg-slate-900 text-white font-black rounded-xl sm:rounded-2xl shadow-2xl hover:bg-orange-600 transition-all transform hover:scale-105 group text-sm sm:text-base"
+              className="inline-flex items-center px-8 py-4 text-sm font-black text-white transition-all transform shadow-2xl sm:px-12 sm:py-6 bg-slate-900 rounded-xl sm:rounded-2xl hover:bg-orange-600 hover:scale-105 group sm:text-base"
             >
               Get in Touch{" "}
-              <FaArrowRight className="ml-3 group-hover:translate-x-2 transition-transform" />
+              <FaArrowRight className="ml-3 transition-transform group-hover:translate-x-2" />
             </Link>
           </div>
         </motion.div>
@@ -746,7 +497,7 @@ const About = () => {
   );
 };
 
-// Team Section Component
+// ── Team Section ─────────────────────────────────────────────────────────────
 const TeamSection = ({
   title,
   subtitle,
@@ -754,58 +505,42 @@ const TeamSection = ({
   members,
   columns = "lg:grid-cols-3",
   showLocation = false,
+  showContact = false,
   centerAlign = false,
-}) => {
-  return (
-    <section className="py-20">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-16">
-          <div className="inline-flex items-center space-x-3 bg-orange-500/10 backdrop-blur-md border border-orange-500/20 px-4 py-2 rounded-full mb-4">
-            <Icon className="text-orange-600 text-sm" />
-            <span className="text-orange-900 font-bold text-xs uppercase tracking-[0.2em]">
-              {subtitle}
-            </span>
-          </div>
-          <h2 className="text-4xl sm:text-5xl font-extrabold text-slate-900">
-            {title}
-          </h2>
+}) => (
+  <section className="py-20">
+    <div className="px-4 mx-auto max-w-7xl sm:px-6 lg:px-8">
+      <div className="mb-16 text-center">
+        <div className="inline-flex items-center px-4 py-2 mb-4 space-x-3 border rounded-full bg-orange-500/10 backdrop-blur-md border-orange-500/20">
+          <Icon className="text-sm text-orange-600" />
+          <span className="text-orange-900 font-bold text-xs uppercase tracking-[0.2em]">
+            {subtitle}
+          </span>
         </div>
-
-        {centerAlign ? (
-          // Centered layout for 2-member sections
-          <div className="flex flex-wrap justify-center gap-8 max-w-4xl mx-auto">
-            {members.map((member, idx) => (
-              <div key={idx} className="w-full sm:w-[calc(50%-1rem)] max-w-sm">
-                <TeamCard
-                  member={member}
-                  index={idx}
-                  showLocation={showLocation}
-                />
-              </div>
-            ))}
-          </div>
-        ) : (
-          // Regular grid layout for other sections
-          <div
-            className={`grid sm:grid-cols-2 ${columns} gap-8 justify-items-center`}
-          >
-            {members.map((member, idx) => (
-              <TeamCard
-                key={idx}
-                member={member}
-                index={idx}
-                showLocation={showLocation}
-              />
-            ))}
-          </div>
-        )}
+        <h2 className="text-4xl font-extrabold sm:text-5xl text-slate-900">{title}</h2>
       </div>
-    </section>
-  );
-};
 
-// Team Card Component with Hover Effect
-const TeamCard = ({ member, index, showLocation }) => {
+      {centerAlign ? (
+        <div className="flex flex-wrap justify-center max-w-4xl gap-8 mx-auto">
+          {members.map((member, idx) => (
+            <div key={idx} className="w-full sm:w-[calc(50%-1rem)] max-w-sm">
+              <TeamCard member={member} index={idx} showLocation={showLocation} showContact={showContact} />
+            </div>
+          ))}
+        </div>
+      ) : (
+        <div className={`grid sm:grid-cols-2 ${columns} gap-8 justify-items-center`}>
+          {members.map((member, idx) => (
+            <TeamCard key={idx} member={member} index={idx} showLocation={showLocation} showContact={showContact} />
+          ))}
+        </div>
+      )}
+    </div>
+  </section>
+);
+
+// ── Team Card (original hover portrait design) ────────────────────────────────
+const TeamCard = ({ member, index, showLocation, showContact }) => {
   const [isHovered, setIsHovered] = useState(false);
 
   return (
@@ -816,60 +551,122 @@ const TeamCard = ({ member, index, showLocation }) => {
       transition={{ delay: index * 0.05 }}
       onHoverStart={() => setIsHovered(true)}
       onHoverEnd={() => setIsHovered(false)}
-      className="group relative bg-white rounded-[2.5rem] border border-slate-100 shadow-lg hover:shadow-2xl transition-all duration-500 overflow-hidden w-full max-w-[280px] mx-auto"
+      className="group relative bg-white rounded-[2.5rem] border border-slate-100 shadow-lg hover:shadow-2xl transition-all duration-500 overflow-hidden w-full max-w-[320px] mx-auto"
     >
-      {/* Image Container - Fixed height for uniformity */}
+      {/* Image Container */}
       <div className="relative overflow-hidden h-[350px] bg-gradient-to-br from-orange-50 to-slate-50">
         <img
           src={member.img}
-          className="w-full h-full object-cover object-top transition-transform duration-700 group-hover:scale-110"
+          className="object-cover object-top w-full h-full transition-transform duration-700 group-hover:scale-110"
           alt={member.name}
         />
+        <div className="absolute inset-0 transition-opacity duration-500 opacity-0 bg-gradient-to-t from-slate-900/90 via-slate-900/40 to-transparent group-hover:opacity-100"></div>
 
-        {/* Gradient Overlay */}
-        <div className="absolute inset-0 bg-gradient-to-t from-slate-900/90 via-slate-900/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-
-        {/* Hover Content */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: isHovered ? 1 : 0, y: isHovered ? 0 : 20 }}
           transition={{ duration: 0.3 }}
           className="absolute inset-0 flex flex-col justify-end p-6 text-white"
         >
-          <p className="text-sm leading-relaxed font-medium mb-4">
-            {member.bio}
-          </p>
+          <p className="mb-4 text-sm font-medium leading-relaxed">{member.bio}</p>
           {member.exp && (
-            <div className="inline-flex items-center space-x-2 bg-orange-600/90 backdrop-blur-sm px-4 py-2 rounded-full w-fit">
+            <div className="inline-flex items-center px-4 py-2 space-x-2 rounded-full bg-orange-600/90 backdrop-blur-sm w-fit">
               <FaGem className="text-xs" />
-              <span className="text-xs font-black uppercase tracking-wider">
-                {member.exp}
-              </span>
+              <span className="text-xs font-black tracking-wider uppercase">{member.exp}</span>
             </div>
           )}
         </motion.div>
       </div>
 
-      {/* Info Section - Fixed height for uniformity */}
-      <div className="p-6 h-[120px] flex flex-col justify-center">
-        <h4 className="text-slate-900 font-black text-lg leading-tight mb-1">
-          {member.name}
-        </h4>
-        <p className="text-orange-600 font-bold text-xs uppercase tracking-widest mb-2">
-          {member.role}
-        </p>
+      {/* Info Section */}
+      <div className="flex flex-col justify-center p-6">
+        <h4 className="mb-1 text-lg font-black leading-tight text-slate-900">{member.name}</h4>
+        <p className="mb-1 text-xs font-bold tracking-widest text-orange-600 uppercase">{member.role}</p>
         {showLocation && member.location && (
-          <p className="text-slate-500 text-xs font-semibold flex items-center">
-            <span className="w-1.5 h-1.5 bg-orange-500 rounded-full mr-2"></span>
+          <p className="flex items-center mb-1 text-xs font-semibold text-slate-500">
+            <span className="w-1.5 h-1.5 bg-orange-500 rounded-full mr-2 shrink-0"></span>
             {member.location}
           </p>
         )}
+        {showContact && member.email && (
+          <a
+            href={`mailto:${member.email}`}
+            className="flex items-center gap-1.5 text-xs text-orange-600 hover:text-orange-700 mt-1"
+          >
+            <FaEnvelope size={10} className="shrink-0" /> {member.email}
+          </a>
+        )}
+        {showContact && member.phone && (
+          <a
+            href={`tel:${member.phone.replace(/\s/g, "")}`}
+            className="flex items-center gap-1.5 text-xs text-orange-600 hover:text-orange-700 mt-0.5"
+          >
+            <FaPhone size={10} className="shrink-0" /> {member.phone}
+          </a>
+        )}
       </div>
 
-      {/* Decorative Corner */}
-      <div className="absolute top-4 right-4 w-12 h-12 border-t-2 border-r-2 border-orange-500/20 rounded-tr-2xl opacity-0 group-hover:opacity-100 transition-opacity"></div>
+      <div className="absolute w-12 h-12 transition-opacity border-t-2 border-r-2 opacity-0 top-4 right-4 border-orange-500/20 rounded-tr-2xl group-hover:opacity-100"></div>
     </motion.div>
   );
 };
+
+// ── Meet Our Team (categorised, consistent design language) ──────────────────
+const MeetOurTeamSection = ({ categories }) => (
+  <section className="py-20 bg-slate-50">
+    <div className="px-4 mx-auto max-w-7xl sm:px-6 lg:px-8">
+      <div className="mb-16 text-center">
+        <div className="inline-flex items-center px-4 py-2 mb-4 space-x-3 border rounded-full bg-orange-500/10 backdrop-blur-md border-orange-500/20">
+          <FaUsers className="text-sm text-orange-600" />
+          <span className="text-orange-900 font-bold text-xs uppercase tracking-[0.2em]">
+            Dedicated professionals working together to serve our 4600+ families
+          </span>
+        </div>
+        <h2 className="text-4xl font-extrabold sm:text-5xl text-slate-900">Meet Our Team</h2>
+      </div>
+
+      <div className="space-y-14">
+        {categories.map((cat, cidx) => (
+          <div key={cidx}>
+            <div className="flex items-center justify-center gap-3 mb-8">
+              <span className="flex items-center justify-center w-8 h-8 text-sm font-black text-white bg-orange-500 rounded-full shrink-0">
+                {cidx + 1}
+              </span>
+              <h3 className="text-xl font-extrabold text-slate-900">{cat.label}</h3>
+            </div>
+            <div className="flex flex-wrap justify-center gap-8">
+              {cat.members.map((m, idx) => (
+                <div key={idx} className="w-full max-w-[320px]">
+                  <TeamCard member={m} index={idx} />
+                </div>
+              ))}
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+);
+
+const MiniCard = ({ member, index }) => (
+  <motion.div
+    initial={{ opacity: 0, y: 16 }}
+    whileInView={{ opacity: 1, y: 0 }}
+    viewport={{ once: true }}
+    transition={{ delay: index * 0.05 }}
+    className="bg-white rounded-[2rem] border border-slate-100 shadow-md hover:shadow-xl transition-all duration-300 p-5 flex flex-col items-center text-center group w-[180px]"
+  >
+    <div className="w-20 h-20 mb-3 overflow-hidden transition-colors duration-300 border-2 border-orange-100 rounded-full group-hover:border-orange-400">
+      <img
+        src={member.img}
+        alt={member.name}
+        className="object-cover object-top w-full h-full"
+      />
+    </div>
+    <h4 className="text-sm font-black leading-tight text-slate-900">{member.name}</h4>
+    <p className="text-xs text-orange-600 font-bold mt-0.5">{member.role}</p>
+    <p className="mt-1 text-xs text-slate-400">{member.exp}</p>
+  </motion.div>
+);
 
 export default About;

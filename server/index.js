@@ -84,8 +84,6 @@ const testimonialRoutes = require("./routes/testimonial");
 const videoRoutes = require("./routes/video");
 const settingsRoutes = require("./routes/settings");
 const uploadRoutes = require("./routes/upload");
-const seoRoutes = require("./routes/seo");
-const seoController = require("./controllers/seoController");
 
 app.use("/api/auth", authRoutes);
 app.use("/api/content", contentRoutes);
@@ -98,7 +96,6 @@ app.use("/api/testimonials", testimonialRoutes);
 app.use("/api/videos", videoRoutes);
 app.use("/api/settings", settingsRoutes);
 app.use("/api/upload", uploadRoutes);
-app.use("/api/seo", seoRoutes);
 
 // Serve uploaded files
 const path = require("path");
@@ -159,12 +156,6 @@ app.get("/api/dashboard/stats", auth, async (req, res) => {
     res.status(500).json({ message: error.message });
   }
 });
-
-// Dynamic, admin-controlled robots.txt and sitemap.xml.
-// The live site (wcfw.in, static hPanel hosting) routes these two paths to the
-// API via .htaccess, so they always reflect the latest admin changes.
-app.get("/robots.txt", seoController.serveRobots);
-app.get("/sitemap.xml", seoController.serveSitemap);
 
 // const path = require("path");
 

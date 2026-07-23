@@ -52,7 +52,6 @@ const TestimonialManager = lazy(
 );
 const VideoManager = lazy(() => import("../pages/admin/VideoManager"));
 const SiteSettings = lazy(() => import("../pages/admin/SiteSettings"));
-const SeoManager = lazy(() => import("../pages/admin/SeoManager"));
 const ProtectedRoute = lazy(() => import("../components/ProtectedRoute"));
 const AdminLayout = lazy(() => import("../pages/admin/AdminLayout"));
 const PublicLayout = lazy(() => import("../components/PublicLayout"));
@@ -199,7 +198,6 @@ const AppRoutes = () => {
               element={<TestimonialManager />}
             />
             <Route path="/admin/videos" element={<VideoManager />} />
-            <Route path="/admin/seo" element={<SeoManager />} />
             <Route path="/admin/settings" element={<SiteSettings />} />
           </Route>
         </Route>

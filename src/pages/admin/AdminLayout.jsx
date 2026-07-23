@@ -18,7 +18,6 @@ import {
   FaBars,
   FaTimes,
   FaFileAlt,
-  FaSitemap,
 } from "react-icons/fa";
 
 const AdminLayout = () => {
@@ -41,7 +40,6 @@ const AdminLayout = () => {
       label: "Newsletter",
     },
     { path: "/admin/redirects", icon: FaExchangeAlt, label: "Redirects" },
-    { path: "/admin/seo", icon: FaSitemap, label: "SEO & Sitemap" },
     { path: "/admin/settings", icon: FaCog, label: "Settings" },
   ];
 
