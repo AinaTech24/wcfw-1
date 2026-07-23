@@ -525,7 +525,7 @@ const Footer = () => {
       <motion.button
         onClick={scrollToTop}
         whileTap={{ scale: 0.95 }}
-        className={`group fixed right-4 bottom-4 sm:right-6 sm:bottom-6 z-[99999] flex items-center justify-center overflow-hidden h-14 w-14 hover:w-36 rounded-full hover:rounded-[40px] bg-gradient-to-r from-yellow-400 to-orange-500 shadow-[0_0_0_4px_rgba(251,191,36,0.25)] transition-all duration-300 ease-in-out cursor-pointer outline-none 
+        className={`group fixed right-4 bottom-20 sm:right-6 sm:bottom-24 z-[99999] flex items-center justify-center overflow-hidden h-14 w-14 hover:w-36 rounded-full hover:rounded-[40px] bg-gradient-to-r from-yellow-400 to-orange-500 shadow-[0_0_0_4px_rgba(251,191,36,0.25)] transition-all duration-300 ease-in-out cursor-pointer outline-none 
         ${isClicked ? "outline-none" : ""}
         ${showScrollTop
             ? "opacity-100 translate-y-0"
