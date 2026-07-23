@@ -101,6 +101,9 @@ app.use("/api/upload", uploadRoutes);
 const path = require("path");
 app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 
+// Serve static SEO files (robots.txt, sitemap.xml)
+app.use(express.static(path.join(__dirname, "public")));
+
 // Dashboard Stats API
 const Enquiry = require("./models/Enquiry");
 const Newsletter = require("./models/Newsletter");
