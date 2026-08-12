@@ -211,7 +211,8 @@ const SITEMAP_STATIC = [
 
 app.get("/sitemap.xml", async (req, res) => {
   try {
-    const blogs = await Blog.find({ isPublished: true }).select("slug updatedAt robotsTag");
+    // Fetch all published blogs including their feature image
+    const blogs = await Blog.find({ isPublished: true }).select("slug updatedAt robotsTag image title");
 
     const blogEntries = blogs
       .filter((b) => !(b.robotsTag || "").toLowerCase().includes("noindex"))
@@ -219,21 +220,31 @@ app.get("/sitemap.xml", async (req, res) => {
         const lastmod = b.updatedAt
           ? `\n    <lastmod>${new Date(b.updatedAt).toISOString().split("T")[0]}</lastmod>`
           : "";
-        return `  <url>\n    <loc>https://www.wcfw.in/blog/${b.slug}</loc>${lastmod}\n    <changefreq>monthly</changefreq>\n    <priority>0.8</priority>\n  </url>`;
+        // Include Google Image Sitemap entry if the blog has a feature image
+        const imageTag = b.image
+          ? `\n    <image:image>\n      <image:loc>${b.image}</image:loc>${b.title ? `\n      <image:title>${b.title.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;")}</image:title>` : ""}\n    </image:image>`
+          : "";
+        return `  <url>\n    <loc>https://www.wcfw.in/blog/${b.slug}</loc>${lastmod}${imageTag}\n    <changefreq>monthly</changefreq>\n    <priority>0.8</priority>\n  </url>`;
       });
 
     const staticEntries = SITEMAP_STATIC.map(
       (p) => `  <url>\n    <loc>${p.loc}</loc>\n    <changefreq>${p.changefreq}</changefreq>\n    <priority>${p.priority}</priority>\n  </url>`
     );
 
-    const xml = `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${[...staticEntries, ...blogEntries].join("\n")}\n</urlset>`;
+    // xmlns:image namespace required for Google Image Sitemap
+    const xml = `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"\n        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">\n${[...staticEntries, ...blogEntries].join("\n")}\n</urlset>`;
 
     res.set("Content-Type", "text/xml");
     res.set("Cache-Control", "public, max-age=3600");
     res.send(xml);
   } catch (err) {
-    // Fall back to static file if DB is unavailable
-    res.sendFile(path.join(__dirname, "public/sitemap.xml"));
+    // DB unavailable — return a minimal valid sitemap with just the static pages
+    const staticEntries = SITEMAP_STATIC.map(
+      (p) => `  <url>\n    <loc>${p.loc}</loc>\n    <changefreq>${p.changefreq}</changefreq>\n    <priority>${p.priority}</priority>\n  </url>`
+    );
+    const xml = `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${staticEntries.join("\n")}\n</urlset>`;
+    res.set("Content-Type", "text/xml");
+    res.send(xml);
   }
 });
 
