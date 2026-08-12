@@ -97,9 +97,21 @@ app.use("/api/videos", videoRoutes);
 app.use("/api/settings", settingsRoutes);
 app.use("/api/upload", uploadRoutes);
 
-// Serve uploaded files
+// Serve images stored in MongoDB
 const path = require("path");
-app.use("/uploads", express.static(path.join(__dirname, "uploads")));
+const Image = require("./models/Image");
+
+app.get("/api/images/:id", async (req, res) => {
+  try {
+    const image = await Image.findById(req.params.id).select("data contentType");
+    if (!image) return res.status(404).json({ message: "Image not found" });
+    res.set("Content-Type", image.contentType);
+    res.set("Cache-Control", "public, max-age=31536000, immutable"); // 1 year — ID never changes
+    res.send(image.data);
+  } catch (err) {
+    res.status(500).json({ message: "Failed to retrieve image" });
+  }
+});
 
 // Serve static SEO files (robots.txt, sitemap.xml)
 app.use(express.static(path.join(__dirname, "public")));
