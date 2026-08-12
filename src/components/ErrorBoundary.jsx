@@ -12,16 +12,15 @@ class ErrorBoundary extends React.Component {
     }
 
     componentDidCatch(error, errorInfo) {
-        // Log error to console in development
         console.error('Error caught by boundary:', error, errorInfo);
+        this.setState({ error, errorInfo });
+    }
 
-        this.setState({
-            error: error,
-            errorInfo: errorInfo
-        });
-
-        // You can also log the error to an error reporting service here
-        // Example: logErrorToService(error, errorInfo);
+    // Reset automatically when the user navigates to a different route
+    componentDidUpdate(prevProps) {
+        if (this.state.hasError && prevProps.resetKey !== this.props.resetKey) {
+            this.setState({ hasError: false, error: null, errorInfo: null });
+        }
     }
 
     handleReset = () => {

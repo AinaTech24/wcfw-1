@@ -1,5 +1,8 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import api from "../utils/api";
+
+const MAX_RETRIES = 3;
+const RETRY_DELAYS = [2000, 5000, 10000]; // ms — total worst-case: ~27s for Render cold start
 
 /**
  * Fix relative URLs in HTML content.
@@ -41,12 +44,18 @@ const useCMSContent = (pageName) => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
+  // Use a ref so the closure inside setTimeout always sees the latest value
+  const isMountedRef = useRef(true);
+
   useEffect(() => {
+    isMountedRef.current = true;
+    let retryCount = 0;
+
     const fetchCmsContent = async () => {
       try {
-        setLoading(true);
-
         const res = await api.get(`/content?page=${pageName}`);
+
+        if (!isMountedRef.current) return;
 
         // 🔥 Normalize response safely
         let dataArray = [];
@@ -78,15 +87,33 @@ const useCMSContent = (pageName) => {
 
         setCmsContent(contentMap);
         setError(null);
+        setLoading(false);
       } catch (err) {
-        console.error(`Error fetching CMS content for ${pageName}:`, err);
+        if (!isMountedRef.current) return;
+
+        // Retry on failure (handles Render cold starts)
+        if (retryCount < MAX_RETRIES - 1) {
+          const delay = RETRY_DELAYS[retryCount] ?? 10000;
+          retryCount++;
+          setTimeout(fetchCmsContent, delay);
+          return; // Keep loading=true while retrying
+        }
+
+        // Exhausted retries — fall back to hardcoded content silently
+        console.error(
+          `CMS fetch failed for "${pageName}" after ${MAX_RETRIES} attempts:`,
+          err.message,
+        );
         setError(err);
-      } finally {
         setLoading(false);
       }
     };
 
     fetchCmsContent();
+
+    return () => {
+      isMountedRef.current = false;
+    };
   }, [pageName]);
 
   return { cmsContent, loading, error };

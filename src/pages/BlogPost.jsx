@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { useParams, Link } from "react-router-dom";
 import api from "../utils/api";
 import { motion } from "framer-motion";
@@ -7,27 +7,55 @@ import useMetaTags from "../hooks/useMetaTags";
 import { FAQSchema } from "../components/SchemaMarkup";
 import renderBlogContent from "../utils/renderBlogContent";
 
+const MAX_RETRIES = 3;
+const RETRY_DELAYS = [3000, 6000, 12000];
+
 const BlogPost = () => {
   const { slug } = useParams();
   const [blog, setBlog] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [notFound, setNotFound] = useState(false);   // blog genuinely doesn't exist (404)
+  const [loadError, setLoadError] = useState(false); // API unreachable (Render cold start)
+  const [retryCount, setRetryCount] = useState(0);
+
+  const fetchBlog = useCallback(async () => {
+    setLoading(true);
+    setLoadError(false);
+
+    try {
+      const res = await api.get(`/blog/${slug}`);
+      setBlog(res.data);
+      setNotFound(false);
+      setLoading(false);
+    } catch (err) {
+      // 404 from the server = blog truly doesn't exist
+      if (err.response?.status === 404) {
+        setNotFound(true);
+        setLoading(false);
+        return;
+      }
+
+      // Any other error = API unreachable (cold start, timeout, network)
+      console.warn(`BlogPost fetch failed for "${slug}":`, err.message);
+
+      if (retryCount < MAX_RETRIES - 1) {
+        const delay = RETRY_DELAYS[retryCount] ?? 10000;
+        setTimeout(() => setRetryCount((c) => c + 1), delay);
+        return; // keep loading=true while retrying
+      }
+
+      // Exhausted retries — neutral error, NOT "not found"
+      setLoadError(true);
+      setLoading(false);
+    }
+  }, [slug, retryCount]);
 
   useEffect(() => {
-    const fetchBlog = async () => {
-      try {
-        const res = await api.get(`/blog/${slug}`);
-        setBlog(res.data);
-      } catch (err) {
-        console.error("Error fetching blog:", err);
-      } finally {
-        setLoading(false);
-      }
-    };
     fetchBlog();
-  }, [slug]);
+  }, [fetchBlog]);
 
   useMetaTags({
-    title: blog?.metaTitle || `${blog?.title || "Loading..."} | WCFW Blog`,
+    title: blog?.metaTitle || `${blog?.title || "Blog"} | WCFW`,
     description: blog?.metaDescription || blog?.summary || "",
     keywords: blog?.metaKeywords || (blog?.tags ? blog?.tags.join(", ") : ""),
     canonicalUrl: blog?.canonicalUrl || "",
@@ -35,15 +63,22 @@ const BlogPost = () => {
     ogImage: blog?.image || "",
   });
 
+  /* ── Loading / Retry ── */
   if (loading) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-gray-50">
-        <div className="w-16 h-16 border-4 border-orange-500 border-t-transparent rounded-full animate-spin"></div>
+      <div className="min-h-screen flex flex-col items-center justify-center bg-gray-50 gap-4">
+        <div className="w-16 h-16 border-4 border-orange-500 border-t-transparent rounded-full animate-spin" />
+        {retryCount > 0 && (
+          <p className="text-sm text-slate-500">
+            Connecting… (attempt {retryCount + 1}/{MAX_RETRIES})
+          </p>
+        )}
       </div>
     );
   }
 
-  if (!blog) {
+  /* ── True 404 — blog genuinely doesn't exist ── */
+  if (notFound) {
     return (
       <div className="min-h-screen flex flex-col items-center justify-center bg-gray-50 p-4">
         <h1 className="text-3xl font-bold text-gray-900 mb-4">
@@ -53,6 +88,33 @@ const BlogPost = () => {
           to="/blog"
           className="text-orange-600 font-bold hover:underline flex items-center gap-2"
         >
+          <FaArrowLeft /> Back to Blogs
+        </Link>
+      </div>
+    );
+  }
+
+  /* ── API unreachable after retries — neutral message, NOT a 404 ── */
+  if (loadError) {
+    return (
+      <div className="min-h-screen flex flex-col items-center justify-center bg-gray-50 p-4 gap-6">
+        <h2 className="text-2xl font-bold text-slate-700">
+          Content temporarily unavailable
+        </h2>
+        <p className="text-slate-500 text-center max-w-sm">
+          We're having trouble loading this article. Please try again in a moment.
+        </p>
+        <button
+          onClick={() => {
+            setRetryCount(0);
+            setLoadError(false);
+            setLoading(true);
+          }}
+          className="px-8 py-3 bg-orange-600 text-white font-bold rounded-xl hover:bg-orange-700 transition-colors"
+        >
+          Try Again
+        </button>
+        <Link to="/blog" className="text-orange-600 hover:underline flex items-center gap-2 text-sm">
           <FaArrowLeft /> Back to Blogs
         </Link>
       </div>
@@ -104,7 +166,7 @@ const BlogPost = () => {
               </span>
               <span className="flex items-center gap-2">
                 <FaClock className="text-orange-500" />{" "}
-                {Math.ceil(blog.content.length / 1000)} MIN READ
+                {Math.ceil((blog.content || "").length / 1000)} MIN READ
               </span>
             </div>
           </div>
