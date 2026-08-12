@@ -20,7 +20,7 @@ exports.createVideo = async (req, res) => {
 
 exports.updateVideo = async (req, res) => {
     try {
-        const video = await Video.findByIdAndUpdate(req.params.id, req.body, { new: true });
+        const video = await Video.findByIdAndUpdate(req.params.id, req.body, { returnDocument: 'after' });
         res.json(video);
     } catch (error) {
         res.status(500).json({ message: error.message });

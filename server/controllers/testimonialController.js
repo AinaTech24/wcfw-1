@@ -20,7 +20,7 @@ exports.createTestimonial = async (req, res) => {
 
 exports.updateTestimonial = async (req, res) => {
     try {
-        const testimonial = await Testimonial.findByIdAndUpdate(req.params.id, req.body, { new: true });
+        const testimonial = await Testimonial.findByIdAndUpdate(req.params.id, req.body, { returnDocument: 'after' });
         res.json(testimonial);
     } catch (error) {
         res.status(500).json({ message: error.message });

@@ -21,7 +21,7 @@ exports.createRedirect = async (req, res) => {
 
 exports.updateRedirect = async (req, res) => {
     try {
-        const redirect = await Redirect.findByIdAndUpdate(req.params.id, req.body, { new: true });
+        const redirect = await Redirect.findByIdAndUpdate(req.params.id, req.body, { returnDocument: 'after' });
         res.json(redirect);
     } catch (err) {
         res.status(400).json({ message: err.message });

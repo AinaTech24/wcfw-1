@@ -20,7 +20,7 @@ exports.createTeamMember = async (req, res) => {
 
 exports.updateTeamMember = async (req, res) => {
     try {
-        const member = await TeamMember.findByIdAndUpdate(req.params.id, req.body, { new: true });
+        const member = await TeamMember.findByIdAndUpdate(req.params.id, req.body, { returnDocument: 'after' });
         res.json(member);
     } catch (error) {
         res.status(500).json({ message: error.message });

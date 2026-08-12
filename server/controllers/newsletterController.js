@@ -33,7 +33,7 @@ exports.unsubscribe = async (req, res) => {
         const subscriber = await Newsletter.findByIdAndUpdate(
             req.params.id,
             { isActive: false },
-            { new: true }
+            { returnDocument: 'after' }
         );
         res.json(subscriber);
     } catch (error) {

@@ -27,7 +27,7 @@ exports.updateEnquiryStatus = async (req, res) => {
     try {
         const { id } = req.params;
         const { status } = req.body;
-        const enquiry = await Enquiry.findByIdAndUpdate(id, { status }, { new: true });
+        const enquiry = await Enquiry.findByIdAndUpdate(id, { status }, { returnDocument: 'after' });
         res.json(enquiry);
     } catch (error) {
         res.status(500).json({ message: error.message });
