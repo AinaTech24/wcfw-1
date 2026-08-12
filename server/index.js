@@ -162,6 +162,69 @@ app.get("/api/dashboard/stats", auth, async (req, res) => {
 
 // const path = require("path");
 
+// ── Dynamic sitemap (static pages + all published blog posts) ──────────────
+const SITEMAP_STATIC = [
+  { loc: "https://www.wcfw.in/", changefreq: "weekly",  priority: "1.0" },
+  { loc: "https://www.wcfw.in/about",                   changefreq: "monthly", priority: "0.8" },
+  { loc: "https://www.wcfw.in/services",                changefreq: "monthly", priority: "0.8" },
+  { loc: "https://www.wcfw.in/contact",                 changefreq: "monthly", priority: "0.8" },
+  { loc: "https://www.wcfw.in/blog",                    changefreq: "weekly",  priority: "0.9" },
+  { loc: "https://www.wcfw.in/calculators",             changefreq: "monthly", priority: "0.8" },
+  { loc: "https://www.wcfw.in/videos",                  changefreq: "weekly",  priority: "0.7" },
+  { loc: "https://www.wcfw.in/newsletter",              changefreq: "monthly", priority: "0.6" },
+  { loc: "https://www.wcfw.in/services/goal-base-investing",          changefreq: "monthly", priority: "0.9" },
+  { loc: "https://www.wcfw.in/services/mutual-fund",                  changefreq: "monthly", priority: "0.9" },
+  { loc: "https://www.wcfw.in/services/stocks",                       changefreq: "monthly", priority: "0.8" },
+  { loc: "https://www.wcfw.in/services/life-insurance",               changefreq: "monthly", priority: "0.8" },
+  { loc: "https://www.wcfw.in/services/fixed-deposit",                changefreq: "monthly", priority: "0.8" },
+  { loc: "https://www.wcfw.in/services/tax-solution",                 changefreq: "monthly", priority: "0.8" },
+  { loc: "https://www.wcfw.in/services/financial-advisor-in-vadodara",           changefreq: "monthly", priority: "0.9" },
+  { loc: "https://www.wcfw.in/services/financial-advisor-in-anand",              changefreq: "monthly", priority: "0.9" },
+  { loc: "https://www.wcfw.in/services/goal-based-investment-planning-in-vadodara", changefreq: "monthly", priority: "0.9" },
+  { loc: "https://www.wcfw.in/services/mutual-fund-advisor-in-vadodara",         changefreq: "monthly", priority: "0.9" },
+  { loc: "https://www.wcfw.in/services/portfolio-management-services-in-vadodara", changefreq: "monthly", priority: "0.9" },
+  { loc: "https://www.wcfw.in/services/tax-saving-investment-in-vadodara",       changefreq: "monthly", priority: "0.9" },
+  { loc: "https://www.wcfw.in/services/life-insurance-advisor-in-vadodara",      changefreq: "monthly", priority: "0.9" },
+  { loc: "https://www.wcfw.in/goals/dream-home",        changefreq: "monthly", priority: "0.8" },
+  { loc: "https://www.wcfw.in/goals/child-education",   changefreq: "monthly", priority: "0.8" },
+  { loc: "https://www.wcfw.in/goals/child-wedding",     changefreq: "monthly", priority: "0.8" },
+  { loc: "https://www.wcfw.in/goals/retirement",        changefreq: "monthly", priority: "0.8" },
+  { loc: "https://www.wcfw.in/goals/emergency-fund",    changefreq: "monthly", priority: "0.8" },
+  { loc: "https://www.wcfw.in/goals/wealth-creation",   changefreq: "monthly", priority: "0.8" },
+  { loc: "https://www.wcfw.in/privacy-policy",          changefreq: "yearly",  priority: "0.3" },
+  { loc: "https://www.wcfw.in/terms-of-service",        changefreq: "yearly",  priority: "0.3" },
+  { loc: "https://www.wcfw.in/disclaimer",              changefreq: "yearly",  priority: "0.3" },
+  { loc: "https://www.wcfw.in/commission-disclosure",   changefreq: "yearly",  priority: "0.3" },
+];
+
+app.get("/sitemap.xml", async (req, res) => {
+  try {
+    const blogs = await Blog.find({ isPublished: true }).select("slug updatedAt robotsTag");
+
+    const blogEntries = blogs
+      .filter((b) => !(b.robotsTag || "").toLowerCase().includes("noindex"))
+      .map((b) => {
+        const lastmod = b.updatedAt
+          ? `\n    <lastmod>${new Date(b.updatedAt).toISOString().split("T")[0]}</lastmod>`
+          : "";
+        return `  <url>\n    <loc>https://www.wcfw.in/blog/${b.slug}</loc>${lastmod}\n    <changefreq>monthly</changefreq>\n    <priority>0.8</priority>\n  </url>`;
+      });
+
+    const staticEntries = SITEMAP_STATIC.map(
+      (p) => `  <url>\n    <loc>${p.loc}</loc>\n    <changefreq>${p.changefreq}</changefreq>\n    <priority>${p.priority}</priority>\n  </url>`
+    );
+
+    const xml = `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${[...staticEntries, ...blogEntries].join("\n")}\n</urlset>`;
+
+    res.set("Content-Type", "text/xml");
+    res.set("Cache-Control", "public, max-age=3600");
+    res.send(xml);
+  } catch (err) {
+    // Fall back to static file if DB is unavailable
+    res.sendFile(path.join(__dirname, "public/sitemap.xml"));
+  }
+});
+
 app.use(express.static(path.join(__dirname, "../build")));
 
 app.get("*", (req, res) => {

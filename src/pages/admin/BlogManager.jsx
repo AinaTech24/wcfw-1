@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef, useCallback } from "react";
 
 import {
   FaPlus,
@@ -15,16 +15,20 @@ import { PageLoader } from "../../components/LoadingSkeletons";
 import api from "../../utils/api";
 import renderBlogContent from "../../utils/renderBlogContent";
 
-// Toolbar limited to H2/H3/H4 (no H1) so each post keeps a single H1 (its title).
-const quillModules = {
-  toolbar: [
-    [{ header: [2, 3, 4, false] }],
-    ["bold", "italic", "underline"],
-    [{ list: "ordered" }, { list: "bullet" }],
-    ["blockquote", "link"],
-    ["clean"],
-  ],
-};
+// Toolbar: H2/H3/H4 only (no H1 — title is the post's H1).
+// Image button uploads to /api/upload and inserts the persisted URL.
+const buildQuillModules = (imageHandler) => ({
+  toolbar: {
+    container: [
+      [{ header: [2, 3, 4, false] }],
+      ["bold", "italic", "underline"],
+      [{ list: "ordered" }, { list: "bullet" }],
+      ["blockquote", "link", "image"],
+      ["clean"],
+    ],
+    handlers: { image: imageHandler },
+  },
+});
 
 const quillFormats = [
   "header",
@@ -35,6 +39,7 @@ const quillFormats = [
   "bullet",
   "blockquote",
   "link",
+  "image",
 ];
 
 const BlogManager = () => {
@@ -57,6 +62,35 @@ const BlogManager = () => {
   });
 
   const [uploading, setUploading] = useState(false);
+  const quillRef = useRef(null);
+
+  // Inline image handler — opens a file picker, uploads to /api/upload,
+  // then inserts the returned URL directly into the editor content.
+  const handleInlineImageUpload = useCallback(() => {
+    const input = document.createElement("input");
+    input.type = "file";
+    input.accept = "image/jpeg,image/jpg,image/png,image/webp";
+    input.onchange = async () => {
+      const file = input.files[0];
+      if (!file) return;
+      const formData = new FormData();
+      formData.append("image", file);
+      try {
+        const res = await api.post("/upload", formData);
+        const editor = quillRef.current?.getEditor();
+        if (editor) {
+          const range = editor.getSelection(true);
+          editor.insertEmbed(range.index, "image", res.data.url);
+          editor.setSelection(range.index + 1);
+        }
+      } catch (err) {
+        alert("Image upload failed: " + (err.response?.data?.message || err.message));
+      }
+    };
+    input.click();
+  }, []);
+
+  const quillModules = buildQuillModules(handleInlineImageUpload);
 
   useEffect(() => {
     fetchBlogs();
@@ -329,6 +363,7 @@ const BlogManager = () => {
                 `}</style>
                 <div className="blog-editor">
                   <ReactQuill
+                    ref={quillRef}
                     theme="snow"
                     value={currentBlog.content}
                     onChange={(value) =>
