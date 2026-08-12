@@ -38,6 +38,7 @@ const DynamicServicePage = () => {
       setSeo(seoSection?.seoSettings || {});
       setSections(contentSections);
       setNotFound(false);
+      setLoading(false); // success — stop spinner
     } catch (err) {
       // API failure ≠ page not found. Could be Render cold-starting (takes 15-30s).
       // Retry automatically before giving up.
@@ -46,16 +47,13 @@ const DynamicServicePage = () => {
       if (retryCount < MAX_RETRIES - 1) {
         const delay = RETRY_DELAYS[retryCount] ?? 10000;
         setTimeout(() => setRetryCount((c) => c + 1), delay);
-        return; // keep loading=true while retrying
+        // keep loading=true while retrying — do NOT call setLoading(false) here
+        return;
       }
 
       // Exhausted retries — show a neutral error (NOT "page not found")
       setLoadError(true);
-    } finally {
-      // Only stop loading once we have data or truly gave up
-      if (retryCount >= MAX_RETRIES - 1) {
-        setLoading(false);
-      }
+      setLoading(false); // gave up — stop spinner
     }
   }, [slug, retryCount]);
 
