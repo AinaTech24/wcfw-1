@@ -439,13 +439,6 @@ const Footer = () => {
             </Link>{" "}
             |
             <Link
-              to="/sid-sai-kim"
-              className="ml-1 text-orange-400 transition-colors outline-none hover:text-orange-300"
-            >
-              SID/SAI/KIM
-            </Link>{" "}
-            |
-            <Link
               to="/privacy-policy"
               className="ml-1 text-orange-400 transition-colors outline-none hover:text-orange-300"
             >
@@ -478,7 +471,7 @@ const Footer = () => {
             <div className="flex flex-col items-center justify-between md:flex-row">
               <p className="mb-4 text-xs text-gray-500 md:mb-0">
                 {bottomBar.copyright ||
-                  "© 2025 We Care Freedom Wealth. All Rights Reserved"}{" "}
+                  `© ${new Date().getFullYear()} We Care Freedom Wealth. All Rights Reserved`}{" "}
                 | Designed by{" "}
                 <a
                   href={bottomBar.designedByUrl || "https://ainatech.in"}
