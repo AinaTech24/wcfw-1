@@ -429,7 +429,7 @@ const Footer = () => {
 
           <p>
             {legalInfo.copyrightText ||
-              "© Copyright 2020. All Rights Reserved."}{" "}
+              `© Copyright ${new Date().getFullYear()}. All Rights Reserved.`}{" "}
             |
             <Link
               to="/commission-disclosure"
@@ -437,6 +437,15 @@ const Footer = () => {
             >
               Commission Disclosure
             </Link>{" "}
+            |
+            <a
+              href="https://www.sebi.gov.in/filings/mutual-funds.html"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="ml-1 text-orange-400 transition-colors outline-none hover:text-orange-300"
+            >
+              SID/SAI/KIM
+            </a>{" "}
             |
             <Link
               to="/privacy-policy"
