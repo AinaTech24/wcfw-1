@@ -149,7 +149,6 @@ const Footer = () => {
     { name: "Videos", path: "/videos" },
     { name: "Calculators", path: "/calculators" },
     { name: "Contact Us", path: "/contact" },
-    { name: "Login", path: "/login" },
   ];
   const toolsData = footerContent?.["tools"] || {
     list: [

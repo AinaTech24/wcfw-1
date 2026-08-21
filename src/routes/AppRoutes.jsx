@@ -11,7 +11,6 @@ const Newsletter = lazy(() => import("../pages/Newsletter"));
 const Calculators = lazy(() => import("../pages/Calculators"));
 const Contact = lazy(() => import("../pages/Contact"));
 const Videos = lazy(() => import("../pages/Videos"));
-const Login = lazy(() => import("../pages/Login"));
 const BlogPost = lazy(() => import("../pages/BlogPost"));
 const NotFound = lazy(() => import("../pages/NotFound"));
 const FinancialFreedom = lazy(() => import("../pages/FinancialFreedom"));
@@ -111,7 +110,6 @@ const AppRoutes = () => {
           <Route path="/newsletter" element={<Newsletter />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/videos" element={<Videos />} />
-          <Route path="/login" element={<Login />} />
           <Route path="/financial-freedom" element={<FinancialFreedom />} />
           <Route path="/asset-allocation" element={<AssetAllocation />} />
 
