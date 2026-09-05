@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const redirectController = require('../controllers/redirectController');
+const redirectController = require('../controllers/pg/redirectController');
 const auth = require('../middleware/auth');
 
 router.get('/', auth, redirectController.getRedirects);

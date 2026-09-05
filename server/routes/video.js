@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const videoController = require('../controllers/videoController');
+const videoController = require('../controllers/pg/videoController');
 const auth = require('../middleware/auth');
 
 // Public route

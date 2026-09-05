@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const teamController = require('../controllers/teamController');
+const teamController = require('../controllers/pg/teamController');
 const auth = require('../middleware/auth');
 
 // Public route

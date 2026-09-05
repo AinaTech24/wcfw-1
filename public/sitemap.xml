@@ -126,6 +126,18 @@
     <priority>0.8</priority>
   </url>
 
+  <url>
+    <loc>https://www.wcfw.in/blog/what-is-nifty-smallcap-250-index-fund</loc>
+    <changefreq>yearly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://www.wcfw.in/blog/what-is-market-mood-index</loc>
+    <changefreq>yearly</changefreq>
+    <priority>0.8</priority>
+</url>
+
   <!-- Calculators -->
   <url>
     <loc>https://www.wcfw.in/calculators</loc>

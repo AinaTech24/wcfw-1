@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const newsletterController = require('../controllers/newsletterController');
+const newsletterController = require('../controllers/pg/newsletterController');
 const auth = require('../middleware/auth');
 
 // Public route to subscribe

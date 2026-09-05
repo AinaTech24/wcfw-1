@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const settingsController = require('../controllers/settingsController');
+const settingsController = require('../controllers/pg/settingsController');
 const auth = require('../middleware/auth');
 
 // Public route (frontend needs settings)

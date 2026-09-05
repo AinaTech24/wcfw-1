@@ -1,0 +1,17 @@
+const { DataTypes } = require('sequelize');
+const sequelize = require('../../config/postgres');
+
+const PageContent = sequelize.define('PageContent', {
+  id:          { type: DataTypes.UUID, defaultValue: DataTypes.UUIDV4, primaryKey: true },
+  _id:         { type: DataTypes.VIRTUAL, get() { return this.getDataValue('id'); } },
+  page:        { type: DataTypes.STRING, allowNull: false },
+  section:     { type: DataTypes.STRING, allowNull: false },
+  content:     { type: DataTypes.JSONB,  allowNull: false },
+  seoSettings: { type: DataTypes.JSONB },
+}, {
+  tableName: 'page_contents',
+  underscored: true,
+  indexes: [{ unique: true, fields: ['page', 'section'] }],
+});
+
+module.exports = PageContent;

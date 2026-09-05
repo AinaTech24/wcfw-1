@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const testimonialController = require('../controllers/testimonialController');
+const testimonialController = require('../controllers/pg/testimonialController');
 const auth = require('../middleware/auth');
 
 // Public route
