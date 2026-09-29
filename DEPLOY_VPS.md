@@ -1,4 +1,5 @@
 # WCFW — Hostinger VPS Deployment Guide
+<!-- Last updated: auto-deploy trigger -->
 
 ## Prerequisites
 - Hostinger VPS (KVM 1 or higher)
