@@ -469,7 +469,7 @@ const Footer = () => {
           </p>
 
           <p className="text-center">
-            Copyright &copy; {new Date().getFullYear()} We Care Freedom Wealth..
+            Copyright &copy; {new Date().getFullYear()} We Care Freedom Wealth
           </p>
         </motion.div>
 
