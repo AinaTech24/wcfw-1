@@ -25,9 +25,7 @@ router.post("/", auth, upload.single("image"), async (req, res) => {
       filename: req.file.originalname,
       size: req.file.size,
     });
-    const protocol = req.headers["x-forwarded-proto"] || req.protocol;
-    const host = req.headers["x-forwarded-host"] || req.get("host");
-    const url = `${protocol}://${host}/api/images/${image.id}`;
+    const url = `/api/images/${image.id}`;
     res.json({ message: "Image uploaded successfully", url });
   } catch (err) {
     res.status(500).json({ message: "Failed to save image", error: err.message });

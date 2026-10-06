@@ -254,7 +254,7 @@ const Blog = () => {
               >
                 <img
                   src={post.image || goalBasedImg}
-                  alt={post.title}
+                  alt={post.imageAlt || post.title}
                   className="object-cover w-full h-full transition-transform duration-1000 group-hover:scale-105"
                 />
                 <div className="absolute inset-0 transition-opacity duration-500 opacity-0 bg-gradient-to-t from-slate-900/60 via-transparent to-transparent group-hover:opacity-100"></div>
