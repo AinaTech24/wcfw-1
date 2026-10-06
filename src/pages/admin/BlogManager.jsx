@@ -1189,7 +1189,7 @@ const BlogManager = () => {
                       <FaEdit size={14} />
                     </button>
                     <button
-                      onClick={() => handleDelete(blog._id)}
+                      onClick={() => handleDelete(blog.id)}
                       className="p-2 bg-white/90 backdrop-blur-sm text-red-600 rounded-lg shadow-sm hover:bg-red-600 hover:text-white transition-all outline-none"
                     >
                       <FaTrash size={14} />
