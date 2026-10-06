@@ -129,7 +129,7 @@ const BlogPost = () => {
         {blog.image ? (
           <img
             src={blog.image}
-            alt={blog.title}
+            alt={blog.imageAlt || blog.title}
             className="w-full h-full object-cover"
           />
         ) : (
@@ -180,11 +180,40 @@ const BlogPost = () => {
             {blog.summary}
           </p>
           <div
-            className="text-slate-700 leading-[1.8] text-lg prose-headings:font-black prose-headings:text-slate-900 prose-h2:text-3xl prose-h3:text-2xl prose-h4:text-xl prose-a:text-orange-600 prose-a:font-semibold prose-a:no-underline hover:prose-a:underline prose-strong:text-slate-900 prose-li:marker:text-orange-500"
+            className="text-slate-700 leading-[1.8] text-lg prose-headings:font-black prose-headings:text-slate-900 prose-h2:text-3xl prose-h3:text-2xl prose-h4:text-xl prose-a:text-orange-600 prose-a:font-semibold prose-a:no-underline hover:prose-a:underline prose-strong:text-slate-900 prose-li:marker:text-orange-500 prose-img:rounded-2xl prose-img:shadow-md blog-article-body"
             dangerouslySetInnerHTML={{
               __html: renderBlogContent(blog.content),
             }}
           />
+          <style>{`
+            .blog-article-body table,
+            .blog-article-body .blog-content-table {
+              width: 100%;
+              border-collapse: collapse;
+              margin: 2rem 0;
+              background: #ffffff;
+              border-radius: 0.75rem;
+              overflow: hidden;
+              border: 1px solid #e2e8f0;
+              box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+            }
+            .blog-article-body th {
+              background-color: #f8fafc;
+              color: #0f172a;
+              font-weight: 700;
+              padding: 0.875rem 1.25rem;
+              border: 1px solid #e2e8f0;
+              text-align: left;
+            }
+            .blog-article-body td {
+              padding: 0.875rem 1.25rem;
+              border: 1px solid #e2e8f0;
+              color: #334155;
+            }
+            .blog-article-body tr:nth-child(even) td {
+              background-color: #fcfdfe;
+            }
+          `}</style>
         </div>
 
         {/* Tags */}
