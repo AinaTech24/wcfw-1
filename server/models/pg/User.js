@@ -4,12 +4,17 @@ const sequelize = require('../../config/postgres');
 
 const User = sequelize.define('User', {
   id:        { type: DataTypes.UUID, defaultValue: DataTypes.UUIDV4, primaryKey: true },
-  _id:       { type: DataTypes.VIRTUAL, get() { return this.getDataValue('id'); } },
   email:     { type: DataTypes.STRING, allowNull: false, unique: true },
   password:  { type: DataTypes.STRING, allowNull: false },
   role:      { type: DataTypes.STRING, defaultValue: 'admin' },
   lastLogin: { type: DataTypes.DATE },
-}, { tableName: 'users', underscored: true });
+}, { 
+  tableName: 'users', 
+  underscored: true,
+  getterMethods: {
+    _id() { return this.id; }
+  }
+});
 
 // Hash password before create/update
 User.beforeCreate(async (user) => {
