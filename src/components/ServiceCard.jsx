@@ -3,6 +3,12 @@ import { motion } from "framer-motion";
 import { FaArrowRight, FaCheckCircle } from "react-icons/fa";
 import { Link } from "react-router-dom";
 
+const isBot =
+  typeof navigator !== "undefined" &&
+  /bot|googlebot|crawler|spider|robot|crawling|lighthouse/i.test(
+    navigator.userAgent
+  );
+
 const ServiceCard = ({
   icon: Icon,
   title,
@@ -16,8 +22,9 @@ const ServiceCard = ({
 }) => {
   return (
     <motion.div
-      initial={{ opacity: 0, y: 30 }}
-      whileInView={{ opacity: 1, y: 0 }}
+      initial={isBot ? false : { opacity: 0, y: 30 }}
+      animate={isBot ? { opacity: 1, y: 0 } : undefined}
+      whileInView={isBot ? undefined : { opacity: 1, y: 0 }}
       transition={{ duration: 0.6, delay }}
       viewport={{ once: true }}
       whileHover={{ y: -10 }}
