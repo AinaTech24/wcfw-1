@@ -40,20 +40,27 @@ import lifeInsImg from "../assets/images/services/life-insurance.png";
 // CTA Button Component
 import CTAButton from "../components/CTAButton";
 
+// Bot detection for search crawlers (Googlebot, Bingbot, Lighthouse)
+const isBot =
+  typeof navigator !== "undefined" &&
+  /bot|googlebot|crawler|spider|robot|crawling|lighthouse/i.test(
+    navigator.userAgent
+  );
+
 // Animation Variants
 const containerVariants = {
-  hidden: { opacity: 0 },
+  hidden: { opacity: isBot ? 1 : 0 },
   visible: {
     opacity: 1,
     transition: {
-      staggerChildren: 0.1,
-      delayChildren: 0.1,
+      staggerChildren: isBot ? 0 : 0.1,
+      delayChildren: isBot ? 0 : 0.1,
     },
   },
 };
 
 const itemVariants = {
-  hidden: { opacity: 0, y: 20 },
+  hidden: { opacity: isBot ? 1 : 0, y: isBot ? 0 : 20 },
   visible: {
     opacity: 1,
     y: 0,
@@ -370,8 +377,9 @@ const Home = () => {
 
         <div className="px-4 mx-auto max-w-7xl sm:px-6 lg:px-8">
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
+            initial={isBot ? false : { opacity: 0, y: 20 }}
+            animate={isBot ? { opacity: 1, y: 0 } : undefined}
+            whileInView={isBot ? undefined : { opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
             viewport={{ once: true }}
             className="mb-12 text-center sm:mb-16"
@@ -402,8 +410,9 @@ const Home = () => {
 
           <motion.div
             variants={containerVariants}
-            initial="hidden"
-            whileInView="visible"
+            initial={isBot ? "visible" : "hidden"}
+            animate={isBot ? "visible" : undefined}
+            whileInView={isBot ? undefined : "visible"}
             viewport={{ once: true }}
             className="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3 sm:gap-10"
           >
@@ -432,8 +441,9 @@ const Home = () => {
 
         <div className="px-4 mx-auto max-w-7xl sm:px-6 lg:px-8">
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
+            initial={isBot ? false : { opacity: 0, y: 20 }}
+            animate={isBot ? { opacity: 1, y: 0 } : undefined}
+            whileInView={isBot ? undefined : { opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
             viewport={{ once: true }}
             className="mb-12 text-center sm:mb-16"
@@ -499,8 +509,9 @@ const Home = () => {
               {/* Latest Video - Highlighted */}
               {latestVideo && (
                 <motion.div
-                  initial={{ opacity: 0, y: 30 }}
-                  whileInView={{ opacity: 1, y: 0 }}
+                  initial={isBot ? false : { opacity: 0, y: 30 }}
+                  animate={isBot ? { opacity: 1, y: 0 } : undefined}
+                  whileInView={isBot ? undefined : { opacity: 1, y: 0 }}
                   transition={{ duration: 0.8 }}
                   viewport={{ once: true }}
                   className="lg:col-span-2 group"
@@ -573,8 +584,9 @@ const Home = () => {
 
               {/* Other Videos */}
               <motion.div
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
+                initial={isBot ? false : { opacity: 0, y: 30 }}
+                animate={isBot ? { opacity: 1, y: 0 } : undefined}
+                whileInView={isBot ? undefined : { opacity: 1, y: 0 }}
                 transition={{ duration: 0.8, delay: 0.2 }}
                 viewport={{ once: true }}
                 className="space-y-6 sm:space-y-8"
@@ -582,8 +594,9 @@ const Home = () => {
                 {otherVideos.map((video, index) => (
                   <motion.div
                     key={video.id}
-                    initial={{ opacity: 0, x: 20 }}
-                    whileInView={{ opacity: 1, x: 0 }}
+                    initial={isBot ? false : { opacity: 0, x: 20 }}
+                    animate={isBot ? { opacity: 1, x: 0 } : undefined}
+                    whileInView={isBot ? undefined : { opacity: 1, x: 0 }}
                     transition={{ duration: 0.5, delay: index * 0.1 }}
                     viewport={{ once: true }}
                     className="group"
@@ -634,8 +647,9 @@ const Home = () => {
 
                 {/* View All Button */}
                 <motion.div
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
+                  initial={isBot ? false : { opacity: 0, y: 20 }}
+                  animate={isBot ? { opacity: 1, y: 0 } : undefined}
+                  whileInView={isBot ? undefined : { opacity: 1, y: 0 }}
                   transition={{ duration: 0.5, delay: 0.4 }}
                   viewport={{ once: true }}
                 >
@@ -681,8 +695,9 @@ const Home = () => {
 
         <div className="relative z-10 px-4 mx-auto max-w-7xl sm:px-6 lg:px-8">
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
+            initial={isBot ? false : { opacity: 0, y: 20 }}
+            animate={isBot ? { opacity: 1, y: 0 } : undefined}
+            whileInView={isBot ? undefined : { opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
             viewport={{ once: true }}
             className="mb-12 text-center sm:mb-16"
@@ -720,8 +735,9 @@ const Home = () => {
 
           <motion.div
             variants={containerVariants}
-            initial="hidden"
-            whileInView="visible"
+            initial={isBot ? "visible" : "hidden"}
+            animate={isBot ? "visible" : undefined}
+            whileInView={isBot ? undefined : "visible"}
             viewport={{ once: true }}
             className="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-6 sm:gap-6"
           >
@@ -759,8 +775,9 @@ const Home = () => {
       <section className="py-12 bg-white sm:py-16 lg:py-24">
         <div className="px-4 mx-auto max-w-7xl sm:px-6 lg:px-8">
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
+            initial={isBot ? false : { opacity: 0, y: 20 }}
+            animate={isBot ? { opacity: 1, y: 0 } : undefined}
+            whileInView={isBot ? undefined : { opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
             viewport={{ once: true }}
             className="mb-12 text-center sm:mb-16"

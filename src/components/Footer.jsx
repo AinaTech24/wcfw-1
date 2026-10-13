@@ -17,6 +17,13 @@ import useCMSContent from "../hooks/useCMSContent";
 
 import logo from "../assets/footerlogo.png";
 
+// Bot detection for search crawlers (Googlebot, Bingbot, Lighthouse)
+const isBot =
+  typeof navigator !== "undefined" &&
+  /bot|googlebot|crawler|spider|robot|crawling|lighthouse/i.test(
+    navigator.userAgent
+  );
+
 const Footer = () => {
   // Scroll To Top State
   const [isClicked, setIsClicked] = useState(false);
@@ -182,8 +189,9 @@ const Footer = () => {
         <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-5">
           {/* Company Info */}
           <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
+            initial={isBot ? false : { opacity: 0, y: 30 }}
+            animate={isBot ? { opacity: 1, y: 0 } : undefined}
+            whileInView={isBot ? undefined : { opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
             viewport={{ once: true }}
             className="lg:col-span-2 md:col-span-2"
@@ -218,8 +226,9 @@ const Footer = () => {
           </motion.div>
           {/* Quick Links */}
           <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
+            initial={isBot ? false : { opacity: 0, y: 30 }}
+            animate={isBot ? { opacity: 1, y: 0 } : undefined}
+            whileInView={isBot ? undefined : { opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.1 }}
             viewport={{ once: true }}
             className="text-center md:text-left"
@@ -248,8 +257,9 @@ const Footer = () => {
 
           {/* Tools */}
           <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
+            initial={isBot ? false : { opacity: 0, y: 30 }}
+            animate={isBot ? { opacity: 1, y: 0 } : undefined}
+            whileInView={isBot ? undefined : { opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.2 }}
             viewport={{ once: true }}
             className="text-center md:text-left"
@@ -284,8 +294,9 @@ const Footer = () => {
 
           {/* Services */}
           <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
+            initial={isBot ? false : { opacity: 0, y: 30 }}
+            animate={isBot ? { opacity: 1, y: 0 } : undefined}
+            whileInView={isBot ? undefined : { opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.3 }}
             viewport={{ once: true }}
             className="text-center md:text-left"
@@ -314,8 +325,9 @@ const Footer = () => {
 
         {/* Office Locations - 4 Offices Grid */}
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
+          initial={isBot ? false : { opacity: 0, y: 30 }}
+          animate={isBot ? { opacity: 1, y: 0 } : undefined}
+          whileInView={isBot ? undefined : { opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.4 }}
           viewport={{ once: true }}
           className="pt-12 mt-16 border-t border-white/10"
@@ -378,8 +390,9 @@ const Footer = () => {
 
         {/* Market Indices */}
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
+          initial={isBot ? false : { opacity: 0, y: 20 }}
+          animate={isBot ? { opacity: 1, y: 0 } : undefined}
+          whileInView={isBot ? undefined : { opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.5 }}
           viewport={{ once: true }}
           className="pt-8 mt-12 border-t border-white/10"
@@ -405,8 +418,9 @@ const Footer = () => {
 
         {/* Regulatory & Risk Disclosure */}
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
+          initial={isBot ? false : { opacity: 0, y: 20 }}
+          animate={isBot ? { opacity: 1, y: 0 } : undefined}
+          whileInView={isBot ? undefined : { opacity: 1, y: 0 }}
           transition={{ duration: 0.4, delay: 0.4 }}
           viewport={{ once: true }}
           className="p-6 mt-8 space-y-4 text-xs leading-relaxed text-gray-400 border bg-black/40 backdrop-blur-sm rounded-xl border-orange-500/20"

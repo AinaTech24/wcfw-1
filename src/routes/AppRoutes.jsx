@@ -3,8 +3,10 @@ import { Routes, Route } from "react-router-dom";
 import { PageLoader } from "../components/LoadingSkeletons";
 import DynamicServicePage from "../pages/services/DynamicServicePage";
 
+import PublicLayout from "../components/PublicLayout";
+import Home from "../pages/Home";
+
 // Lazy imports for pages
-const Home = lazy(() => import("../pages/Home"));
 const About = lazy(() => import("../pages/About"));
 const Blog = lazy(() => import("../pages/Blog"));
 const Newsletter = lazy(() => import("../pages/Newsletter"));
@@ -53,7 +55,6 @@ const VideoManager = lazy(() => import("../pages/admin/VideoManager"));
 const SiteSettings = lazy(() => import("../pages/admin/SiteSettings"));
 const ProtectedRoute = lazy(() => import("../components/ProtectedRoute"));
 const AdminLayout = lazy(() => import("../pages/admin/AdminLayout"));
-const PublicLayout = lazy(() => import("../components/PublicLayout"));
 
 // Calculators
 const SIPCalculator = lazy(() => import("../pages/calculators/SIPCalculator"));

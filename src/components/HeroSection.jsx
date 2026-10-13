@@ -95,7 +95,7 @@ const HeroSection = ({ content }) => {
         <div className="grid items-center gap-8 lg:grid-cols-2 lg:gap-12">
           {/* LEFT CONTENT */}
           <div>
-            <AnimatePresence mode="wait" custom={direction}>
+            <AnimatePresence mode="wait" custom={direction} initial={false}>
               <motion.div
                 key={currentSlide}
                 custom={direction}
@@ -158,7 +158,7 @@ const HeroSection = ({ content }) => {
 
           {/* RIGHT IMAGE */}
           <div className="flex justify-center lg:justify-end">
-            <AnimatePresence mode="wait">
+            <AnimatePresence mode="wait" initial={false}>
               <motion.div
                 key={currentSlide}
                 initial={{ opacity: 0, scale: 0.98 }}
