@@ -8,7 +8,13 @@ const Enquiry = sequelize.define('Enquiry', {
   phone:     { type: DataTypes.STRING, allowNull: false },
   subject:   { type: DataTypes.STRING },
   message:   { type: DataTypes.TEXT, allowNull: false },
-  status:    { type: DataTypes.ENUM('new','read','replied','closed'), defaultValue: 'new' },
+  status:    { 
+    type: DataTypes.STRING, 
+    defaultValue: 'new',
+    validate: {
+      isIn: [['new', 'read', 'replied', 'closed']]
+    }
+  },
   userAgent: { type: DataTypes.TEXT },
   ip:        { type: DataTypes.STRING },
 }, { 

@@ -8,12 +8,13 @@ import AppRoutes from './routes/AppRoutes';
 // Lazy loader for Zoho SalesIQ to protect Googlebot's 5s rendering budget
 const useLazyZohoChat = () => {
   useEffect(() => {
-    // 1. Skip completely for search crawlers (Googlebot, Bingbot, Lighthouse, etc.)
+    // 1. Skip completely for search crawlers, Google-InspectionTool, Lighthouse, and automated browsers
     const isBot =
       typeof navigator !== 'undefined' &&
-      /bot|googlebot|crawler|spider|robot|crawling|lighthouse|searchconsole/i.test(
-        navigator.userAgent
-      );
+      (navigator.webdriver ||
+        /bot|google|crawler|spider|robot|crawling|lighthouse|inspection|searchconsole|headless/i.test(
+          navigator.userAgent
+        ));
 
     if (isBot) return;
 
@@ -39,26 +40,32 @@ const useLazyZohoChat = () => {
       document.body.appendChild(script);
     };
 
-    // Delay 4 seconds to guarantee the core React app paints first
-    const timer = setTimeout(loadZoho, 4000);
-
-    // Or load on first user interaction
-    const onInteraction = () => {
-      loadZoho();
+    // Load immediately on real user interaction
+    const cleanup = () => {
       window.removeEventListener('scroll', onInteraction);
       window.removeEventListener('mousemove', onInteraction);
       window.removeEventListener('touchstart', onInteraction);
+      window.removeEventListener('keydown', onInteraction);
+      window.removeEventListener('click', onInteraction);
+    };
+
+    const onInteraction = () => {
+      loadZoho();
+      cleanup();
     };
 
     window.addEventListener('scroll', onInteraction, { passive: true, once: true });
     window.addEventListener('mousemove', onInteraction, { passive: true, once: true });
     window.addEventListener('touchstart', onInteraction, { passive: true, once: true });
+    window.addEventListener('keydown', onInteraction, { passive: true, once: true });
+    window.addEventListener('click', onInteraction, { passive: true, once: true });
+
+    // Fallback timer only for idle human visitors
+    const timer = setTimeout(loadZoho, 8000);
 
     return () => {
       clearTimeout(timer);
-      window.removeEventListener('scroll', onInteraction);
-      window.removeEventListener('mousemove', onInteraction);
-      window.removeEventListener('touchstart', onInteraction);
+      cleanup();
     };
   }, []);
 };
