@@ -145,6 +145,8 @@ const SITEMAP_STATIC = [
   { loc: "https://www.wcfw.in/calculators",                           changefreq: "monthly", priority: "0.8" },
   { loc: "https://www.wcfw.in/videos",                                changefreq: "weekly",  priority: "0.7" },
   { loc: "https://www.wcfw.in/newsletter",                            changefreq: "monthly", priority: "0.6" },
+  { loc: "https://www.wcfw.in/financial-freedom",                    changefreq: "monthly", priority: "0.7" },
+  { loc: "https://www.wcfw.in/asset-allocation",                     changefreq: "monthly", priority: "0.7" },
   { loc: "https://www.wcfw.in/services/mutual-fund",                  changefreq: "monthly", priority: "0.8" },
   { loc: "https://www.wcfw.in/services/life-insurance",               changefreq: "monthly", priority: "0.8" },
   { loc: "https://www.wcfw.in/services/goal-base-investing",          changefreq: "monthly", priority: "0.8" },
@@ -157,38 +159,154 @@ const SITEMAP_STATIC = [
   { loc: "https://www.wcfw.in/goals/child-wedding",                   changefreq: "monthly", priority: "0.7" },
   { loc: "https://www.wcfw.in/goals/emergency-fund",                  changefreq: "monthly", priority: "0.7" },
   { loc: "https://www.wcfw.in/goals/wealth-creation",                 changefreq: "monthly", priority: "0.7" },
+  { loc: "https://www.wcfw.in/calculator/sip",                        changefreq: "monthly", priority: "0.8" },
+  { loc: "https://www.wcfw.in/calculator/lumpsum",                    changefreq: "monthly", priority: "0.8" },
+  { loc: "https://www.wcfw.in/calculator/swp",                        changefreq: "monthly", priority: "0.8" },
+  { loc: "https://www.wcfw.in/calculator/stp",                        changefreq: "monthly", priority: "0.8" },
+  { loc: "https://www.wcfw.in/calculator/retirement",                 changefreq: "monthly", priority: "0.8" },
+  { loc: "https://www.wcfw.in/calculator/delay",                      changefreq: "monthly", priority: "0.8" },
+  { loc: "https://www.wcfw.in/calculator/insurance",                  changefreq: "monthly", priority: "0.8" },
+  { loc: "https://www.wcfw.in/calculator/emi",                        changefreq: "monthly", priority: "0.8" },
+  { loc: "https://www.wcfw.in/calculator/tax",                        changefreq: "monthly", priority: "0.8" },
+  { loc: "https://www.wcfw.in/calculator/marriage",                   changefreq: "monthly", priority: "0.8" },
+  { loc: "https://www.wcfw.in/calculator/education",                  changefreq: "monthly", priority: "0.8" },
+  { loc: "https://www.wcfw.in/calculator/home-loan",                  changefreq: "monthly", priority: "0.8" },
+  { loc: "https://www.wcfw.in/calculator/car-loan",                   changefreq: "monthly", priority: "0.8" },
+  { loc: "https://www.wcfw.in/calculator/vacation",                   changefreq: "monthly", priority: "0.8" },
   { loc: "https://www.wcfw.in/privacy-policy",                        changefreq: "yearly",  priority: "0.4" },
   { loc: "https://www.wcfw.in/terms-of-service",                      changefreq: "yearly",  priority: "0.4" },
   { loc: "https://www.wcfw.in/disclaimer",                            changefreq: "yearly",  priority: "0.4" },
   { loc: "https://www.wcfw.in/commission-disclosure",                 changefreq: "yearly",  priority: "0.4" },
 ];
 
+const CORE_OR_SYSTEM_PAGES = new Set([
+  "home",
+  "about",
+  "services",
+  "contact",
+  "blog",
+  "videos",
+  "newsletter",
+  "calculators",
+  "financial-freedom",
+  "asset-allocation",
+  "retirement",
+  "child-education",
+  "child-wedding",
+  "dream-home",
+  "emergency-fund",
+  "wealth-creation",
+  "mutual-fund",
+  "stocks",
+  "life-insurance",
+  "fixed-deposit",
+  "tax-solution",
+  "goal-based-investing",
+  "goal-base-investing",
+  "privacy-policy",
+  "terms-of-service",
+  "disclaimer",
+  "commission-disclosure",
+  "header",
+  "footer",
+  "navbar",
+  "common",
+  "global",
+]);
+
 app.get("/sitemap.xml", async (req, res) => {
   try {
-    const blogs = await Blog.findAll({
-      where: { isPublished: true },
-      attributes: ["slug", "image", "title", "updatedAt"],
-      order: [["created_at", "DESC"]],
-    }).catch(() => []);
+    const [blogs, contentRows] = await Promise.all([
+      Blog.findAll({
+        where: { isPublished: true },
+        attributes: ["slug", "image", "title", "updatedAt"],
+        order: [["created_at", "DESC"]],
+      }).catch(() => []),
+      PageContent.findAll({
+        attributes: ["page", "section", "seoSettings", "updatedAt"],
+        order: [["created_at", "ASC"]],
+      }).catch(() => []),
+    ]);
 
     const root = xmlbuilder.create("urlset", { encoding: "UTF-8" });
     root.att("xmlns",       "http://www.sitemaps.org/schemas/sitemap/0.9");
     root.att("xmlns:image", "http://www.google.com/schemas/sitemap-image/1.1");
 
+    const seenUrls = new Set();
+
+    // 1. Static Routes
     SITEMAP_STATIC.forEach(({ loc, changefreq, priority }) => {
+      seenUrls.add(loc.toLowerCase().replace(/\/$/, ""));
       const url = root.ele("url");
       url.ele("loc", loc);
       url.ele("changefreq", changefreq);
       url.ele("priority", priority);
     });
 
+    // 2. Dynamic CMS Pages (from Content Editor / page_contents)
+    const dynamicPages = new Map();
+    contentRows.forEach((row) => {
+      if (!row.page) return;
+      const pageKey = row.page.trim().toLowerCase();
+      if (!dynamicPages.has(pageKey)) {
+        dynamicPages.set(pageKey, { seo: null, updatedAt: row.updatedAt });
+      }
+      const entry = dynamicPages.get(pageKey);
+      if (row.section === "seo-settings") {
+        entry.seo = row.seoSettings;
+      }
+      if (row.updatedAt && (!entry.updatedAt || new Date(row.updatedAt) > new Date(entry.updatedAt))) {
+        entry.updatedAt = row.updatedAt;
+      }
+    });
+
+    dynamicPages.forEach((data, pageSlug) => {
+      if (CORE_OR_SYSTEM_PAGES.has(pageSlug)) return;
+
+      const robotsTag = data.seo?.robotsTag || "index, follow";
+      if (robotsTag.toLowerCase().includes("noindex")) return;
+
+      let loc = "";
+      if (data.seo?.canonicalUrl && /^https?:\/\//i.test(data.seo.canonicalUrl.trim())) {
+        loc = data.seo.canonicalUrl.trim();
+      } else {
+        const cleanSlug = pageSlug.replace(/^\/+/, "");
+        if (cleanSlug.startsWith("services/")) {
+          loc = `https://www.wcfw.in/${cleanSlug}`;
+        } else {
+          loc = `https://www.wcfw.in/services/${cleanSlug}`;
+        }
+      }
+
+      const normalized = loc.toLowerCase().replace(/\/$/, "");
+      if (seenUrls.has(normalized)) return;
+      seenUrls.add(normalized);
+
+      const url = root.ele("url");
+      url.ele("loc", loc);
+      url.ele("changefreq", "monthly");
+      url.ele("priority", "0.8");
+      if (data.updatedAt) {
+        url.ele("lastmod", new Date(data.updatedAt).toISOString().split("T")[0]);
+      }
+    });
+
+    // 3. Published Blog Posts
     blogs.forEach((blog) => {
       const robotsTag = blog.robotsTag || "index, follow";
       if (robotsTag.includes("noindex")) return;
+      const loc = `https://www.wcfw.in/blog/${blog.slug}`;
+      const normalized = loc.toLowerCase().replace(/\/$/, "");
+      if (seenUrls.has(normalized)) return;
+      seenUrls.add(normalized);
+
       const url = root.ele("url");
-      url.ele("loc", `https://www.wcfw.in/blog/${blog.slug}`);
+      url.ele("loc", loc);
       url.ele("changefreq", "weekly");
       url.ele("priority", "0.7");
+      if (blog.updatedAt) {
+        url.ele("lastmod", new Date(blog.updatedAt).toISOString().split("T")[0]);
+      }
       if (blog.image) {
         const img = url.ele("image:image");
         img.ele("image:loc", blog.image);
