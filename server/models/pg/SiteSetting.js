@@ -3,7 +3,6 @@ const sequelize = require('../../config/postgres');
 
 const SiteSetting = sequelize.define('SiteSetting', {
   id:             { type: DataTypes.UUID, defaultValue: DataTypes.UUIDV4, primaryKey: true },
-  _id:            { type: DataTypes.VIRTUAL, get() { return this.getDataValue('id'); } },
   companyName:    { type: DataTypes.STRING, defaultValue: 'We Care Freedom Wealth' },
   companyEmail:   { type: DataTypes.STRING, defaultValue: '' },
   companyPhone:   { type: DataTypes.STRING, defaultValue: '' },
@@ -14,6 +13,12 @@ const SiteSetting = sequelize.define('SiteSetting', {
   footerText:     { type: DataTypes.TEXT,   defaultValue: '' },
   heroTagline:    { type: DataTypes.STRING, defaultValue: '' },
   heroSubtitle:   { type: DataTypes.STRING, defaultValue: '' },
-}, { tableName: 'site_settings', underscored: true });
+}, { 
+  tableName: 'site_settings', 
+  underscored: true,
+  getterMethods: {
+    _id() { return this.id; }
+  }
+});
 
 module.exports = SiteSetting;

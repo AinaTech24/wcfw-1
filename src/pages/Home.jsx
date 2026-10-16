@@ -1,6 +1,5 @@
 import React, { useMemo, useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { motion } from "framer-motion";
 import HeroSection from "../components/HeroSection";
 import GoogleReviews from "../components/GoogleReviews";
 import {
@@ -39,34 +38,6 @@ import lifeInsImg from "../assets/images/services/life-insurance.png";
 
 // CTA Button Component
 import CTAButton from "../components/CTAButton";
-
-// Bot detection for search crawlers (Googlebot, Bingbot, Lighthouse)
-const isBot =
-  typeof navigator !== "undefined" &&
-  /bot|googlebot|crawler|spider|robot|crawling|lighthouse/i.test(
-    navigator.userAgent
-  );
-
-// Animation Variants
-const containerVariants = {
-  hidden: { opacity: isBot ? 1 : 0 },
-  visible: {
-    opacity: 1,
-    transition: {
-      staggerChildren: isBot ? 0 : 0.1,
-      delayChildren: isBot ? 0 : 0.1,
-    },
-  },
-};
-
-const itemVariants = {
-  hidden: { opacity: isBot ? 1 : 0, y: isBot ? 0 : 20 },
-  visible: {
-    opacity: 1,
-    y: 0,
-    transition: { duration: 0.5, ease: "easeOut" },
-  },
-};
 
 const Home = () => {
   const { cmsContent } = useCMSContent("home");
@@ -376,14 +347,7 @@ const Home = () => {
         <div className="absolute bottom-0 left-0 w-64 h-64 rounded-full sm:w-96 sm:h-96 bg-blue-50 blur-3xl opacity-30 -z-10"></div>
 
         <div className="px-4 mx-auto max-w-7xl sm:px-6 lg:px-8">
-          <motion.div
-            initial={isBot ? false : { opacity: 0, y: 20 }}
-            animate={isBot ? { opacity: 1, y: 0 } : undefined}
-            whileInView={isBot ? undefined : { opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            viewport={{ once: true }}
-            className="mb-12 text-center sm:mb-16"
-          >
+          <div className="mb-12 text-center sm:mb-16">
             <h2 className="mb-3 text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl md:text-5xl sm:mb-4">
               {cmsContent["services-section"]?.title || (
                 <>
@@ -406,17 +370,10 @@ const Home = () => {
                 "Experience Bespoke Financial Solutions with WCFW's 35-Year Legacy of Trust"
               )}
             </div>
-          </motion.div>
+          </div>
 
-          <motion.div
-            variants={containerVariants}
-            initial={isBot ? "visible" : "hidden"}
-            animate={isBot ? "visible" : undefined}
-            whileInView={isBot ? undefined : "visible"}
-            viewport={{ once: true }}
-            className="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3 sm:gap-10"
-          >
-            {services.map((service, index) => (
+          <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3 sm:gap-10">
+            {services.map((service) => (
               <ServiceCard
                 key={service.id}
                 icon={service.icon}
@@ -426,10 +383,9 @@ const Home = () => {
                 buttonLink={service.link}
                 gradient={service.gradient}
                 features={service.features}
-                delay={index * 0.1}
               />
             ))}
-          </motion.div>
+          </div>
         </div>
       </section>
 
@@ -440,14 +396,7 @@ const Home = () => {
         <div className="absolute bottom-0 right-0 w-64 h-64 rounded-full sm:w-96 sm:h-96 bg-blue-50 blur-3xl opacity-30 -z-10"></div>
 
         <div className="px-4 mx-auto max-w-7xl sm:px-6 lg:px-8">
-          <motion.div
-            initial={isBot ? false : { opacity: 0, y: 20 }}
-            animate={isBot ? { opacity: 1, y: 0 } : undefined}
-            whileInView={isBot ? undefined : { opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            viewport={{ once: true }}
-            className="mb-12 text-center sm:mb-16"
-          >
+          <div className="mb-12 text-center sm:mb-16">
             <div className="inline-flex items-center gap-2 px-4 py-2 mb-4 border border-orange-100 rounded-full sm:gap-3 bg-orange-50 sm:px-6 sm:py-3 sm:mb-6">
               <FaYoutube className="text-base text-red-500 sm:text-lg" />
               <span className="text-xs font-bold tracking-widest text-orange-700 uppercase sm:text-sm">
@@ -486,7 +435,7 @@ const Home = () => {
                 "Latest wealth creation strategies from Nikhil Thakkar. New videos highlight automatically."
               )}
             </div>
-          </motion.div>
+          </div>
 
           {loading ? (
             <div className="grid gap-8 lg:grid-cols-3 sm:gap-10">
@@ -508,14 +457,7 @@ const Home = () => {
             <div className="grid gap-8 lg:grid-cols-3 sm:gap-10">
               {/* Latest Video - Highlighted */}
               {latestVideo && (
-                <motion.div
-                  initial={isBot ? false : { opacity: 0, y: 30 }}
-                  animate={isBot ? { opacity: 1, y: 0 } : undefined}
-                  whileInView={isBot ? undefined : { opacity: 1, y: 0 }}
-                  transition={{ duration: 0.8 }}
-                  viewport={{ once: true }}
-                  className="lg:col-span-2 group"
-                >
+                <div className="lg:col-span-2 group">
                   <div className="relative overflow-hidden transition-all duration-500 bg-white border-2 border-orange-100 shadow-2xl rounded-3xl hover:shadow-3xl">
                     {/* New Badge */}
                     <div className="absolute z-20 top-6 left-6">
@@ -579,26 +521,14 @@ const Home = () => {
                       </div>
                     </div>
                   </div>
-                </motion.div>
+                </div>
               )}
 
               {/* Other Videos */}
-              <motion.div
-                initial={isBot ? false : { opacity: 0, y: 30 }}
-                animate={isBot ? { opacity: 1, y: 0 } : undefined}
-                whileInView={isBot ? undefined : { opacity: 1, y: 0 }}
-                transition={{ duration: 0.8, delay: 0.2 }}
-                viewport={{ once: true }}
-                className="space-y-6 sm:space-y-8"
-              >
-                {otherVideos.map((video, index) => (
-                  <motion.div
+              <div className="space-y-6 sm:space-y-8">
+                {otherVideos.map((video) => (
+                  <div
                     key={video.id}
-                    initial={isBot ? false : { opacity: 0, x: 20 }}
-                    animate={isBot ? { opacity: 1, x: 0 } : undefined}
-                    whileInView={isBot ? undefined : { opacity: 1, x: 0 }}
-                    transition={{ duration: 0.5, delay: index * 0.1 }}
-                    viewport={{ once: true }}
                     className="group"
                   >
                     <a
@@ -642,17 +572,11 @@ const Home = () => {
                         </div>
                       </div>
                     </a>
-                  </motion.div>
+                  </div>
                 ))}
 
                 {/* View All Button */}
-                <motion.div
-                  initial={isBot ? false : { opacity: 0, y: 20 }}
-                  animate={isBot ? { opacity: 1, y: 0 } : undefined}
-                  whileInView={isBot ? undefined : { opacity: 1, y: 0 }}
-                  transition={{ duration: 0.5, delay: 0.4 }}
-                  viewport={{ once: true }}
-                >
+                <div>
                   <Link
                     to="/videos"
                     className="group relative flex items-center w-full h-16 px-3 overflow-hidden font-bold text-white rounded-3xl bg-gradient-to-r from-yellow-400 to-orange-500 shadow-md transition-all duration-500 hover:shadow-[0_14px_30px_-10px_rgba(249,115,22,.45)]"
@@ -678,8 +602,8 @@ const Home = () => {
                       View All Videos
                     </span>
                   </Link>
-                </motion.div>
-              </motion.div>
+                </div>
+              </div>
             </div>
           )}
         </div>
@@ -694,14 +618,7 @@ const Home = () => {
         </div>
 
         <div className="relative z-10 px-4 mx-auto max-w-7xl sm:px-6 lg:px-8">
-          <motion.div
-            initial={isBot ? false : { opacity: 0, y: 20 }}
-            animate={isBot ? { opacity: 1, y: 0 } : undefined}
-            whileInView={isBot ? undefined : { opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            viewport={{ once: true }}
-            className="mb-12 text-center sm:mb-16"
-          >
+          <div className="mb-12 text-center sm:mb-16">
             <h2 className="mb-3 text-3xl font-bold text-gray-900 sm:text-4xl md:text-5xl sm:mb-4">
               {cmsContent["goals-section"]?.title ? (
                 <span
@@ -731,22 +648,13 @@ const Home = () => {
                 "Investing and savings get direction when mapped with your short-term, medium-term, and long-term financial goals"
               )}
             </div>
-          </motion.div>
+          </div>
 
-          <motion.div
-            variants={containerVariants}
-            initial={isBot ? "visible" : "hidden"}
-            animate={isBot ? "visible" : undefined}
-            whileInView={isBot ? undefined : "visible"}
-            viewport={{ once: true }}
-            className="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-6 sm:gap-6"
-          >
+          <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-6 sm:gap-6">
             {goals.map((goal) => (
-              <motion.div
+              <div
                 key={goal.id}
-                variants={itemVariants}
-                whileHover={{ y: -10, scale: 1.05 }}
-                className="group"
+                className="group transition-transform duration-300 hover:-translate-y-2 hover:scale-105"
               >
                 <Link
                   to={goal.link}
@@ -765,30 +673,23 @@ const Home = () => {
                     {goal.title}
                   </h3>
                 </Link>
-              </motion.div>
+              </div>
             ))}
-          </motion.div>
+          </div>
         </div>
       </section>
 
       {/* Google Reviews Section - Mobile Optimized */}
       <section className="py-12 bg-white sm:py-16 lg:py-24">
         <div className="px-4 mx-auto max-w-7xl sm:px-6 lg:px-8">
-          <motion.div
-            initial={isBot ? false : { opacity: 0, y: 20 }}
-            animate={isBot ? { opacity: 1, y: 0 } : undefined}
-            whileInView={isBot ? undefined : { opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            viewport={{ once: true }}
-            className="mb-12 text-center sm:mb-16"
-          >
+          <div className="mb-12 text-center sm:mb-16">
             <h2 className="mb-3 text-3xl font-bold text-gray-900 sm:text-4xl md:text-5xl sm:mb-4">
               What Our <span className="text-orange-600">Clients Say</span>
             </h2>
             <p className="max-w-3xl px-4 mx-auto text-base text-gray-600 sm:text-lg lg:text-xl">
               Trusted by thousands of satisfied clients across India
             </p>
-          </motion.div>
+          </div>
 
           <GoogleReviews />
         </div>

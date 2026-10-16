@@ -1,5 +1,4 @@
 import React, { useMemo } from "react";
-import { motion } from "framer-motion";
 import { FaStar, FaCheckCircle, FaExternalLinkAlt } from "react-icons/fa";
 
 /* Google G */
@@ -92,12 +91,10 @@ const GOOGLE_MAPS_LINK =
   "https://www.google.com/search?q=We+Care+Freedom+Wealth+Pvt.+Ltd.+Anand";
 
 const GoogleReviews = () => {
-  const half = Math.ceil(reviews.length / 2);
-
-  const row1 = useMemo(
-    () => [...reviews.slice(0, half), ...reviews.slice(0, half)],
-    [],
-  );
+  const row1 = useMemo(() => {
+    const half = Math.ceil(reviews.length / 2);
+    return [...reviews.slice(0, half), ...reviews.slice(0, half)];
+  }, []);
 
   const ReviewCard = ({ review }) => (
     <div className="group relative w-[300px] sm:w-[360px] lg:w-[410px] shrink-0 rounded-3xl border border-gray-100 bg-white p-6 sm:p-7 shadow-lg transition-all duration-300 hover:-translate-y-1 hover:shadow-xl">
@@ -149,12 +146,7 @@ const GoogleReviews = () => {
   return (
     <section className="relative w-full overflow-hidden">
       {/* Top Summary */}
-      <motion.div
-        initial={{ opacity: 0, y: -20 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
-        className="mb-14"
-      >
+      <div className="mb-14">
         <div className="relative flex flex-col items-center justify-between max-w-5xl gap-8 p-6 mx-auto overflow-hidden bg-white border border-gray-100 shadow-2xl rounded-3xl sm:p-8 md:flex-row">
           <div className="flex flex-col items-center gap-5 sm:flex-row">
             <div className="flex items-center justify-center w-20 h-20 bg-white border shadow-lg rounded-2xl">
@@ -209,7 +201,7 @@ const GoogleReviews = () => {
             </a>
           </div>
         </div>
-      </motion.div>
+      </div>
 
       {/* Infinite Testimonials */}
       <div className="space-y-8 sm:space-y-10">
