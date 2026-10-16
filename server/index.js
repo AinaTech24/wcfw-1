@@ -219,7 +219,7 @@ app.get("/sitemap.xml", async (req, res) => {
     const [blogs, contentRows] = await Promise.all([
       Blog.findAll({
         where: { isPublished: true },
-        attributes: ["slug", "image", "title", "updatedAt"],
+        attributes: ["slug", "title", "updatedAt"],
         order: [["created_at", "DESC"]],
       }).catch(() => []),
       PageContent.findAll({
@@ -229,8 +229,7 @@ app.get("/sitemap.xml", async (req, res) => {
     ]);
 
     const root = xmlbuilder.create("urlset", { encoding: "UTF-8" });
-    root.att("xmlns",       "http://www.sitemaps.org/schemas/sitemap/0.9");
-    root.att("xmlns:image", "http://www.google.com/schemas/sitemap-image/1.1");
+    root.att("xmlns", "http://www.sitemaps.org/schemas/sitemap/0.9");
 
     const seenUrls = new Set();
 
@@ -306,11 +305,6 @@ app.get("/sitemap.xml", async (req, res) => {
       url.ele("priority", "0.7");
       if (blog.updatedAt) {
         url.ele("lastmod", new Date(blog.updatedAt).toISOString().split("T")[0]);
-      }
-      if (blog.image) {
-        const img = url.ele("image:image");
-        img.ele("image:loc", blog.image);
-        if (blog.title) img.ele("image:title", blog.title);
       }
     });
 
