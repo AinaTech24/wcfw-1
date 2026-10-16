@@ -1,7 +1,6 @@
 // src/components/Footer.jsx
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { motion } from "framer-motion";
 import {
   FaPhone,
   FaEnvelope,
@@ -16,13 +15,6 @@ import {
 import useCMSContent from "../hooks/useCMSContent";
 
 import logo from "../assets/footerlogo.png";
-
-// Bot detection for search crawlers (Googlebot, Bingbot, Lighthouse)
-const isBot =
-  typeof navigator !== "undefined" &&
-  /bot|googlebot|crawler|spider|robot|crawling|lighthouse/i.test(
-    navigator.userAgent
-  );
 
 const Footer = () => {
   // Scroll To Top State
@@ -188,14 +180,7 @@ const Footer = () => {
       <div className="relative px-4 py-16 mx-auto max-w-7xl sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-5">
           {/* Company Info */}
-          <motion.div
-            initial={isBot ? false : { opacity: 0, y: 30 }}
-            animate={isBot ? { opacity: 1, y: 0 } : undefined}
-            whileInView={isBot ? undefined : { opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            viewport={{ once: true }}
-            className="lg:col-span-2 md:col-span-2"
-          >
+          <div className="lg:col-span-2 md:col-span-2">
             <div className="flex justify-center mb-6 md:justify-start">
               <img
                 src={logo}
@@ -211,28 +196,20 @@ const Footer = () => {
             {/* Social Links */}
             <div className="flex justify-center space-x-4 md:justify-start">
               {socialLinks.map((social, index) => (
-                <motion.a
+                <a
                   key={index}
                   href={social.href}
                   target="_blank"
                   rel="noopener noreferrer"
-                  whileTap={{ scale: 0.95 }}
-                  className={`w-11 h-11 bg-gradient-to-br from-orange-500/20 to-yellow-500/20 rounded-full flex items-center justify-center ${social.color} transition-all duration-300 hover:bg-gradient-to-br hover:from-orange-500/40 hover:to-yellow-500/40 border border-orange-500/30 outline-none`}
+                  className={`w-11 h-11 bg-gradient-to-br from-orange-500/20 to-yellow-500/20 rounded-full flex items-center justify-center ${social.color} transition-all duration-300 hover:bg-gradient-to-br hover:from-orange-500/40 hover:to-yellow-500/40 border border-orange-500/30 outline-none hover:scale-105 active:scale-95`}
                 >
                   <social.icon className="text-lg" />
-                </motion.a>
+                </a>
               ))}
             </div>
-          </motion.div>
+          </div>
           {/* Quick Links */}
-          <motion.div
-            initial={isBot ? false : { opacity: 0, y: 30 }}
-            animate={isBot ? { opacity: 1, y: 0 } : undefined}
-            whileInView={isBot ? undefined : { opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.1 }}
-            viewport={{ once: true }}
-            className="text-center md:text-left"
-          >
+          <div className="text-center md:text-left">
             <h3 className="mb-6 text-lg font-bold text-gradient-warm">
               Quick Links
             </h3>
@@ -253,17 +230,10 @@ const Footer = () => {
                 </li>
               ))}
             </ul>
-          </motion.div>
+          </div>
 
           {/* Tools */}
-          <motion.div
-            initial={isBot ? false : { opacity: 0, y: 30 }}
-            animate={isBot ? { opacity: 1, y: 0 } : undefined}
-            whileInView={isBot ? undefined : { opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.2 }}
-            viewport={{ once: true }}
-            className="text-center md:text-left"
-          >
+          <div className="text-center md:text-left">
             <h3 className="mb-6 text-lg font-bold text-gradient-warm">Tools</h3>
             <ul className="flex flex-col items-center space-y-3 md:items-start">
               {toolsData.list.map((tool, index) => (
@@ -290,17 +260,10 @@ const Footer = () => {
                 </Link>
               </li>
             </ul>
-          </motion.div>
+          </div>
 
           {/* Services */}
-          <motion.div
-            initial={isBot ? false : { opacity: 0, y: 30 }}
-            animate={isBot ? { opacity: 1, y: 0 } : undefined}
-            whileInView={isBot ? undefined : { opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.3 }}
-            viewport={{ once: true }}
-            className="text-center md:text-left"
-          >
+          <div className="text-center md:text-left">
             <h3 className="mb-6 text-lg font-bold text-gradient-warm">
               Our Services
             </h3>
@@ -320,18 +283,11 @@ const Footer = () => {
                 </li>
               ))}
             </ul>
-          </motion.div>
+          </div>
         </div>
 
         {/* Office Locations - 4 Offices Grid */}
-        <motion.div
-          initial={isBot ? false : { opacity: 0, y: 30 }}
-          animate={isBot ? { opacity: 1, y: 0 } : undefined}
-          whileInView={isBot ? undefined : { opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.4 }}
-          viewport={{ once: true }}
-          className="pt-12 mt-16 border-t border-white/10"
-        >
+        <div className="pt-12 mt-16 border-t border-white/10">
           <h3 className="mb-8 text-2xl font-bold text-center text-gradient-warm">
             Our Offices
           </h3>
@@ -386,17 +342,10 @@ const Footer = () => {
               </span>
             </div>
           </div>
-        </motion.div>
+        </div>
 
         {/* Market Indices */}
-        <motion.div
-          initial={isBot ? false : { opacity: 0, y: 20 }}
-          animate={isBot ? { opacity: 1, y: 0 } : undefined}
-          whileInView={isBot ? undefined : { opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.5 }}
-          viewport={{ once: true }}
-          className="pt-8 mt-12 border-t border-white/10"
-        >
+        <div className="pt-8 mt-12 border-t border-white/10">
           <div className="flex flex-wrap items-center justify-center gap-4 text-sm text-gray-400">
             {marketIndices.map((index, idx) => (
               <React.Fragment key={idx}>
@@ -414,17 +363,10 @@ const Footer = () => {
               </React.Fragment>
             ))}
           </div>
-        </motion.div>
+        </div>
 
         {/* Regulatory & Risk Disclosure */}
-        <motion.div
-          initial={isBot ? false : { opacity: 0, y: 20 }}
-          animate={isBot ? { opacity: 1, y: 0 } : undefined}
-          whileInView={isBot ? undefined : { opacity: 1, y: 0 }}
-          transition={{ duration: 0.4, delay: 0.4 }}
-          viewport={{ once: true }}
-          className="p-6 mt-8 space-y-4 text-xs leading-relaxed text-gray-400 border bg-black/40 backdrop-blur-sm rounded-xl border-orange-500/20"
-        >
+        <div className="p-6 mt-8 space-y-4 text-xs leading-relaxed text-gray-400 border bg-black/40 backdrop-blur-sm rounded-xl border-orange-500/20">
           <p>
             <strong className="text-orange-400">Risk Factors –</strong>{" "}
             {legalInfo.riskFactors ||
@@ -485,7 +427,7 @@ const Footer = () => {
           <p className="text-center">
             Copyright &copy; {new Date().getFullYear()} We Care Freedom Wealth
           </p>
-        </motion.div>
+        </div>
 
         {/* Bottom Bar */}
         <div className="relative mt-8 border-t border-white/10">
@@ -537,10 +479,10 @@ const Footer = () => {
       </div>
 
       {/* Scroll to Top Button */}
-      <motion.button
+      <button
+        type="button"
         onClick={scrollToTop}
-        whileTap={{ scale: 0.95 }}
-        className={`group fixed right-3 bottom-20 sm:bottom-24 z-[99999] flex items-center justify-center overflow-hidden h-14 w-14 hover:w-36 rounded-full hover:rounded-[40px] bg-gradient-to-r from-yellow-400 to-orange-500 shadow-[0_0_0_4px_rgba(251,191,36,0.25)] transition-all duration-300 ease-in-out cursor-pointer outline-none 
+        className={`group fixed right-3 bottom-20 sm:bottom-24 z-[99999] flex items-center justify-center overflow-hidden h-14 w-14 hover:w-36 rounded-full hover:rounded-[40px] bg-gradient-to-r from-yellow-400 to-orange-500 shadow-[0_0_0_4px_rgba(251,191,36,0.25)] transition-all duration-300 ease-in-out cursor-pointer outline-none active:scale-95
         ${isClicked ? "outline-none" : ""}
         ${showScrollTop
             ? "opacity-100 translate-y-0"
@@ -555,7 +497,7 @@ const Footer = () => {
         <span className="absolute text-sm font-medium text-white transition-all duration-300 translate-y-5 opacity-0 group-hover:opacity-100 group-hover:translate-y-0 whitespace-nowrap">
           Back to Top
         </span>
-      </motion.button>
+      </button>
     </footer>
   );
 };

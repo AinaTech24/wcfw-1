@@ -1,5 +1,4 @@
 import React, { useState, useEffect, useMemo } from "react";
-import { motion, AnimatePresence } from "framer-motion";
 import { FaArrowRight } from "react-icons/fa";
 import heroNikhil from "../assets/image1.png";
 import heroCoins from "../assets/image2.png";
@@ -60,27 +59,18 @@ const HeroSection = ({ content }) => {
   }, [content]);
 
   const [currentSlide, setCurrentSlide] = useState(0);
-  const [direction, setDirection] = useState(1);
   const [paused, setPaused] = useState(false);
 
   useEffect(() => {
     if (paused) return;
     const timer = setInterval(() => {
-      setDirection(1);
       setCurrentSlide((prev) => (prev + 1) % displaySlides.length);
     }, 5000);
     return () => clearInterval(timer);
   }, [paused, displaySlides.length]);
 
   const changeSlide = (index) => {
-    setDirection(index > currentSlide ? 1 : -1);
     setCurrentSlide(index);
-  };
-
-  const slideVariants = {
-    enter: (dir) => ({ x: dir > 0 ? 20 : -20, opacity: 0 }),
-    center: { x: 0, opacity: 1 },
-    exit: (dir) => ({ x: dir < 0 ? -20 : 20, opacity: 0 }),
   };
 
   const activeSlide = displaySlides[currentSlide];
@@ -95,49 +85,39 @@ const HeroSection = ({ content }) => {
         <div className="grid items-center gap-8 lg:grid-cols-2 lg:gap-12">
           {/* LEFT CONTENT */}
           <div>
-            <AnimatePresence mode="wait" custom={direction} initial={false}>
-              <motion.div
-                key={currentSlide}
-                custom={direction}
-                variants={slideVariants}
-                initial="enter"
-                animate="center"
-                exit="exit"
-                transition={{ duration: 0.3 }}
-              >
-                {/* Badge */}
-                <span className="inline-block px-3 py-1 mb-4 text-xs font-semibold text-orange-700 bg-orange-100 rounded-full">
-                  Trusted Mutual Fund Services
-                </span>
+            <div key={currentSlide} className="transition-opacity duration-300">
+              {/* Badge */}
+              <span className="inline-block px-3 py-1 mb-4 text-xs font-semibold text-orange-700 bg-orange-100 rounded-full">
+                Trusted Mutual Fund Services
+              </span>
 
-                {/* Heading */}
-                <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-900 leading-tight">
-                  <span className="text-orange-600">{activeSlide.keyword}</span>
-                  <br />
-                  {activeSlide.title}
-                </h1>
+              {/* Heading */}
+              <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-900 leading-tight">
+                <span className="text-orange-600">{activeSlide.keyword}</span>
+                <br />
+                {activeSlide.title}
+              </h1>
 
-                {/* Description */}
-                <p className="mt-4 text-gray-600 text-base sm:text-lg max-w-lg">
-                  {activeSlide.description}
-                </p>
+              {/* Description */}
+              <p className="mt-4 text-gray-600 text-base sm:text-lg max-w-lg">
+                {activeSlide.description}
+              </p>
 
-                {/* CTA Button */}
-                <div className="mt-6">
-                  <CTAButton
-                    to={activeSlide.primaryLink}
-                    text={activeSlide.primaryBtn}
-                    icon={<FaArrowRight className="text-xs" />}
-                    variant="primary"
-                  />
-                </div>
+              {/* CTA Button */}
+              <div className="mt-6">
+                <CTAButton
+                  to={activeSlide.primaryLink}
+                  text={activeSlide.primaryBtn}
+                  icon={<FaArrowRight className="text-xs" />}
+                  variant="primary"
+                />
+              </div>
 
-                {/* Disclaimer */}
-                <p className="mt-4 text-xs text-gray-400 italic max-w-lg">
-                  {activeSlide.disclaimer}
-                </p>
-              </motion.div>
-            </AnimatePresence>
+              {/* Disclaimer */}
+              <p className="mt-4 text-xs text-gray-400 italic max-w-lg">
+                {activeSlide.disclaimer}
+              </p>
+            </div>
 
             {/* Slider Dots */}
             <div className="flex gap-2 mt-6">
@@ -158,34 +138,24 @@ const HeroSection = ({ content }) => {
 
           {/* RIGHT IMAGE */}
           <div className="flex justify-center lg:justify-end">
-            <AnimatePresence mode="wait" initial={false}>
-              <motion.div
-                key={currentSlide}
-                initial={{ opacity: 0, scale: 0.98 }}
-                animate={{ opacity: 1, scale: 1 }}
-                exit={{ opacity: 0, scale: 0.98 }}
-                transition={{ duration: 0.3 }}
-                className="relative"
-              >
-                <div className="relative w-64 h-64 sm:w-80 sm:h-80 lg:w-[36vw] lg:h-[36vw] lg:mb-[-6rem]">
-                  {/* Main Image Circle */}
-                  <div className="absolute inset-0 rounded-3xl overflow-hidden">
-                    <img
-                      src={
-                        currentSlide === 0
-                          ? heroNikhil
-                          : currentSlide === 1
-                            ? heroCoins
-                            : heroPrepared
-                      }
-                      loading="lazy"
-                      alt="Mutual Fund Services"
-                      className="w-full h-full object-cover"
-                    />
-                  </div>
+            <div className="relative">
+              <div className="relative w-64 h-64 sm:w-80 sm:h-80 lg:w-[36vw] lg:h-[36vw] lg:mb-[-6rem]">
+                {/* Main Image Circle */}
+                <div className="absolute inset-0 rounded-3xl overflow-hidden shadow-lg">
+                  <img
+                    src={
+                      currentSlide === 0
+                        ? heroNikhil
+                        : currentSlide === 1
+                          ? heroCoins
+                          : heroPrepared
+                    }
+                    alt="Mutual Fund Services"
+                    className="w-full h-full object-cover transition-opacity duration-300"
+                  />
                 </div>
-              </motion.div>
-            </AnimatePresence>
+              </div>
+            </div>
           </div>
         </div>
       </div>

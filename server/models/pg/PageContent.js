@@ -3,7 +3,6 @@ const sequelize = require('../../config/postgres');
 
 const PageContent = sequelize.define('PageContent', {
   id:          { type: DataTypes.UUID, defaultValue: DataTypes.UUIDV4, primaryKey: true },
-  _id:         { type: DataTypes.VIRTUAL, get() { return this.getDataValue('id'); } },
   page:        { type: DataTypes.STRING, allowNull: false },
   section:     { type: DataTypes.STRING, allowNull: false },
   content:     { type: DataTypes.JSONB,  allowNull: false },
@@ -11,6 +10,9 @@ const PageContent = sequelize.define('PageContent', {
 }, {
   tableName: 'page_contents',
   underscored: true,
+  getterMethods: {
+    _id() { return this.id; }
+  },
   indexes: [{ unique: true, fields: ['page', 'section'] }],
 });
 
