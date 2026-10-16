@@ -23,7 +23,13 @@ const useLazyZohoChat = () => {
       loaded = true;
 
       window.$zoho = window.$zoho || {};
-      window.$zoho.salesiq = window.$zoho.salesiq || { ready: function () {} };
+      window.$zoho.salesiq = window.$zoho.salesiq || {
+        ready: function () {
+          if (window.$zoho?.salesiq?.domain) {
+            window.$zoho.salesiq.domain('wcfw.in');
+          }
+        },
+      };
 
       const script = document.createElement('script');
       script.id = 'zsiqscript';
