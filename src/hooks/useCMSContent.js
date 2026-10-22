@@ -41,6 +41,8 @@ const fixUrlsInContent = (content) => {
 
 const useCMSContent = (pageName) => {
   const [cmsContent, setCmsContent] = useState({});
+  const [sectionOrder, setSectionOrder] = useState([]);
+  const [sections, setSections] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
@@ -70,9 +72,13 @@ const useCMSContent = (pageName) => {
         }
 
         const contentMap = {};
+        const orderedSections = [];
 
         dataArray.forEach((item) => {
           if (!item || !item.section) return;
+          if (item.section !== "seo-settings") {
+            orderedSections.push(item);
+          }
           contentMap[item.section] = fixUrlsInContent(item.content);
         });
 
@@ -85,6 +91,8 @@ const useCMSContent = (pageName) => {
           contentMap["_seo"] = seoSection.seoSettings;
         }
 
+        setSections(orderedSections);
+        setSectionOrder(orderedSections.map((s) => s.section));
         setCmsContent(contentMap);
         setError(null);
         setLoading(false);
@@ -116,7 +124,7 @@ const useCMSContent = (pageName) => {
     };
   }, [pageName]);
 
-  return { cmsContent, loading, error };
+  return { cmsContent, sectionOrder, sections, loading, error };
 };
 
 export default useCMSContent;

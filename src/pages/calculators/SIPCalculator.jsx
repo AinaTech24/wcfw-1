@@ -227,7 +227,7 @@ const SIPCalculator = () => {
     <div className="calculator-container bg-[#f8fafc]">
       {/* Hero Section */}
       <section
-        className="relative min-h-[55vh] flex items-center overflow-hidden"
+        className="relative min-h-[min(55vh,480px)] flex items-center overflow-hidden py-12"
         style={{
           backgroundImage:
             "linear-gradient(135deg,#ffe5bd 0%,#fffdf7 35%,#c7f1ff 100%)",

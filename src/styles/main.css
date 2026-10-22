@@ -794,3 +794,16 @@ a,
       black 92%,
       transparent);
 }
+
+/* ==========================================================================
+   Googlebot & Tall Viewport Guard
+   When viewport height is very large (e.g. search engine bots & crawlers),
+   cap viewport-relative hero heights so content is not pushed thousands of
+   pixels down by flex items-center.
+   ========================================================================== */
+@media (min-height: 850px) {
+  .calculator-header-height {
+    min-height: 440px !important;
+    height: auto !important;
+  }
+}

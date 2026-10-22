@@ -210,7 +210,7 @@ const STPCalculator = () => {
     <div className="bg-[#f8fafc]">
       {/* Cinematic Light Header */}
       <section
-        className="relative min-h-[50vh] lg:h-[55vh] flex items-center overflow-hidden sm:pt-10"
+        className="relative min-h-[min(50vh,460px)] lg:min-h-[min(55vh,480px)] flex items-center overflow-hidden sm:pt-10 py-8"
         style={{
           backgroundImage:
             "linear-gradient(135deg, #ffe5bd 0%, #fffdf7 35%, #c7f1ff 100%)",

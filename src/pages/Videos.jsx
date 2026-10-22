@@ -254,7 +254,7 @@ const Videos = () => {
     <div className="bg-[#f8fafc]">
       {/* Cinematic Light Header */}
       <section
-        className="relative h-[65vh] flex items-center overflow-hidden pt-16"
+        className="relative min-h-[min(65vh,520px)] flex items-center overflow-hidden pt-16 pb-8"
         style={{
           backgroundImage: 'linear-gradient(135deg, #ffe5bd 0%, #fffdf7 35%, #c7f1ff 100%)'
         }}

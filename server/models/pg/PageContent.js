@@ -7,6 +7,7 @@ const PageContent = sequelize.define('PageContent', {
   section:     { type: DataTypes.STRING, allowNull: false },
   content:     { type: DataTypes.JSONB,  allowNull: false },
   seoSettings: { type: DataTypes.JSONB },
+  order:       { type: DataTypes.INTEGER, defaultValue: 0, allowNull: false },
 }, {
   tableName: 'page_contents',
   underscored: true,

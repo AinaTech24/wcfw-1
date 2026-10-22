@@ -46,7 +46,7 @@ const CommissionDisclosure = () => {
     <div className="bg-[#f8fafc]">
       {/* Cinematic Light Header */}
       <section
-        className="relative h-[55vh] flex items-center overflow-hidden pt-16"
+        className="relative min-h-[min(55vh,480px)] flex items-center overflow-hidden pt-16 pb-8"
         style={{
           backgroundImage: 'linear-gradient(135deg, #ffe5bd 0%, #fffdf7 35%, #c7f1ff 100%)'
         }}

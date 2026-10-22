@@ -1,5 +1,5 @@
 import React, { Suspense, lazy } from "react";
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, Navigate } from "react-router-dom";
 import { PageLoader } from "../components/LoadingSkeletons";
 import DynamicServicePage from "../pages/services/DynamicServicePage";
 
@@ -108,6 +108,7 @@ const AppRoutes = () => {
           <Route path="/about" element={<About />} />
           <Route path="/blog" element={<Blog />} />
           <Route path="/blog/:slug" element={<BlogPost />} />
+          <Route path="/knowledge-hub" element={<Navigate to="/blog" replace />} />
           <Route path="/newsletter" element={<Newsletter />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/videos" element={<Videos />} />
