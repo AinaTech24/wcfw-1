@@ -806,4 +806,9 @@ a,
     min-height: 440px !important;
     height: auto !important;
   }
+  .blog-post-header-height {
+    height: 480px !important;
+    min-height: 400px !important;
+    max-height: 520px !important;
+  }
 }

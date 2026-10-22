@@ -125,15 +125,15 @@ const BlogPost = () => {
     <div className="bg-white min-h-screen">
       <FAQSchema faqs={blog.faq} />
       {/* Header / Hero */}
-      <div className="relative h-[40vh] sm:h-[60vh] overflow-hidden">
+      <section className="relative min-h-[380px] sm:min-h-[460px] h-[min(55vh,520px)] blog-post-header-height flex items-end overflow-hidden">
         {blog.image ? (
           <img
             src={blog.image}
             alt={blog.imageAlt || blog.title}
-            className="w-full h-full object-cover"
+            className="absolute inset-0 w-full h-full object-cover"
           />
         ) : (
-          <div className="w-full h-full bg-gradient-to-br from-slate-900 to-slate-800 flex items-center justify-center overflow-hidden relative">
+          <div className="absolute inset-0 w-full h-full bg-gradient-to-br from-slate-900 to-slate-800 flex items-center justify-center overflow-hidden">
             <div className="absolute top-0 right-0 w-96 h-96 bg-orange-500/10 rounded-full blur-[100px] translate-x-1/2 -translate-y-1/2"></div>
             <span
               aria-hidden="true"
@@ -143,20 +143,20 @@ const BlogPost = () => {
             </span>
           </div>
         )}
-        <div className="absolute inset-0 bg-gradient-to-t from-slate-900 via-slate-900/40 to-transparent"></div>
-        <div className="absolute bottom-0 left-0 right-0 p-8 sm:p-20">
+        <div className="absolute inset-0 bg-gradient-to-t from-slate-900 via-slate-900/60 to-slate-900/20"></div>
+        <div className="relative z-10 w-full p-6 sm:p-12 lg:p-16">
           <div className="max-w-4xl mx-auto">
             <Link
               to="/blog"
-              className="inline-flex items-center text-orange-400 font-bold text-sm mb-6 hover:text-white transition-colors group"
+              className="inline-flex items-center text-orange-400 font-bold text-sm mb-4 sm:mb-6 hover:text-white transition-colors group"
             >
               <FaArrowLeft className="mr-2 group-hover:-translate-x-1 transition-transform" />{" "}
               Back to Chronicles
             </Link>
-            <h1 className="text-3xl sm:text-6xl font-black text-white mb-8 leading-tight tracking-tighter uppercase">
+            <h1 className="text-2xl sm:text-5xl lg:text-6xl font-black text-white mb-4 sm:mb-8 leading-tight tracking-tight uppercase">
               {blog.title}
             </h1>
-            <div className="flex flex-wrap items-center gap-8 text-slate-300 text-xs sm:text-sm font-bold uppercase tracking-widest">
+            <div className="flex flex-wrap items-center gap-4 sm:gap-8 text-slate-300 text-xs sm:text-sm font-bold uppercase tracking-widest">
               <span className="flex items-center gap-2">
                 <FaUser className="text-orange-500" /> {blog.author}
               </span>
@@ -171,7 +171,7 @@ const BlogPost = () => {
             </div>
           </div>
         </div>
-      </div>
+      </section>
 
       {/* Content */}
       <article className="max-w-4xl mx-auto px-6 py-20 sm:py-32">

@@ -303,8 +303,13 @@ const ContentEditor = () => {
     }
   };
 
-  // Delete a section (needs a backend endpoint — we'll use a workaround via update with empty then eventually delete)
+  // Delete a section
   const handleDeleteSection = async (section) => {
+    const sectionId = section.id || section._id;
+    if (!sectionId) {
+      setError("Cannot delete section: Section ID is missing.");
+      return;
+    }
     if (
       !window.confirm(
         `Delete section "${section.section}" from page "${selectedPage}"?`,
@@ -313,7 +318,7 @@ const ContentEditor = () => {
       return;
     try {
       // Use the delete content endpoint
-      await api.delete(`${API}/${section._id}`);
+      await api.delete(`${API}/${sectionId}`);
       fetchSections();
       setMessage(`Section "${section.section}" deleted.`);
       setTimeout(() => setMessage(""), 3000);
