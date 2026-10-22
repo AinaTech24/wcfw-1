@@ -5,7 +5,7 @@ import useCMSContent from '../hooks/useCMSContent';
 import useMetaTags from '../hooks/useMetaTags';
 
 const TermsOfService = () => {
-  const { cmsContent } = useCMSContent('terms-of-service');
+  const { cmsContent, sectionOrder } = useCMSContent('terms-of-service');
 
   useMetaTags(cmsContent['_seo'] || {
     title: "Terms of Service | We Care Freedom Wealth",
@@ -17,7 +17,7 @@ const TermsOfService = () => {
     <div className="bg-[#f8fafc]">
       {/* Cinematic Light Header */}
       <section
-        className="relative h-[55vh] flex items-center overflow-hidden pt-16"
+        className="relative min-h-[min(55vh,480px)] flex items-center overflow-hidden pt-16 pb-8"
         style={{
           backgroundImage: 'linear-gradient(135deg, #ffe5bd 0%, #fffdf7 35%, #c7f1ff 100%)'
         }}
@@ -82,35 +82,45 @@ const TermsOfService = () => {
 
         {/* Terms Sections */}
         <div className="grid gap-12 sm:gap-16">
-          <TermsSection
-            number="01"
-            title={cmsContent['section-1']?.title || "Acceptance of Protocols"}
-            content={cmsContent['section-1']?.text || "By interacting with our platform, you acknowledge total adherence to these legal protocols. In the absence of consensus, all interaction with our advisory services must be terminated immediately."}
-          />
+          {(() => {
+            const sectionMap = {
+              'section-1': {
+                title: cmsContent['section-1']?.title || "Acceptance of Protocols",
+                content: cmsContent['section-1']?.text || "By interacting with our platform, you acknowledge total adherence to these legal protocols. In the absence of consensus, all interaction with our advisory services must be terminated immediately."
+              },
+              'section-2': {
+                title: cmsContent['section-2']?.title || "Regulatory Architecture",
+                content: cmsContent['section-2']?.text || "The Happyness Culture operates as an AMFI-Registered Mutual Fund Distributor (ARN: 119542). We specialize in Regular Solutions and derive institutional trail commissions. We do not provide fixed guarantees; all capital deployment is subject to market variables."
+              },
+              'section-3': {
+                title: cmsContent['section-3']?.title || "Intellectual Sovereignty",
+                content: cmsContent['section-3']?.text || "All proprietary algorithms, logos, and visual nodes on this terminal are the exclusive property of The Happyness Culture. Unauthorized clinical extraction or redistribution of intellectual assets is strictly prohibited."
+              },
+              'section-4': {
+                title: cmsContent['section-4']?.title || "Liability Limitation",
+                content: cmsContent['section-4']?.text || "We are not liable for consequential variances resulting from terminal use, including market sensitivity, technical latency, or external infrastructure interruptions beyond our direct governance."
+              },
+              'section-5': {
+                title: cmsContent['section-5']?.title || "Jurisdictional Decree",
+                content: cmsContent['section-5']?.text || "These protocols are governed by the federal statutes of India. Legal disputes are subject to the exclusive jurisdiction of the competent courts in Mumbai, Maharashtra."
+              }
+            };
 
-          <TermsSection
-            number="02"
-            title={cmsContent['section-2']?.title || "Regulatory Architecture"}
-            content={cmsContent['section-2']?.text || "The Happyness Culture operates as an AMFI-Registered Mutual Fund Distributor (ARN: 119542). We specialize in Regular Solutions and derive institutional trail commissions. We do not provide fixed guarantees; all capital deployment is subject to market variables."}
-          />
+            const defaultOrder = ['section-1', 'section-2', 'section-3', 'section-4', 'section-5'];
+            const orderToUse =
+              sectionOrder && sectionOrder.length > 0
+                ? sectionOrder.filter((k) => sectionMap[k])
+                : defaultOrder;
 
-          <TermsSection
-            number="03"
-            title={cmsContent['section-3']?.title || "Intellectual Sovereignty"}
-            content={cmsContent['section-3']?.text || "All proprietary algorithms, logos, and visual nodes on this terminal are the exclusive property of The Happyness Culture. Unauthorized clinical extraction or redistribution of intellectual assets is strictly prohibited."}
-          />
-
-          <TermsSection
-            number="04"
-            title={cmsContent['section-4']?.title || "Liability Limitation"}
-            content={cmsContent['section-4']?.text || "We are not liable for consequential variances resulting from terminal use, including market sensitivity, technical latency, or external infrastructure interruptions beyond our direct governance."}
-          />
-
-          <TermsSection
-            number="05"
-            title={cmsContent['section-5']?.title || "Jurisdictional Decree"}
-            content={cmsContent['section-5']?.text || "These protocols are governed by the federal statutes of India. Legal disputes are subject to the exclusive jurisdiction of the competent courts in Mumbai, Maharashtra."}
-          />
+            return orderToUse.map((k, idx) => (
+              <TermsSection
+                key={k}
+                number={String(idx + 1).padStart(2, '0')}
+                title={sectionMap[k].title}
+                content={sectionMap[k].content}
+              />
+            ));
+          })()}
         </div>
 
         {/* Contact Block */}

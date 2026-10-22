@@ -9,6 +9,7 @@ router.get('/', contentController.getContent);
 
 // Protected routes to update content
 router.post('/update', auth, contentController.updateContent);
+router.post('/reorder', auth, contentController.reorderSections);
 router.post('/bulk-update', auth, contentController.bulkUpdateContent);
 router.delete('/page/:pageName', auth, contentController.deletePage);
 router.delete('/:id', auth, contentController.deleteSection);

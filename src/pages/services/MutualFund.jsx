@@ -119,7 +119,7 @@ const MutualFund = () => {
     <div className="bg-white">
       {/* Cinematic Light Header */}
       <section
-        className="relative min-h-screen sm:min-h-[75vh] lg:min-h-[90vh] flex items-center overflow-hidden pt-28 pb-14 sm:pt-24 sm:pb-20 lg:pt-16"
+        className="relative min-h-[min(100vh,720px)] sm:min-h-[min(75vh,640px)] lg:min-h-[min(90vh,760px)] flex items-center overflow-hidden pt-28 pb-14 sm:pt-24 sm:pb-20 lg:pt-16"
         style={{
           backgroundImage:
             "linear-gradient(135deg, #ffe5bd 0%, #fffdf7 35%, #c7f1ff 100%)",

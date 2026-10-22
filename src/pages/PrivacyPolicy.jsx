@@ -5,7 +5,7 @@ import useCMSContent from '../hooks/useCMSContent';
 import useMetaTags from '../hooks/useMetaTags';
 
 const PrivacyPolicy = () => {
-  const { cmsContent } = useCMSContent('privacy-policy');
+  const { cmsContent, sectionOrder } = useCMSContent('privacy-policy');
 
   // SEO Hook
   useMetaTags(cmsContent['_seo'] || {
@@ -18,7 +18,7 @@ const PrivacyPolicy = () => {
     <div className="bg-[#f8fafc]">
       {/* Cinematic Light Header */}
       <section
-        className="relative h-[55vh] flex items-center overflow-hidden pt-16"
+        className="relative min-h-[min(55vh,480px)] flex items-center overflow-hidden pt-16 pb-8"
         style={{
           backgroundImage: 'linear-gradient(135deg, #ffe5bd 0%, #fffdf7 35%, #c7f1ff 100%)'
         }}
@@ -82,44 +82,55 @@ const PrivacyPolicy = () => {
 
         {/* Policy Sections */}
         <div className="grid gap-12 sm:gap-16">
-          <PolicySection
-            number="01"
-            title={cmsContent['section-1']?.title || "Institutional Commitment"}
-            content={cmsContent['section-1']?.text || "Our relationship is anchored in structural trust. In the course of executing financial directives, we access sovereign data. We utilize redundant security layers and managerial safeguards to ensure peak protection."}
-          />
+          {(() => {
+            const sectionMap = {
+              'section-1': {
+                title: cmsContent['section-1']?.title || "Institutional Commitment",
+                content: cmsContent['section-1']?.text || "Our relationship is anchored in structural trust. In the course of executing financial directives, we access sovereign data. We utilize redundant security layers and managerial safeguards to ensure peak protection."
+              },
+              'section-2': {
+                title: cmsContent['section-2']?.title || "Data Capture Topology",
+                content: (
+                  <ul className="grid sm:grid-cols-2 gap-6 mt-6">
+                    <li className="flex items-start bg-slate-50 p-6 rounded-2xl border border-slate-100 group hover:border-orange-500/20 transition-colors">
+                      <FaCheckCircle className="text-orange-500 mt-1 mr-4 shrink-0 text-lg" />
+                      <span className="text-slate-600 font-bold text-sm">Legal coordinates and contact nodes.</span>
+                    </li>
+                    <li className="flex items-start bg-slate-50 p-6 rounded-2xl border border-slate-100 group hover:border-orange-500/20 transition-colors">
+                      <FaCheckCircle className="text-orange-500 mt-1 mr-4 shrink-0 text-lg" />
+                      <span className="text-slate-600 font-bold text-sm">Consultation directives and registries.</span>
+                    </li>
+                    <li className="flex items-start bg-slate-50 p-6 rounded-2xl border border-slate-100 group hover:border-orange-500/20 transition-colors">
+                      <FaCheckCircle className="text-orange-500 mt-1 mr-4 shrink-0 text-lg" />
+                      <span className="text-slate-600 font-bold text-sm">Binary telemetry and browser profiles.</span>
+                    </li>
+                  </ul>
+                )
+              },
+              'section-3': {
+                title: cmsContent['section-3']?.title || "Encryption Architecture",
+                content: cmsContent['section-3']?.text || "To prevent terminal compromise, we implement 256-bit institutional encryption and secure hosting clusters with real-time backups. No client data is transmitted to third-party nodes without hyper-explicit consent."
+              },
+              'section-4': {
+                title: cmsContent['section-4']?.title || "Visual & GEO Telemetry",
+                content: cmsContent['section-4']?.text || "With your authorization, our terminal may interface with optics/gallery for Video KYC and document verification. GEO coordinates may be utilized for jurisdiction-specific regulatory authentication."
+              }
+            };
+            const defaultOrder = ['section-1', 'section-2', 'section-3', 'section-4'];
+            const orderToUse =
+              sectionOrder && sectionOrder.length > 0
+                ? sectionOrder.filter((k) => sectionMap[k])
+                : defaultOrder;
 
-          <PolicySection
-            number="02"
-            title={cmsContent['section-2']?.title || "Data Capture Topology"}
-            content={
-              <ul className="grid sm:grid-cols-2 gap-6 mt-6">
-                <li className="flex items-start bg-slate-50 p-6 rounded-2xl border border-slate-100 group hover:border-orange-500/20 transition-colors">
-                  <FaCheckCircle className="text-orange-500 mt-1 mr-4 shrink-0 text-lg" />
-                  <span className="text-slate-600 font-bold text-sm">Legal coordinates and contact nodes.</span>
-                </li>
-                <li className="flex items-start bg-slate-50 p-6 rounded-2xl border border-slate-100 group hover:border-orange-500/20 transition-colors">
-                  <FaCheckCircle className="text-orange-500 mt-1 mr-4 shrink-0 text-lg" />
-                  <span className="text-slate-600 font-bold text-sm">Consultation directives and registries.</span>
-                </li>
-                <li className="flex items-start bg-slate-50 p-6 rounded-2xl border border-slate-100 group hover:border-orange-500/20 transition-colors">
-                  <FaCheckCircle className="text-orange-500 mt-1 mr-4 shrink-0 text-lg" />
-                  <span className="text-slate-600 font-bold text-sm">Binary telemetry and browser profiles.</span>
-                </li>
-              </ul>
-            }
-          />
-
-          <PolicySection
-            number="03"
-            title={cmsContent['section-3']?.title || "Encryption Architecture"}
-            content={cmsContent['section-3']?.text || "To prevent terminal compromise, we implement 256-bit institutional encryption and secure hosting clusters with real-time backups. No client data is transmitted to third-party nodes without hyper-explicit consent."}
-          />
-
-          <PolicySection
-            number="04"
-            title={cmsContent['section-4']?.title || "Visual & GEO Telemetry"}
-            content={cmsContent['section-4']?.text || "With your authorization, our terminal may interface with optics/gallery for Video KYC and document verification. GEO coordinates may be utilized for jurisdiction-specific regulatory authentication."}
-          />
+            return orderToUse.map((k, idx) => (
+              <PolicySection
+                key={k}
+                number={String(idx + 1).padStart(2, '0')}
+                title={sectionMap[k].title}
+                content={sectionMap[k].content}
+              />
+            ));
+          })()}
         </div>
 
         {/* Contact Block */}

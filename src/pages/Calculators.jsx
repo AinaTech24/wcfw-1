@@ -176,7 +176,7 @@ const Calculators = () => {
     <div className="bg-[#f8fafc]">
       {/* Cinematic Light Header */}
       <section
-        className="relative min-h-[50vh] lg:min-h-[90vh] flex items-center overflow-hidden pt-24 sm:pt-32 pb-12 sm:pb-20 mb-8 sm:mb-12"
+        className="relative min-h-[min(50vh,460px)] lg:min-h-[min(90vh,720px)] flex items-center overflow-hidden pt-24 sm:pt-32 pb-12 sm:pb-20 mb-8 sm:mb-12"
         style={{
           backgroundImage:
             "linear-gradient(135deg, #ffe5bd 0%, #fffdf7 35%, #c7f1ff 100%)",

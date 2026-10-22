@@ -77,7 +77,7 @@ const HeroSection = ({ content }) => {
 
   return (
     <section
-      className="relative min-h-[80vh] flex items-center bg-gray-50 py-6 sm:py-10"
+      className="relative min-h-[min(80vh,640px)] flex items-center bg-gray-50 py-6 sm:py-10"
       onMouseEnter={() => setPaused(true)}
       onMouseLeave={() => setPaused(false)}
     >

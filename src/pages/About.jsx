@@ -42,7 +42,7 @@ import useCMSContent from "../hooks/useCMSContent";
 import useMetaTags from "../hooks/useMetaTags";
 
 const About = () => {
-  const { cmsContent } = useCMSContent("about");
+  const { cmsContent, sectionOrder } = useCMSContent("about");
 
   useMetaTags(
     cmsContent["_seo"] || {
@@ -217,7 +217,7 @@ const About = () => {
       {/* Hero */}
       <section
         id="our-legacy"
-        className="relative flex items-center min-h-screen pt-24 overflow-hidden sm:pt-28 lg:pt-20 pb-14 sm:pb-20"
+        className="relative flex items-center min-h-[min(100vh,760px)] pt-24 overflow-hidden sm:pt-28 lg:pt-20 pb-14 sm:pb-20"
         style={{
           backgroundImage:
             "linear-gradient(135deg, #ffe5bd 0%, #fffdf7 35%, #c7f1ff 100%)",
@@ -313,129 +313,31 @@ const About = () => {
         </div>
       </section>
 
-      {/* Story */}
-      <section id="our-story" className="relative z-20 py-24 -mt-16">
-        <div className="px-4 mx-auto max-w-7xl sm:px-6 lg:px-8">
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="bg-white rounded-[3rem] shadow-[0_50px_100px_-20px_rgba(0,0,0,0.05)] p-8 sm:p-20 border border-slate-100"
-          >
-            <div className="grid items-center gap-10 lg:grid-cols-2 sm:gap-16">
-              <div>
-                <div className="flex items-center mb-6 space-x-4 sm:mb-8">
-                  <span className="w-8 h-px bg-orange-500 sm:w-12"></span>
-                  <span className="text-orange-600 font-bold uppercase tracking-widest text-[10px] sm:text-sm">
-                    The Human Protocol
-                  </span>
-                </div>
-                <h2 className="mb-6 text-3xl font-extrabold leading-tight sm:text-5xl text-slate-900 sm:mb-8">
-                  From Vision to <br />
-                  <span className="text-orange-600">Institutional Reality</span>
-                </h2>
-                <div className="space-y-6 text-base font-medium leading-relaxed sm:space-y-8 text-slate-500 sm:text-lg">
-                  <p>
-                    In 1989,{" "}
-                    <span className="font-black text-slate-900">Shri Vasudev Thakker</span>{" "}
-                    founded WeCare with a singular mission: to dismantle the barriers to
-                    financial literacy. He believed wealth wasn't an end state, but a
-                    vehicle for absolute independence.
-                  </p>
-                  <p>
-                    Today, that vision has transformed into an institutional powerhouse,
-                    guiding over{" "}
-                    <span className="font-black text-orange-600 underline decoration-orange-500 decoration-4 underline-offset-4">
-                      10,000+ elite families
-                    </span>{" "}
-                    and managing a combined legacy of trust spanning generations.
-                  </p>
-                </div>
+      {/* Dynamic Ordered CMS Sections */}
+      {(() => {
+        const sectionMap = {
+          "story-section": (
+            <StorySection
+              key="story-section"
+              content={cmsContent["story-section"]}
+            />
+          ),
+          "mission-vision": (
+            <MissionVisionSection
+              key="mission-vision"
+              content={cmsContent["mission-vision"]}
+            />
+          ),
+        };
 
-                <div className="flex items-center mt-8 space-x-4 sm:mt-12 sm:space-x-6">
-                  <div className="flex items-center justify-center w-12 h-12 text-white shadow-xl sm:w-16 sm:h-16 bg-slate-900 rounded-xl sm:rounded-2xl shadow-slate-900/20">
-                    <FaGem className="text-xl sm:text-2xl" />
-                  </div>
-                  <div>
-                    <p className="text-lg font-black text-slate-900 sm:text-xl">The Gold Standard</p>
-                    <p className="text-slate-400 text-[8px] sm:text-[10px] font-bold uppercase tracking-widest">
-                      Quality Driven Services
-                    </p>
-                  </div>
-                </div>
-              </div>
+        const defaultOrder = ["story-section", "mission-vision"];
+        const orderToUse =
+          sectionOrder && sectionOrder.length > 0
+            ? sectionOrder.filter((key) => sectionMap[key])
+            : defaultOrder;
 
-              <div className="relative">
-                <div className="absolute inset-0 bg-orange-500/5 blur-[80px] rounded-full"></div>
-                <div className="relative rounded-[2rem] sm:rounded-[3rem] overflow-hidden shadow-2xl border-4 sm:border-8 border-white group">
-                  <img
-                    src={groupImage}
-                    alt="Our Team"
-                    className="object-cover w-full h-full transition-all duration-700 grayscale hover:grayscale-0 hover:scale-105"
-                  />
-                  <div className="absolute inset-x-0 bottom-0 h-1/2 bg-gradient-to-t from-slate-900/80 to-transparent"></div>
-                  <div className="absolute bottom-6 left-6 right-6 sm:bottom-8 sm:left-8 sm:right-8">
-                    <p className="mb-1 text-xs font-black tracking-widest text-orange-400 uppercase sm:text-sm sm:mb-2">
-                      The Architecture of Trust
-                    </p>
-                    <p className="text-xl font-bold leading-tight text-white sm:text-2xl">
-                      Elite Team WCFW
-                    </p>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </motion.div>
-        </div>
-      </section>
-
-      {/* Mission & Vision */}
-      <section
-        id="mission-vision"
-        className="py-12 sm:py-24 bg-[#0f172a] relative overflow-hidden"
-      >
-        <div className="absolute top-0 right-0 translate-x-1/2 -translate-y-1/2 rounded-full w-96 h-96 bg-orange-600/10 blur-3xl"></div>
-        <div className="absolute bottom-0 left-0 -translate-x-1/2 translate-y-1/2 rounded-full w-96 h-96 bg-blue-600/10 blur-3xl"></div>
-
-        <div className="relative z-10 px-4 mx-auto max-w-7xl sm:px-6 lg:px-8">
-          <div className="grid gap-6 md:grid-cols-2 sm:gap-8">
-            <motion.div
-              whileHover={{ y: -5 }}
-              className="bg-white/5 backdrop-blur-md rounded-[2rem] sm:rounded-[3rem] p-10 sm:p-16 border border-white/10 group"
-            >
-              <div className="flex items-center justify-center w-16 h-16 mb-6 transition-transform bg-orange-600 shadow-2xl sm:w-20 sm:h-20 rounded-2xl sm:rounded-3xl sm:mb-10 shadow-orange-600/20 group-hover:scale-110">
-                <FaRocket className="text-2xl text-white sm:text-3xl" />
-              </div>
-              <h3 className="mb-4 text-2xl font-black tracking-tight text-white uppercase sm:text-3xl sm:mb-6">
-                Our Mission
-              </h3>
-              <p className="text-lg font-medium leading-relaxed text-slate-400 sm:text-xl">
-                To cultivate{" "}
-                <span className="text-white">absolute financial literacy</span>{" "}
-                across the sub-continent, enabling families to support informed
-                financial decision-making through disciplined investment approaches.
-              </p>
-            </motion.div>
-
-            <motion.div
-              whileHover={{ y: -5 }}
-              className="bg-white/5 backdrop-blur-md rounded-[2rem] sm:rounded-[3rem] p-10 sm:p-16 border border-white/10 group"
-            >
-              <div className="flex items-center justify-center w-16 h-16 mb-6 transition-transform border sm:w-20 sm:h-20 bg-white/10 rounded-2xl sm:rounded-3xl sm:mb-10 border-white/20 group-hover:scale-110">
-                <FaEye className="text-2xl text-orange-500 sm:text-3xl" />
-              </div>
-              <h3 className="mb-4 text-2xl font-black tracking-tight text-white uppercase sm:text-3xl sm:mb-6">
-                Our Vision
-              </h3>
-              <p className="text-lg font-medium leading-relaxed text-slate-400 sm:text-xl">
-                Reach{" "}
-                <span className="text-white">1,000,000 individual lives</span>{" "}
-                through accessible investment services and financial awareness initiatives.
-              </p>
-            </motion.div>
-          </div>
-        </div>
-      </section>
+        return orderToUse.map((key) => sectionMap[key]);
+      })()}
 
       {/* Team Sections */}
       <div id="our-team">
@@ -668,5 +570,167 @@ const MiniCard = ({ member, index }) => (
     <p className="mt-1 text-xs text-slate-400">{member.exp}</p>
   </motion.div>
 );
+
+// ── Dynamic CMS Sections ──────────────────────────────────────────────────
+const StorySection = ({ content }) => {
+  const badge = content?.badge || "The Human Protocol";
+  const title = content?.title || "From Vision to Institutional Reality";
+  const p1 = content?.p1;
+  const p2 = content?.p2;
+  const highlight_title = content?.highlight_title || "The Gold Standard";
+  const highlight_label = content?.highlight_label || "Quality Driven Services";
+  const img_badge = content?.img_badge || "The Architecture of Trust";
+  const img_title = content?.img_title || "Elite Team WCFW";
+
+  return (
+    <section id="our-story" className="relative z-20 py-24 -mt-16">
+      <div className="px-4 mx-auto max-w-7xl sm:px-6 lg:px-8">
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          className="bg-white rounded-[3rem] shadow-[0_50px_100px_-20px_rgba(0,0,0,0.05)] p-8 sm:p-20 border border-slate-100"
+        >
+          <div className="grid items-center gap-10 lg:grid-cols-2 sm:gap-16">
+            <div>
+              <div className="flex items-center mb-6 space-x-4 sm:mb-8">
+                <span className="w-8 h-px bg-orange-500 sm:w-12"></span>
+                <span className="text-orange-600 font-bold uppercase tracking-widest text-[10px] sm:text-sm">
+                  {badge}
+                </span>
+              </div>
+              <h2 className="mb-6 text-3xl font-extrabold leading-tight sm:text-5xl text-slate-900 sm:mb-8">
+                {title.includes("<") ? (
+                  <span dangerouslySetInnerHTML={{ __html: title }} />
+                ) : title.includes("Institutional Reality") ? (
+                  <>
+                    From Vision to <br />
+                    <span className="text-orange-600">Institutional Reality</span>
+                  </>
+                ) : (
+                  title
+                )}
+              </h2>
+              <div className="space-y-6 text-base font-medium leading-relaxed sm:space-y-8 text-slate-500 sm:text-lg">
+                {p1 ? (
+                  <div dangerouslySetInnerHTML={{ __html: p1 }} />
+                ) : (
+                  <p>
+                    In 1989,{" "}
+                    <span className="font-black text-slate-900">Shri Vasudev Thakker</span>{" "}
+                    founded WeCare with a singular mission: to dismantle the barriers to
+                    financial literacy. He believed wealth wasn't an end state, but a
+                    vehicle for absolute independence.
+                  </p>
+                )}
+                {p2 ? (
+                  <div dangerouslySetInnerHTML={{ __html: p2 }} />
+                ) : (
+                  <p>
+                    Today, that vision has transformed into an institutional powerhouse,
+                    guiding over{" "}
+                    <span className="font-black text-orange-600 underline decoration-orange-500 decoration-4 underline-offset-4">
+                      10,000+ elite families
+                    </span>{" "}
+                    and managing a combined legacy of trust spanning generations.
+                  </p>
+                )}
+              </div>
+
+              <div className="flex items-center mt-8 space-x-4 sm:mt-12 sm:space-x-6">
+                <div className="flex items-center justify-center w-12 h-12 text-white shadow-xl sm:w-16 sm:h-16 bg-slate-900 rounded-xl sm:rounded-2xl shadow-slate-900/20">
+                  <FaGem className="text-xl sm:text-2xl" />
+                </div>
+                <div>
+                  <p className="text-lg font-black text-slate-900 sm:text-xl">{highlight_title}</p>
+                  <p className="text-slate-400 text-[8px] sm:text-[10px] font-bold uppercase tracking-widest">
+                    {highlight_label}
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <div className="relative">
+              <div className="absolute inset-0 bg-orange-500/5 blur-[80px] rounded-full"></div>
+              <div className="relative rounded-[2rem] sm:rounded-[3rem] overflow-hidden shadow-2xl border-4 sm:border-8 border-white group">
+                <img
+                  src={groupImage}
+                  alt="Our Team"
+                  className="object-cover w-full h-full transition-all duration-700 grayscale hover:grayscale-0 hover:scale-105"
+                />
+                <div className="absolute inset-x-0 bottom-0 h-1/2 bg-gradient-to-t from-slate-900/80 to-transparent"></div>
+                <div className="absolute bottom-6 left-6 right-6 sm:bottom-8 sm:left-8 sm:right-8">
+                  <p className="mb-1 text-xs font-black tracking-widest text-orange-400 uppercase sm:text-sm sm:mb-2">
+                    {img_badge}
+                  </p>
+                  <p className="text-xl font-bold leading-tight text-white sm:text-2xl">
+                    {img_title}
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </motion.div>
+      </div>
+    </section>
+  );
+};
+
+const MissionVisionSection = ({ content }) => {
+  const missionTitle = content?.missionTitle || "Our Mission";
+  const missionText =
+    content?.missionText ||
+    'To cultivate <span class="text-white">absolute financial literacy</span> across the sub-continent, enabling families to support informed financial decision-making through disciplined investment approaches.';
+  const visionTitle = content?.visionTitle || "Our Vision";
+  const visionText =
+    content?.visionText ||
+    'Reach <span class="text-white">1,000,000 individual lives</span> through accessible investment services and financial awareness initiatives.';
+
+  return (
+    <section
+      id="mission-vision"
+      className="py-12 sm:py-24 bg-[#0f172a] relative overflow-hidden"
+    >
+      <div className="absolute top-0 right-0 translate-x-1/2 -translate-y-1/2 rounded-full w-96 h-96 bg-orange-600/10 blur-3xl"></div>
+      <div className="absolute bottom-0 left-0 -translate-x-1/2 translate-y-1/2 rounded-full w-96 h-96 bg-blue-600/10 blur-3xl"></div>
+
+      <div className="relative z-10 px-4 mx-auto max-w-7xl sm:px-6 lg:px-8">
+        <div className="grid gap-6 md:grid-cols-2 sm:gap-8">
+          <motion.div
+            whileHover={{ y: -5 }}
+            className="bg-white/5 backdrop-blur-md rounded-[2rem] sm:rounded-[3rem] p-10 sm:p-16 border border-white/10 group"
+          >
+            <div className="flex items-center justify-center w-16 h-16 mb-6 transition-transform bg-orange-600 shadow-2xl sm:w-20 sm:h-20 rounded-2xl sm:rounded-3xl sm:mb-10 shadow-orange-600/20 group-hover:scale-110">
+              <FaRocket className="text-2xl text-white sm:text-3xl" />
+            </div>
+            <h3 className="mb-4 text-2xl font-black tracking-tight text-white uppercase sm:text-3xl sm:mb-6">
+              {missionTitle}
+            </h3>
+            <div
+              className="text-lg font-medium leading-relaxed text-slate-400 sm:text-xl"
+              dangerouslySetInnerHTML={{ __html: missionText }}
+            />
+          </motion.div>
+
+          <motion.div
+            whileHover={{ y: -5 }}
+            className="bg-white/5 backdrop-blur-md rounded-[2rem] sm:rounded-[3rem] p-10 sm:p-16 border border-white/10 group"
+          >
+            <div className="flex items-center justify-center w-16 h-16 mb-6 transition-transform border sm:w-20 sm:h-20 bg-white/10 rounded-2xl sm:rounded-3xl sm:mb-10 border-white/20 group-hover:scale-110">
+              <FaEye className="text-2xl text-orange-500 sm:text-3xl" />
+            </div>
+            <h3 className="mb-4 text-2xl font-black tracking-tight text-white uppercase sm:text-3xl sm:mb-6">
+              {visionTitle}
+            </h3>
+            <div
+              className="text-lg font-medium leading-relaxed text-slate-400 sm:text-xl"
+              dangerouslySetInnerHTML={{ __html: visionText }}
+            />
+          </motion.div>
+        </div>
+      </div>
+    </section>
+  );
+};
 
 export default About;

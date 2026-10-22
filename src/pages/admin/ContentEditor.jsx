@@ -11,8 +11,11 @@ import {
   FaLayerGroup,
   FaCode,
   FaEye,
+  FaGripVertical,
+  FaSort,
+  FaCheck,
 } from "react-icons/fa";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion, AnimatePresence, Reorder } from "framer-motion";
 import ReactQuill, { Quill } from "react-quill";
 import "react-quill/dist/quill.snow.css";
 
@@ -95,6 +98,9 @@ const ContentEditor = () => {
   // Modals
   const [showAddPage, setShowAddPage] = useState(false);
   const [showAddSection, setShowAddSection] = useState(false);
+  const [showReorderModal, setShowReorderModal] = useState(false);
+  const [modalSections, setModalSections] = useState([]);
+  const [reorderLoading, setReorderLoading] = useState(false);
   const [newPageName, setNewPageName] = useState("");
   const [newSectionName, setNewSectionName] = useState("");
   const [viewMode, setViewMode] = useState("form"); // 'form' or 'json'
@@ -177,6 +183,40 @@ const ContentEditor = () => {
   const handleSectionChange = (section) => {
     setSelectedSection(section);
     setContent(JSON.stringify(section.content, null, 4));
+  };
+
+  const contentSections = useMemo(
+    () => sections.filter((s) => s.section !== "seo-settings"),
+    [sections],
+  );
+
+  const openReorderModal = () => {
+    setModalSections([...contentSections]);
+    setShowReorderModal(true);
+  };
+
+  const handleSaveReorder = async () => {
+    setReorderLoading(true);
+    try {
+      const seoSection = sections.find((s) => s.section === "seo-settings");
+      const merged = seoSection ? [...modalSections, seoSection] : modalSections;
+      setSections(merged);
+
+      const orderedIds = modalSections.map((s) => s.id || s._id);
+      await api.post(`${API}/reorder`, {
+        page: selectedPage,
+        orderedIds,
+      });
+
+      setShowReorderModal(false);
+      setMessage("Section order updated successfully!");
+      setTimeout(() => setMessage(""), 2500);
+    } catch (err) {
+      setError("Failed to save section order.");
+      fetchSections();
+    } finally {
+      setReorderLoading(false);
+    }
   };
 
   const handleSave = async () => {
@@ -641,34 +681,64 @@ const ContentEditor = () => {
               <label className="flex items-center gap-2 text-xs font-bold tracking-widest text-gray-400 uppercase">
                 <FaLayerGroup className="text-blue-500" /> Sections
               </label>
-              {selectedPage && (
-                <button
-                  onClick={() => setShowAddSection(true)}
-                  className="flex items-center gap-1 text-xs font-bold text-blue-600 hover:text-blue-700"
-                >
-                  <FaPlus size={10} /> Add
-                </button>
-              )}
+              <div className="flex items-center gap-1.5">
+                {selectedPage && contentSections.length > 1 && (
+                  <button
+                    onClick={openReorderModal}
+                    className="flex items-center gap-1 px-2.5 py-1 text-xs font-semibold text-slate-700 bg-slate-100 hover:bg-slate-200 rounded-lg transition-colors shadow-sm"
+                    title="Open reorder modal"
+                  >
+                    <FaSort className="text-slate-500" size={11} /> Reorder
+                  </button>
+                )}
+                {selectedPage && (
+                  <button
+                    onClick={() => setShowAddSection(true)}
+                    className="flex items-center gap-1 text-xs font-bold text-blue-600 hover:text-blue-700"
+                  >
+                    <FaPlus size={10} /> Add
+                  </button>
+                )}
+              </div>
             </div>
+
             <div className="grid grid-cols-1 gap-2">
-              {sections
-                .filter((s) => s.section !== "seo-settings")
-                .map((sec) => (
-                  <div key={sec._id} className="flex items-center gap-1">
+              {contentSections.map((sec, idx) => {
+                const secId = sec.id || sec._id;
+                const isSelected =
+                  (selectedSection?._id || selectedSection?.id) === secId;
+                return (
+                  <div
+                    key={secId}
+                    className="flex items-center gap-1"
+                  >
                     <button
+                      type="button"
                       onClick={() => handleSectionChange(sec)}
-                      className={`flex-1 p-3 rounded-xl text-left text-sm font-medium transition-all ${
-                        selectedSection?._id === sec._id
+                      className={`flex-1 p-3 rounded-xl text-left text-sm font-medium transition-all flex items-center justify-between ${
+                        isSelected
                           ? "bg-slate-900 text-white shadow-lg"
-                          : "bg-white text-gray-500 border border-gray-100 hover:border-gray-300"
+                          : "bg-white text-gray-700 border border-gray-100 hover:border-gray-300"
                       }`}
                     >
-                      {sec.section
-                        .split("-")
-                        .map((w) => w.charAt(0).toUpperCase() + w.slice(1))
-                        .join(" ")}
+                      <span>
+                        {sec.section
+                          .split("-")
+                          .map((w) => w.charAt(0).toUpperCase() + w.slice(1))
+                          .join(" ")}
+                      </span>
+                      <span
+                        className={`text-[10px] font-bold px-1.5 py-0.5 rounded ${
+                          isSelected
+                            ? "bg-white/20 text-white"
+                            : "bg-gray-100 text-gray-400"
+                        }`}
+                      >
+                        #{idx + 1}
+                      </span>
                     </button>
                     <button
+                      type="button"
                       onClick={() => handleDeleteSection(sec)}
                       className="flex-shrink-0 p-2 text-gray-300 transition-colors hover:text-red-500"
                       title="Delete section"
@@ -676,15 +746,14 @@ const ContentEditor = () => {
                       <FaTrash size={12} />
                     </button>
                   </div>
-                ))}
-              {sections.filter((s) => s.section !== "seo-settings").length ===
-                0 &&
-                selectedPage && (
-                  <div className="p-4 text-xs text-center text-gray-400 border-2 border-gray-200 border-dashed bg-gray-50 rounded-xl">
-                    No sections. Click "Add" to create one.
-                  </div>
-                )}
+                );
+              })}
             </div>
+            {contentSections.length === 0 && selectedPage && (
+              <div className="p-4 text-xs text-center text-gray-400 border-2 border-gray-200 border-dashed bg-gray-50 rounded-xl">
+                No sections. Click "Add" to create one.
+              </div>
+            )}
           </div>
         </div>
 
@@ -1078,6 +1147,113 @@ const ContentEditor = () => {
                   className="px-6 py-2 font-bold text-white bg-blue-600 shadow-lg rounded-xl"
                 >
                   Add Section
+                </button>
+              </div>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      {/* Reorder Sections Modal */}
+      <AnimatePresence>
+        {showReorderModal && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50 backdrop-blur-sm"
+            onClick={() => !reorderLoading && setShowReorderModal(false)}
+          >
+            <motion.div
+              initial={{ scale: 0.95, opacity: 0, y: 10 }}
+              animate={{ scale: 1, opacity: 1, y: 0 }}
+              exit={{ scale: 0.95, opacity: 0, y: 10 }}
+              className="w-full max-w-lg p-6 bg-white shadow-2xl rounded-3xl border border-gray-100"
+              onClick={(e) => e.stopPropagation()}
+            >
+              <div className="flex items-center justify-between pb-4 border-b border-gray-100 mb-4">
+                <div>
+                  <h3 className="text-xl font-bold text-gray-900 flex items-center gap-2">
+                    <FaSort className="text-orange-500" /> Reorder Sections
+                  </h3>
+                  <p className="text-xs text-gray-500 mt-0.5">
+                    Page: <span className="font-semibold text-gray-800 capitalize">{selectedPage}</span> &bull; Drag handles to change layout order
+                  </p>
+                </div>
+                <button
+                  type="button"
+                  onClick={() => setShowReorderModal(false)}
+                  disabled={reorderLoading}
+                  className="p-2 text-gray-400 hover:text-gray-600 rounded-xl hover:bg-gray-100 transition-colors"
+                >
+                  <FaTimes size={16} />
+                </button>
+              </div>
+
+              <div className="max-h-[60vh] overflow-y-auto pr-1 mb-6">
+                <Reorder.Group
+                  axis="y"
+                  values={modalSections}
+                  onReorder={setModalSections}
+                  className="space-y-2.5"
+                >
+                  {modalSections.map((sec, index) => {
+                    const secId = sec.id || sec._id;
+                    return (
+                      <Reorder.Item
+                        key={secId}
+                        value={sec}
+                        className="flex items-center gap-3 p-3.5 bg-slate-50 hover:bg-slate-100 border border-slate-200/80 rounded-2xl cursor-grab active:cursor-grabbing select-none transition-colors"
+                        whileDrag={{
+                          scale: 1.02,
+                          backgroundColor: "#ffffff",
+                          boxShadow: "0 15px 30px -5px rgba(0, 0, 0, 0.15)",
+                          borderColor: "#f97316",
+                          zIndex: 60,
+                        }}
+                      >
+                        <div className="p-1 text-gray-400 hover:text-orange-500 transition-colors">
+                          <FaGripVertical size={16} />
+                        </div>
+                        <span className="w-7 h-7 flex items-center justify-center text-xs font-bold text-slate-700 bg-white border border-slate-200 rounded-lg shadow-sm">
+                          {index + 1}
+                        </span>
+                        <div className="flex-1 font-semibold text-sm text-slate-800">
+                          {sec.section
+                            .split("-")
+                            .map((w) => w.charAt(0).toUpperCase() + w.slice(1))
+                            .join(" ")}
+                        </div>
+                        <span className="text-xs text-gray-400 font-mono">
+                          {sec.section}
+                        </span>
+                      </Reorder.Item>
+                    );
+                  })}
+                </Reorder.Group>
+              </div>
+
+              <div className="flex items-center justify-end gap-3 pt-3 border-t border-gray-100">
+                <button
+                  type="button"
+                  onClick={() => setShowReorderModal(false)}
+                  disabled={reorderLoading}
+                  className="px-5 py-2.5 text-sm font-semibold text-gray-600 hover:bg-gray-100 rounded-xl transition-colors"
+                >
+                  Cancel
+                </button>
+                <button
+                  type="button"
+                  onClick={handleSaveReorder}
+                  disabled={reorderLoading}
+                  className="px-6 py-2.5 text-sm font-bold text-white bg-orange-600 hover:bg-orange-700 shadow-md shadow-orange-200 rounded-xl flex items-center gap-2 transition-all hover:-translate-y-0.5"
+                >
+                  {reorderLoading ? (
+                    <div className="w-4 h-4 border-2 border-white rounded-full border-t-transparent animate-spin"></div>
+                  ) : (
+                    <FaCheck size={13} />
+                  )}
+                  Save Order
                 </button>
               </div>
             </motion.div>

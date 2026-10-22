@@ -212,7 +212,7 @@ const Services = () => {
     <div className="bg-[#f8fafc]">
       {/* Cinematic Header */}
       <section
-        className="relative min-h-[60vh] flex items-center overflow-hidden pt-24 pb-12 sm:pt-20 sm:pb-32"
+        className="relative min-h-[min(60vh,540px)] flex items-center overflow-hidden pt-24 pb-12 sm:pt-20 sm:pb-32"
         style={{
           backgroundImage:
             "linear-gradient(135deg, #ffe5bd 0%, #fffdf7 35%, #c7f1ff 100%)",
